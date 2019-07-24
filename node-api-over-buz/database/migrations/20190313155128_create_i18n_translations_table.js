@@ -1,4 +1,4 @@
-const languages = require('../data/languages');
+const languages = require('../config/languages');
 
 exports.up = knex => {
   return knex.schema.createTable('i18n_translations', t => {

@@ -54,6 +54,7 @@ app.use('/images', libRoutes.images);
 
 // Debug routes
 app.use('/debug', appDebugRoutes);
+app.use('/i18n', libRoutes.i18nAdmin);
 
 app.use(authUrl, libRoutes.user);
 app.use(pkceUrl, libRoutes.pkce);

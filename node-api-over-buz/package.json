@@ -16,7 +16,7 @@
     "url": "git+https://github.com/zorankaric/over.buz.git"
   },
   "keywords": [
-    "CngDrum",
+    "OVERline",
     "Node",
     "Api"
   ],
@@ -54,7 +54,7 @@
     "rollup-plugin-uglify": "^6.0.2"
   },
   "dependencies": {
-    "@newtash/node-api-core": "^0.1.24",
+    "@newtash/node-api-core": "^0.2.1",
     "bcrypt": "^3.0.4",
     "body-parser": "^1.18.3",
     "cookie-parser": "^1.4.4",

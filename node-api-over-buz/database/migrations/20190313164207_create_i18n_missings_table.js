@@ -6,7 +6,7 @@ exports.up = knex => {
 
     t.enum('route', ['api', 'admin', 'auth']).defaultTo('admin');
     t.string('lang', 6).notNullable();
-    t.string('key').notNullable();
+    t.text('body').notNullable();
     t.dateTime('createdAt').defaultTo(knex.fn.now());
   });
 };
