@@ -1,0 +1,50 @@
+[
+  {
+    "id": 1,
+    "namespaceId": 1,
+    "lang": "en",
+    "key": "save",
+    "translation": "Save",
+    "createdAt": "2019-07-25T01:23:45"
+  },
+  {
+    "id": 2,
+    "namespaceId": 1,
+    "lang": "en",
+    "key": "cancel",
+    "translation": "Cancel",
+    "createdAt": "2019-07-25T01:23:45"
+  },
+  {
+    "id": 3,
+    "namespaceId": 1,
+    "lang": "sr",
+    "key": "save",
+    "translation": "Snimi",
+    "createdAt": "2019-07-25T01:23:45"
+  },
+  {
+    "id": 4,
+    "namespaceId": 1,
+    "lang": "sr",
+    "key": "cancel",
+    "translation": "Odustani",
+    "createdAt": "2019-07-25T01:23:45"
+  },
+  {
+    "id": 5,
+    "namespaceId": 2,
+    "lang": "en",
+    "key": "title",
+    "translation": "Can't stop...",
+    "createdAt": "2019-07-25T01:23:45"
+  },
+  {
+    "id": 6,
+    "namespaceId": 2,
+    "lang": "sr",
+    "key": "title",
+    "translation": "Dalje neces moci...",
+    "createdAt": "2019-07-25T01:23:45"
+  }
+]
