@@ -12,6 +12,9 @@ exports.up = knex => {
     t.string('lastName', 120).nullable();
     t.string('email', 120).nullable();
     t.string('password', 120).nullable();
+    t.enum('role', ['developer', 'admin', 'editor', 'user'])
+      .defaultTo('user')
+      .notNullable();
 
     t.uuid('refreshToken').nullable();
 

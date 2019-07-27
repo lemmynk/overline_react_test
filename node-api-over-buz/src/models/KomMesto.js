@@ -1,20 +1,19 @@
 const { Model } = require('@newtash/node-api-core');
 
 const modelConfig = {
-  tableName: 'cng_images',
+  tableName: 'mp_kom_mesto',
   keys: [
     'id',
-    'cngId',
-    'assetId',
-    'position',
-    'isLive',
+    'zip',
+    'naziv',
+    'opstina',
     'createdAt',
     'updatedAt',
     'deletedAt',
   ],
 };
 
-class CngImage extends Model {
+class KomMesto extends Model {
   constructor(props) {
     super(props, modelConfig);
   }
@@ -26,12 +25,13 @@ class CngImage extends Model {
    * @return {Boolean}
    */
   static validate(params) {
-    this.clearValidationErrors().validateRequired(
-      ['cngId', 'assetId', 'position'],
-      params,
-    );
+    this.clearValidationErrors()
+      .validateRequired(['zip', 'naziv', 'opstina'], params)
+      .validateStringLength(params, 'zip', 6)
+      .validateStringLength(params, 'naziv', 120)
+      .validateStringLength(params, 'opstina', 120);
     return Object.keys(this.validationErrors).length === 0;
   }
 }
 
-module.exports = CngImage;
+module.exports = KomMesto;

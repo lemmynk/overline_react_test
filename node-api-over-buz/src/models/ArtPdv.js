@@ -1,20 +1,19 @@
 const { Model } = require('@newtash/node-api-core');
 
 const modelConfig = {
-  tableName: 'cng_descriptions',
+  tableName: 'mp_art_pdv',
   keys: [
     'id',
-    'cngId',
-    'paragraph',
-    'position',
-    'isLive',
+    'pdvStopa',
+    'pdvOpis',
+    'isDefault',
     'createdAt',
     'updatedAt',
     'deletedAt',
   ],
 };
 
-class CngDescription extends Model {
+class ArtPdv extends Model {
   constructor(props) {
     super(props, modelConfig);
   }
@@ -26,12 +25,11 @@ class CngDescription extends Model {
    * @return {Boolean}
    */
   static validate(params) {
-    this.clearValidationErrors().validateRequired(
-      ['cngId', 'paragraph', 'position'],
-      params,
-    );
+    this.clearValidationErrors()
+      .validateRequired(['pdvStopa', 'pdvOpis', 'isDefault'], params)
+      .validateStringLength(params, 'pdvOpis', 120);
     return Object.keys(this.validationErrors).length === 0;
   }
 }
 
-module.exports = CngDescription;
+module.exports = ArtPdv;

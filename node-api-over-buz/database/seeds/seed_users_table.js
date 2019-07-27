@@ -11,6 +11,7 @@ exports.seed = knex => {
         firstName: 'Pera',
         lastName: 'Zdera',
         email: 'pera@zdera.com',
+        role: 'developer',
         createdAt: knex.raw('NOW()'),
       };
       const dataMirko = {
@@ -19,6 +20,7 @@ exports.seed = knex => {
         firstName: 'Mirko',
         lastName: 'Stevanov',
         email: 'office@cngdrum.com',
+        role: 'editor',
         createdAt: knex.raw('NOW()'),
       };
 

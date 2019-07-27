@@ -1,11 +1,11 @@
 exports.up = knex => {
-  return knex.schema.createTable('about_us', t => {
+  return knex.schema.createTable('mp_kom_mesto', t => {
     t.increments('id')
       .unsigned()
       .primary();
-
-    t.text('paragraph', 'longtext').notNullable();
-    t.integer('position').notNullable();
+    t.string('zip', 6).notNullable();
+    t.string('naziv', 120).notNullable();
+    t.string('opstina', 120).notNullable();
 
     t.dateTime('createdAt').defaultTo(knex.fn.now());
     t.dateTime('updatedAt').defaultTo(knex.fn.now());
@@ -14,5 +14,5 @@ exports.up = knex => {
 };
 
 exports.down = knex => {
-  return knex.schema.dropTable('about_us');
+  return knex.schema.dropTable('mp_kom_mesto');
 };

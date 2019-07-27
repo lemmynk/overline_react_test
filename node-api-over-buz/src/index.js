@@ -63,12 +63,13 @@ app.use(apiUrl, libMiddleware.pkce);
 app.use(apiUrl, require('./routes/api'));
 
 app.use(`${adminUrl}/files`, libRoutes.filesGet);
-app.use(adminUrl, libMiddleware.user);
+// app.use(adminUrl, libMiddleware.user);
 app.use(`${adminUrl}/asset-categories`, libRoutes.assetCategories);
 app.use(`${adminUrl}/assets`, libRoutes.assets);
 app.use(`${adminUrl}/files`, libRoutes.filesStore);
-app.use(adminUrl, require('./routes/admin'));
-// app.use(`${apiUrl}/translations`, libRoutes.i18nApi);
+
+app.use(adminUrl, require('./routes/admin/mpArt'));
+app.use(adminUrl, require('./routes/admin/mpKom'));
 // ///////////////////////////////////////
 // /  END OF ROUTING
 // ///////////////////////////////////////
