@@ -1,3 +1,3 @@
-import Router from './Router';
+import RouterContainer from './RouterContainer';
 
-export default Router;
+export default RouterContainer;

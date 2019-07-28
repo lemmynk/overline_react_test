@@ -1,5 +1,5 @@
 // @flow
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Switch } from 'react-router-dom';
 import { routeFactory, Whoops404 } from '@newtash/react-app-core';
 import {
@@ -10,6 +10,10 @@ import {
 } from '../config';
 // Pages
 import DashboardPage from '../pages/DashboardPage';
+
+type Props = {
+  doInitApp: () => void,
+};
 
 const WebRoute = routeFactory({
   headerConfig,
@@ -24,11 +28,21 @@ const AdminRoute = routeFactory({
   footerConfig,
 });
 
-const Router = () => (
-  <Switch>
-    <AdminRoute exact path="/" component={DashboardPage} />
-    <WebRoute path="*" component={Whoops404} />
-  </Switch>
-);
+const Router = (props: Props) => {
+  const { doInitApp } = props;
+
+  useEffect(() => {
+    if (doInitApp) {
+      doInitApp();
+    }
+  }, []);
+
+  return (
+    <Switch>
+      <AdminRoute exact path="/" component={DashboardPage} />
+      <WebRoute path="*" component={Whoops404} />
+    </Switch>
+  );
+};
 
 export default Router;
