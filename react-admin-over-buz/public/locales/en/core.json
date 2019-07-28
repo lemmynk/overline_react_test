@@ -1,0 +1,12 @@
+{
+  "whoops": {
+    "Error": "Error",
+    "line2": "Please try ",
+    "line3": "Good luck",
+    "backTitle": "back",
+    "or": "or",
+    "homeTitle": "home page",
+    "403": "You don't have right to access the page you are looking for. Please contact your system adminstrator",
+    "404": "The page you are looking for might have been removed, had its name changed or is temporarily unavailable"
+  }
+}

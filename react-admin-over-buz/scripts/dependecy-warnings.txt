@@ -1,0 +1,10 @@
+2019-02-11:
+warning " > babel-plugin-styled-components@1.10.0" has unmet peer dependency "styled-components@>= 2".
+warning " > eslint-config-react-app@3.0.6" has incorrect peer dependency "eslint-plugin-flowtype@2.x".
+warning " > extract-text-webpack-plugin@3.0.2" has incorrect peer dependency "webpack@^3.1.0".
+warning " > interpolate-html-plugin@3.0.0" has incorrect peer dependency "html-webpack-plugin@^3.2.0".
+[4/4] Building fresh packages...
+warning Your current version of Yarn is out of date. The latest version is "1.13.0", while you're on "1.12.3".
+info To upgrade, run the following command:
+$ curl --compressed -o- -L https://yarnpkg.com/install.sh | bash
+### Solved 2019-02-11

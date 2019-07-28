@@ -1,0 +1,9 @@
+    "build": "yarn clean && yarn build:lib && yarn build:renderer && cp ./npm/index.js ./dist/index.js",
+    "build:renderer": "cross-env RENDERER_BUILD=true node scripts/build.js",
+    "build:lib": "node scripts/build.js",
+    "clean": "node scripts/clean",
+    "flow": "flow",
+    "prettier:fix": "prettier --write './src/**/*.{jsx,js}'",
+    "start": "node scripts/start.js",
+    "start:renderer": "cross-env RENDERER_BUILD=true yarn start",
+    "test": "node scripts/test.js --env=jsdom"

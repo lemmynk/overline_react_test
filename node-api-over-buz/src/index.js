@@ -62,6 +62,7 @@ app.use(pkceUrl, libRoutes.pkce);
 app.use(apiUrl, libMiddleware.pkce);
 app.use(apiUrl, require('./routes/api'));
 
+app.use(`${adminUrl}/app-config`, libRoutes.appConfig);
 app.use(`${adminUrl}/files`, libRoutes.filesGet);
 // app.use(adminUrl, libMiddleware.user);
 app.use(`${adminUrl}/asset-categories`, libRoutes.assetCategories);

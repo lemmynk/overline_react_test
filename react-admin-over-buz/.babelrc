@@ -1,0 +1,15 @@
+{
+  "presets": [
+    ["@babel/preset-env", { "useBuiltIns": "usage", "corejs": "2.0.0" }],
+    "@babel/preset-react",
+    "@babel/preset-flow"
+  ],
+  "plugins": [
+    "@babel/plugin-transform-runtime",
+    ["@babel/plugin-proposal-decorators", { "legacy": true }],
+    "@babel/plugin-proposal-class-properties",
+    "@babel/plugin-proposal-export-default-from",
+    "@babel/plugin-proposal-export-namespace-from",
+    "babel-plugin-styled-components"
+  ]
+}

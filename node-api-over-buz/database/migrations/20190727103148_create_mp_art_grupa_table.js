@@ -1,4 +1,4 @@
-const vArtiklEnum = require('../config/vArtikl.json');
+const vArtiklEnum = require('../config/vArtikl');
 
 exports.up = knex => {
   return knex.schema.createTable('mp_art_grupa', t => {
