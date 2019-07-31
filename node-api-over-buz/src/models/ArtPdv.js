@@ -7,6 +7,7 @@ const modelConfig = {
     'pdvStopa',
     'pdvOpis',
     'isDefault',
+    'fisPdv',
     'createdAt',
     'updatedAt',
     'deletedAt',
@@ -26,7 +27,7 @@ class ArtPdv extends Model {
    */
   static validate(params) {
     this.clearValidationErrors()
-      .validateRequired(['pdvStopa', 'pdvOpis', 'isDefault'], params)
+      .validateRequired(['pdvStopa', 'pdvOpis', 'isDefault', 'fisPdv'], params)
       .validateStringLength(params, 'pdvOpis', 120);
     return Object.keys(this.validationErrors).length === 0;
   }

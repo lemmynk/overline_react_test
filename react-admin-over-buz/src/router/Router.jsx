@@ -7,9 +7,11 @@ import {
   headerConfig,
   sidebarConfig,
   footerConfig,
+  HOME,
+  ARTIKLI,
 } from '../config';
 // Pages
-import DashboardPage from '../pages/DashboardPage';
+import { DashboardPage, ArtikliPage } from '../pages';
 
 type Props = {
   doInitApp: () => void,
@@ -39,7 +41,9 @@ const Router = (props: Props) => {
 
   return (
     <Switch>
-      <AdminRoute exact path="/" component={DashboardPage} />
+      <AdminRoute exact path={ARTIKLI} component={ArtikliPage} />
+
+      <AdminRoute exact path={HOME} component={DashboardPage} />
       <WebRoute path="*" component={Whoops404} />
     </Switch>
   );

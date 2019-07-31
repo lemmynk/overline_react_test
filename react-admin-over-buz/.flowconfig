@@ -9,6 +9,7 @@
 ;./types/lists.flow.js
 ;./types/models.flow.js
 ./types/react-router.flow.js
+./types/factories.flow.js
 
 [lints]
 

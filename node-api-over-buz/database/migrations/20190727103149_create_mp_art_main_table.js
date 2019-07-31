@@ -18,7 +18,7 @@ exports.up = knex => {
     t.string('mera', 20).notNullable();
     t.integer('pdvId')
       .notNullable()
-      .defaultTo(4);
+      .defaultTo(1);
     // t.integer('pdvStopa')
     //   .notNullable()
     //   .defaultTo(1800);

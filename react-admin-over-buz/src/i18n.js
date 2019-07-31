@@ -53,4 +53,8 @@ i18n
     },
   });
 
+if (i18n.language !== 'sr') {
+  i18n.changeLanguage('sr');
+}
+
 export default i18n;
