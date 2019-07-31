@@ -2,15 +2,17 @@ const ArtView = require('../../models/ArtView');
 
 const self = {
   all: (req, res, next) => {
-    ArtView.findAll({}, req.query)
-      .then(response => {
-        const { data: raw, version } = response;
-        const data = raw.map(item => ({
-          ...item,
-          isDeleted: item.isDeleted === 1,
-        }));
-        return { data, version };
-      })
+    ArtView.findAll({ isDeleted: 0 }, { page: 1, ...req.query })
+      .then(response => res.json(response))
+      .catch(err => next(err));
+  },
+  allByType: vArtikl => (req, res, next) => {
+    ArtView.findAll({ isDeleted: 0, vArtikl }, { page: 1, ...req.query })
+      .then(response => res.json(response))
+      .catch(err => next(err));
+  },
+  search: vArtikl => (req, res, next) => {
+    ArtView.search(vArtikl, req.query)
       .then(response => res.json(response))
       .catch(err => next(err));
   },

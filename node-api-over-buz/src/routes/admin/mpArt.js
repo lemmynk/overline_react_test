@@ -23,8 +23,12 @@ router.get('/art-grupa/:id', artGrupaCtrl.find);
 router.put('/art-grupa/:id', artGrupaCtrl.update);
 router.delete('/art-grupa/:id', artGrupaCtrl.delete);
 
-const artMainCtrl = controllers.crudController(ArtMain);
+// ArtMain search
 router.get('/art-main', mpArtViewController.all);
+router.get('/art-main/roba', mpArtViewController.search('roba'));
+router.get('/art-main/usluga', mpArtViewController.search('usluga'));
+
+const artMainCtrl = controllers.crudController(ArtMain);
 router.post('/art-main', artMainCtrl.create);
 router.get('/art-main/:id', artMainCtrl.find);
 router.put('/art-main/:id', artMainCtrl.update);
