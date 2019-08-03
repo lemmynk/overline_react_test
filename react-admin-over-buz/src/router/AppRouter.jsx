@@ -13,7 +13,7 @@ const AppRouter = (props: Props) => {
 
   useEffect(() => {
     if (doInitApp) {
-      doInitApp();
+      // doInitApp();
     }
   }, []);
 

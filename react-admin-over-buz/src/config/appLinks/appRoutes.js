@@ -10,11 +10,19 @@ export const HOME = {
 };
 
 export const ART_MAIN = {
-  title: 'Artikli',
+  title: 'ArtMain',
   url: '/art-main',
   icon: 'coffee',
   role: USER_ROLE_ALL,
-  component: pages.ArtikliPage,
+  component: pages.ArtMainPage,
+};
+
+export const ART_GROUP = {
+  title: 'ArtGroup',
+  url: '/art-group',
+  icon: 'coffee',
+  role: USER_ROLE_ALL,
+  component: pages.ArtGroupPage,
 };
 
 export const PRIVACY_POLICY = {
@@ -23,4 +31,4 @@ export const PRIVACY_POLICY = {
   role: USER_ROLE_ALL,
 };
 
-export default [ART_MAIN, HOME];
+export default [ART_MAIN, ART_GROUP, HOME];

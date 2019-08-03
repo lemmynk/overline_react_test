@@ -11,12 +11,14 @@ import appReducers from './store/reducers';
 import './i18n';
 
 const withAuth = true;
-const purgeStore = true;
+const purgeStore = false;
+const withWatchAndLog = true;
 const appBlacklist = [];
 
 const NewtashAppProvider = appProviderFactory({
   withAuth,
   purgeStore,
+  withWatchAndLog,
   layout,
   appSagas,
   appReducers,

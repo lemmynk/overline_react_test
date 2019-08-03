@@ -1,5 +1,5 @@
 /* Actions */
-// export * from './actions/config';
+export * from './actions/artPdvs';
 
 /* Selectors */
-// export * from './selectors/config';
+export * from './selectors/artPdv';
