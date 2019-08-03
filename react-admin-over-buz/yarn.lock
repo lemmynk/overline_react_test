@@ -1054,10 +1054,10 @@
     call-me-maybe "^1.0.1"
     glob-to-regexp "^0.3.0"
 
-"@newtash/react-app-core@^0.3.4":
-  version "0.3.4"
-  resolved "https://registry.yarnpkg.com/@newtash/react-app-core/-/react-app-core-0.3.4.tgz#004d9c655912b1fc4880f1fab9788de6d0f65a06"
-  integrity sha512-3QeUdgidi1t+KtYoKXiCVP8Vd3lHc8RHSTF5dVgF/06DSIfed4N1AuJKGtcGwbhlSsbo3Wcyc91jUySJ6fqKUQ==
+"@newtash/react-app-core@^0.3.5":
+  version "0.3.5"
+  resolved "https://registry.yarnpkg.com/@newtash/react-app-core/-/react-app-core-0.3.5.tgz#ba8de7e1c6d99be564eb2b2f4d1b0dd4fb23bcc5"
+  integrity sha512-qrhFqFgE/PdID9UicpzjR20YIkfBorGTzvEldPHeqvRHzb5b9wElETM9gQSd0UlD+ZKpjc9fMBovbPv6Gwr/yA==
 
 "@nodelib/fs.stat@^1.1.2":
   version "1.1.3"

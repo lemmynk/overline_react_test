@@ -1,3 +1,3 @@
-import AppRouterContainer from './AppRouterContainer';
+import AppRouter from './AppRouter';
 
-export default AppRouterContainer;
+export default AppRouter;
