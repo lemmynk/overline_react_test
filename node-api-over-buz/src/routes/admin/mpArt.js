@@ -4,8 +4,7 @@ const { controllers } = require('@newtash/node-api-core');
 const ArtPdv = require('../../models/ArtPdv');
 const ArtGrupa = require('../../models/ArtGrupa');
 const ArtMain = require('../../models/ArtMain');
-
-const mpArtViewController = require('../../controllers/admin/mpArtViewController');
+const ArtView = require('../../models/ArtMain');
 
 const router = express.Router();
 
@@ -23,12 +22,14 @@ router.get('/art-grupa/:id', artGrupaCtrl.find);
 router.put('/art-grupa/:id', artGrupaCtrl.update);
 router.delete('/art-grupa/:id', artGrupaCtrl.delete);
 
-// ArtMain search
-router.get('/art-main', mpArtViewController.all);
-router.get('/art-main/roba', mpArtViewController.search('roba'));
-router.get('/art-main/usluga', mpArtViewController.search('usluga'));
-
+// ArtMain
+const roba = process.env.ARTIKL_ROBA;
+const usluga = process.env.ARTIKL_USLUGA;
 const artMainCtrl = controllers.crudController(ArtMain);
+const artViewCtrl = controllers.crudController(ArtView, 'vArtikl', {
+  orderBy: 'artNaziv',
+});
+router.get(`/art-main/:vArtikl(${roba}|${usluga})`, artViewCtrl.all);
 router.post('/art-main', artMainCtrl.create);
 router.get('/art-main/:id', artMainCtrl.find);
 router.put('/art-main/:id', artMainCtrl.update);

@@ -12,6 +12,8 @@ const saveMissing = process.env.REACT_APP_I18N_SAVE_MISSING === true;
 
 const whitelist = process.env.REACT_APP_I18N_LANGUAGES.split('|');
 const fallbackLng = process.env.REACT_APP_I18N_FALLBACK_LNG;
+const ns = process.env.REACT_APP_I18N_NAMESPACES.split('|');
+const defaultNS = process.env.REACT_APP_I18N_DEFAULT_NS;
 
 i18n
   // load translation using xhr -> see /public/locales
@@ -39,8 +41,8 @@ i18n
     whitelist,
     fallbackLng,
 
-    ns: ['common', 'nav'], // string or array of namespaces to load
-    defaultNS: 'common', // default namespace used if not passed to translation function
+    ns, // string or array of namespaces to load
+    defaultNS, // default namespace used if not passed to translation function
 
     debug: !isProduction(),
 

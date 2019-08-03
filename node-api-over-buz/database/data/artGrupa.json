@@ -1,0 +1,134 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "vArtikl": "roba",
+      "grpNaziv": "ZASTAVA",
+      "grpSifra": "1",
+      "grpDuzina": 4,
+      "createdAt": "2019-07-31 20:41:47",
+      "updatedAt": "2019-07-31 20:41:47",
+      "deletedAt": null
+    },
+    {
+      "id": 2,
+      "vArtikl": "roba",
+      "grpNaziv": "VOLKSWAGEN",
+      "grpSifra": "2",
+      "grpDuzina": 4,
+      "createdAt": "2019-07-31 20:41:47",
+      "updatedAt": "2019-07-31 20:41:47",
+      "deletedAt": null
+    },
+    {
+      "id": 3,
+      "vArtikl": "roba",
+      "grpNaziv": "OPEL",
+      "grpSifra": "3",
+      "grpDuzina": 4,
+      "createdAt": "2019-07-31 20:41:47",
+      "updatedAt": "2019-07-31 20:41:47",
+      "deletedAt": null
+    },
+    {
+      "id": 4,
+      "vArtikl": "roba",
+      "grpNaziv": "LADA",
+      "grpSifra": "4",
+      "grpDuzina": 4,
+      "createdAt": "2019-07-31 20:41:47",
+      "updatedAt": "2019-07-31 20:41:47",
+      "deletedAt": null
+    },
+    {
+      "id": 5,
+      "vArtikl": "roba",
+      "grpNaziv": "OSTALA OPREMA",
+      "grpSifra": "5",
+      "grpDuzina": 4,
+      "createdAt": "2019-07-31 20:41:47",
+      "updatedAt": "2019-07-31 20:41:47",
+      "deletedAt": null
+    },
+    {
+      "id": 6,
+      "vArtikl": "usluga",
+      "grpNaziv": "USLUGE",
+      "grpSifra": "21",
+      "grpDuzina": 4,
+      "createdAt": "2019-07-31 20:41:47",
+      "updatedAt": "2019-07-31 20:41:47",
+      "deletedAt": null
+    },
+    {
+      "id": 7,
+      "vArtikl": "roba",
+      "grpNaziv": "AUDI",
+      "grpSifra": "6",
+      "grpDuzina": 4,
+      "createdAt": "2019-07-31 20:41:47",
+      "updatedAt": "2019-07-31 20:41:47",
+      "deletedAt": null
+    },
+    {
+      "id": 8,
+      "vArtikl": "roba",
+      "grpNaziv": "FIAT",
+      "grpSifra": "7",
+      "grpDuzina": 4,
+      "createdAt": "2019-07-31 20:41:47",
+      "updatedAt": "2019-07-31 20:41:47",
+      "deletedAt": null
+    },
+    {
+      "id": 9,
+      "vArtikl": "roba",
+      "grpNaziv": "RENO",
+      "grpSifra": "8",
+      "grpDuzina": 4,
+      "createdAt": "2019-07-31 20:41:47",
+      "updatedAt": "2019-07-31 20:41:47",
+      "deletedAt": null
+    },
+    {
+      "id": 10,
+      "vArtikl": "roba",
+      "grpNaziv": "POLOVNI AUTOMOBILI",
+      "grpSifra": "9",
+      "grpDuzina": 4,
+      "createdAt": "2019-07-31 20:41:47",
+      "updatedAt": "2019-07-31 20:41:47",
+      "deletedAt": null
+    },
+    {
+      "id": 11,
+      "vArtikl": "roba",
+      "grpNaziv": "FORD",
+      "grpSifra": "10",
+      "grpDuzina": 4,
+      "createdAt": "2019-07-31 20:41:47",
+      "updatedAt": "2019-07-31 20:41:47",
+      "deletedAt": null
+    },
+    {
+      "id": 12,
+      "vArtikl": "roba",
+      "grpNaziv": "MERCEDES",
+      "grpSifra": "11",
+      "grpDuzina": 4,
+      "createdAt": "2019-07-31 20:41:47",
+      "updatedAt": "2019-07-31 20:41:47",
+      "deletedAt": null
+    },
+    {
+      "id": 13,
+      "vArtikl": "roba",
+      "grpNaziv": "ŠKODA",
+      "grpSifra": "12",
+      "grpDuzina": 4,
+      "createdAt": "2019-07-31 20:41:47",
+      "updatedAt": "2019-07-31 20:41:47",
+      "deletedAt": null
+    }
+  ]
+}
