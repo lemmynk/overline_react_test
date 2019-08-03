@@ -1,14 +1,12 @@
-// import { connect } from 'react-redux';
+import { connect } from 'react-redux';
+import { doInitApp } from '@newtash/react-app-core';
 import AppRouter from './AppRouter';
-// import { doInitApp } from '../../lib';
 
-// const mapDispatchToProps = {
-//   doInitApp,
-// };
+const mapDispatchToProps = {
+  doInitApp,
+};
 
-// export default connect(
-//   null,
-//   mapDispatchToProps,
-// )(AppRouter);
-
-export default AppRouter;
+export default connect(
+  null,
+  mapDispatchToProps,
+)(AppRouter);

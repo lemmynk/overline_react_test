@@ -1,11 +1,10 @@
-import { USER_ROLE_ALL } from '@newtash/react-app-core';
-import { HOME } from './appRoutes';
+import { HOME, ART_MAIN } from './appRoutes';
 
 export default [
+  HOME,
   {
-    title: 'Home',
-    url: HOME,
-    icon: 'home',
-    role: USER_ROLE_ALL,
+    title: 'Artikli',
+    icon: 'coffee',
+    links: [ART_MAIN],
   },
 ];

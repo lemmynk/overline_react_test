@@ -4,7 +4,7 @@ import { initReactI18next } from 'react-i18next';
 import Backend from 'i18next-xhr-backend';
 import LanguageDetector from 'i18next-browser-languagedetector';
 
-import { isProduction } from '@newtash/react-app-core';
+// import { isProduction } from '@newtash/react-app-core';
 
 const loadPath = '/locales/{{lng}}/{{ns}}.json';
 const addPath = `${process.env.REACT_APP_I18N_URL}/{{lng}}`;
@@ -44,7 +44,8 @@ i18n
     ns, // string or array of namespaces to load
     defaultNS, // default namespace used if not passed to translation function
 
-    debug: !isProduction(),
+    // debug: !isProduction(),
+    debug: false,
 
     interpolation: {
       escapeValue: false, // not needed for react as it escapes by default

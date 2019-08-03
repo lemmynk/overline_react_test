@@ -4,14 +4,23 @@ import ReactDOM from 'react-dom';
 import { AppTemplate, appProviderFactory } from '@newtash/react-app-core';
 import AppRouter from './router';
 import { layout, buildFontsLibrary } from './config';
+import appSagas from './store/sagas';
+import appReducers from './store/reducers';
 
 // import i18n (needs to be bundled ;))
 import './i18n';
 
+const withAuth = true;
+const purgeStore = true;
+const appBlacklist = [];
+
 const NewtashAppProvider = appProviderFactory({
-  // withAuth: true,
-  purgeStore: true,
+  withAuth,
+  purgeStore,
   layout,
+  appSagas,
+  appReducers,
+  appBlacklist,
 });
 
 const root = document.getElementById('root');
@@ -20,17 +29,10 @@ if (root) {
 
   ReactDOM.render(
     <NewtashAppProvider>
-      <AppTemplate layout={layout}>
+      <AppTemplate layout={layout} withAuth={withAuth}>
         <AppRouter />
       </AppTemplate>
     </NewtashAppProvider>,
     root,
   );
 }
-/*
-    withAuth,
-    purgeStore,
-    appBlacklist: [],
-    appReducers: {},
-    appSagas: [],
-*/
