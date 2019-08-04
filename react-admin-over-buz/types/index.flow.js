@@ -1,6 +1,11 @@
 // @flow
 import { type Node } from 'react';
 
+// Flow type for any imported Css/Scss modules
+declare module CSSModule {
+  declare var exports: { [key: string]: string };
+}
+
 declare type KeyTextObject = {
   key: string,
   text: string,
@@ -55,4 +60,17 @@ declare type NavTabItemProps = {
   text: string,
   disabled?: boolean,
   onRenderItem?: NavTabItemProps => Node,
+};
+
+declare type PaginationProps = {
+  currentPage: number,
+  totalItems: number,
+  perPage: number,
+};
+
+declare type PagingProps = {
+  currentPage: number,
+  totalItems: number,
+  perPage: number,
+  dataLength: number,
 };

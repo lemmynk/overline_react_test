@@ -9,6 +9,7 @@ import appReducers from './store/reducers';
 
 // import i18n (needs to be bundled ;))
 import './i18n';
+import './index.css';
 
 const withAuth = true;
 const purgeStore = false;

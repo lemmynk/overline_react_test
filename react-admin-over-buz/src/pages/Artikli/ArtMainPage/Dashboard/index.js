@@ -1,3 +1,3 @@
-import DashboardComponent from './DashboardComponent';
+import DashboardContainer from './DashboardContainer';
 
-export default DashboardComponent;
+export default DashboardContainer;

@@ -6,7 +6,7 @@
 
 [libs]
 ./types/index.flow.js
-;./types/lists.flow.js
+./types/listModels.flow.js
 ./types/models.flow.js
 ./types/react-router.flow.js
 ./types/factories.flow.js
@@ -14,7 +14,7 @@
 [lints]
 
 [options]
-module.name_mapper='.+\.s?css' -> 'empty/object'
+module.name_mapper='.+\.s?css' -> 'CSSModule'
 module.system=haste
 esproposal.decorators=ignore
 

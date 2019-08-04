@@ -8,6 +8,11 @@ import {
 } from '@newtash/react-app-core';
 import Dashboard from './Dashboard';
 import Form from './Form';
+import {
+  CRUD_URL_CREATE,
+  CRUD_URL_EDIT,
+  // CRUD_URL_VIEW,
+} from '../../../config';
 
 const ArtMainPage = () => {
   const { t } = useTranslation('art');
@@ -16,14 +21,8 @@ const ArtMainPage = () => {
 
   const renderHeaderButtons = useCallback(() => {
     switch (route) {
-      case '':
-        return (
-          <PrimaryButton
-            text={t('createButtonTitle')}
-            onClick={() => setRoute('create')}
-          />
-        );
-      case 'create':
+      case CRUD_URL_CREATE:
+      case CRUD_URL_EDIT:
         return (
           <PrimaryButton
             text={t('formButtonBack')}
@@ -31,7 +30,12 @@ const ArtMainPage = () => {
           />
         );
       default:
-        return null;
+        return (
+          <PrimaryButton
+            text={t('createButtonTitle')}
+            onClick={() => setRoute('create')}
+          />
+        );
     }
   });
 
@@ -43,7 +47,8 @@ const ArtMainPage = () => {
       />
       <PageContent>
         {!route && <Dashboard />}
-        {route === 'create' && <Form />}
+        {route === CRUD_URL_CREATE && <Form />}
+        {route === CRUD_URL_EDIT && <Form />}
       </PageContent>
     </Page>
   );
