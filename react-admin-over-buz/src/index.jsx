@@ -13,7 +13,7 @@ import './index.css';
 
 const withAuth = true;
 const purgeStore = false;
-const withWatchAndLog = true;
+const withWatchAndLog = false;
 const appBlacklist = [];
 
 const NewtashAppProvider = appProviderFactory({

@@ -4,7 +4,7 @@ const { controllers } = require('@newtash/node-api-core');
 const ArtPdv = require('../../models/ArtPdv');
 const ArtGrupa = require('../../models/ArtGrupa');
 const ArtMain = require('../../models/ArtMain');
-const ArtView = require('../../models/ArtMain');
+const ArtView = require('../../models/ArtView');
 
 const router = express.Router();
 
@@ -29,7 +29,10 @@ const artMainCtrl = controllers.crudController(ArtMain);
 const artViewCtrl = controllers.crudController(ArtView, 'vArtikl', {
   orderBy: 'artNaziv',
 });
-router.get(`/art-main/:vArtikl(${roba}|${usluga})`, artViewCtrl.all);
+router.get(
+  `/art-main/:vArtikl(${roba}|${usluga})`,
+  artViewCtrl.allByPagination,
+);
 router.post('/art-main', artMainCtrl.create);
 router.get('/art-main/:id', artMainCtrl.find);
 router.put('/art-main/:id', artMainCtrl.update);

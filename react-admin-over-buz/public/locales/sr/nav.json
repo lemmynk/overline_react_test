@@ -2,6 +2,7 @@
   "Home": "Početna",
   "Logout": "Odjava",
   "PrivacyPolicy": "Uslovi korišćenja",
-  "ArtMain": "Artikli",
+  "ArtLinkGroup": "Artikli",
+  "ArtMain": "Listing Svih Artikala",
   "ArtGroup": "Grupe artikala"
 }

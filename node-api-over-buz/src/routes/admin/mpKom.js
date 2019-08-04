@@ -3,8 +3,7 @@ const { controllers } = require('@newtash/node-api-core');
 
 const KomMesto = require('../../models/KomMesto');
 const KomMain = require('../../models/KomMain');
-
-const mpKomViewController = require('../../controllers/admin/mpKomViewController');
+const KomView = require('../../models/KomView');
 
 const router = express.Router();
 
@@ -15,11 +14,12 @@ router.get('/kom-mesto/:id', komMestoCtrl.find);
 router.put('/kom-mesto/:id', komMestoCtrl.update);
 router.delete('/kom-mesto/:id', komMestoCtrl.delete);
 
-const artMainCtrl = controllers.crudController(KomMain);
-router.get('/kom-main', mpKomViewController.all);
-router.post('/kom-main', artMainCtrl.create);
-router.get('/kom-main/:id', artMainCtrl.find);
-router.put('/kom-main/:id', artMainCtrl.update);
-router.delete('/kom-main/:id', artMainCtrl.delete);
+const komMainCtrl = controllers.crudController(KomMain);
+const komViewCtrl = controllers.crudController(KomView);
+router.get('/kom-main', komViewCtrl.allByPagination);
+router.post('/kom-main', komMainCtrl.create);
+router.get('/kom-main/:id', komMainCtrl.find);
+router.put('/kom-main/:id', komMainCtrl.update);
+router.delete('/kom-main/:id', komMainCtrl.delete);
 
 module.exports = router;

@@ -1,3 +1,3 @@
-import { PRIVACY_POLICY } from './appRoutes';
+import { PRIVACY_POLICY } from '../appRoutes';
 
 export default [PRIVACY_POLICY];

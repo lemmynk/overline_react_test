@@ -74,3 +74,11 @@ declare type PagingProps = {
   perPage: number,
   dataLength: number,
 };
+
+declare type PaginationDescriptionProps = {
+  currentPage: number,
+  currentItems: number,
+  totalPages: number,
+  totalItems: number,
+  itemsPerPage: number,
+};

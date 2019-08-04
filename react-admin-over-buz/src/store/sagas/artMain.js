@@ -1,10 +1,12 @@
 import { take, all, put, select } from 'redux-saga/effects';
 import {
   api,
+  queryUrl,
   addAppError,
   FETCH_STATUS_FETCHING,
   FETCH_STATUS_SUCCEEDED,
   FETCH_STATUS_FAILED,
+  selectAppConfigValue,
 } from '@newtash/react-app-core';
 import {
   FETCH_ART_MAIN_DASH_DATA,
@@ -13,10 +15,13 @@ import {
   setArtMainDashPaging,
   setArtMainDashFetching,
 } from '../actions';
-import { selectArtMainDashVArtikl } from '../selectors';
+import {
+  selectArtMainDashVArtikl,
+  selectArtMainDashFilterText,
+} from '../selectors';
 
-const doFetchArtMainDashData = (vArtikl, page) => {
-  const url = `/art-main/${vArtikl}?page=${page}`;
+const doFetchArtMainDashData = (vArtikl, query) => {
+  const url = queryUrl(`/art-main/${vArtikl}`, query);
   return api
     .get(url)
     .then(response => response.data)
@@ -29,13 +34,17 @@ function* fetchDashDataFlow() {
     const { payload: page } = yield take(FETCH_ART_MAIN_DASH_DATA);
 
     const vArtikl = yield select(selectArtMainDashVArtikl);
+    const s = yield select(selectArtMainDashFilterText);
+    const perPage = yield select(selectAppConfigValue('DEFAULT_PAGINATION'));
+
+    const query = { page, perPage, s };
 
     yield all([
       put(setArtMainDashFetching(FETCH_STATUS_FETCHING)),
       put(clearArtMainDashData()),
     ]);
 
-    const { response, error } = yield doFetchArtMainDashData(vArtikl, page);
+    const { response, error } = yield doFetchArtMainDashData(vArtikl, query);
 
     if (response) {
       const { data, pagination } = response;
@@ -51,9 +60,6 @@ function* fetchDashDataFlow() {
       }
       yield put(setArtMainDashFetching(FETCH_STATUS_FAILED));
     }
-
-    // eslint-disable-next-line no-console
-    console.log('...do fetch dash data...', page, response, error);
 
     yield all([put(setArtMainDashFetching(FETCH_STATUS_SUCCEEDED))]);
   }

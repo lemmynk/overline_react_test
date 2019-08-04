@@ -44,9 +44,8 @@ const DashboardComponent = (props: Props) => {
   }, []);
 
   const handleNavTabItemClick = useCallback((item: NavTabItemProps) => {
-    if (setVArtikl) {
-      setVArtikl(item.key);
-    }
+    setVArtikl(item.key);
+    setFilterText('');
     doFetchData(1);
   }, []);
 
@@ -64,13 +63,16 @@ const DashboardComponent = (props: Props) => {
     doFetchData(page);
   }, []);
 
+  const renderDescription = (item: PaginationDescriptionProps) =>
+    t('dashPagingDescription', item);
+
   const navTabs = vArtikli.map(item => ({
     key: item,
     text: t(item),
   }));
 
   const tableColumns = [
-    { key: 'id', text: 'id', field: 'id' },
+    { key: 'intSifra', text: 'intSifra', field: 'intsifra' },
     { key: 'artNaziv', text: 'artNaziv', field: 'artNaziv' },
   ];
 
@@ -95,6 +97,7 @@ const DashboardComponent = (props: Props) => {
           paging={paging}
           fetching={fetching === FETCH_STATUS_FETCHING}
           onClick={handlePaginationClick}
+          renderDescription={renderDescription}
         />
       </FlexColumnItem>
       <FlexColumnItem flex>

@@ -2,7 +2,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { HOME } from '../appLinks';
+import { HOME } from '../appRoutes';
 
 const Wrapper = styled.div`
   height: 100%;
@@ -17,7 +17,7 @@ const StyledImg = styled.img`
 
 const NavBrand = () => (
   <Wrapper>
-    <Link to={HOME}>
+    <Link to={HOME.url}>
       <StyledImg src="/assets/icons/overline-brand.svg" alt="OVERline" />
     </Link>
   </Wrapper>

@@ -1,12 +1,11 @@
 import { USER_ROLE_ALL } from '@newtash/react-app-core';
-import * as pages from '../../pages';
 
 export const HOME = {
   title: 'Home',
   url: '/',
   icon: 'home',
   role: USER_ROLE_ALL,
-  component: pages.DashboardPage,
+  component: 'DashboardPage',
 };
 
 export const ART_MAIN = {
@@ -14,7 +13,7 @@ export const ART_MAIN = {
   url: '/art-main',
   icon: 'coffee',
   role: USER_ROLE_ALL,
-  component: pages.ArtMainPage,
+  component: 'ArtMainPage',
 };
 
 export const ART_GROUP = {
@@ -22,7 +21,7 @@ export const ART_GROUP = {
   url: '/art-group',
   icon: 'coffee',
   role: USER_ROLE_ALL,
-  component: pages.ArtGroupPage,
+  component: 'ArtGroupPage',
 };
 
 export const PRIVACY_POLICY = {

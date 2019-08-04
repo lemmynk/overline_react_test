@@ -3,5 +3,6 @@
   "usluga": "Usluga",
   "dahboardTitle": "Listing Artikala",
   "createButtonTitle": "Novi artikl",
-  "formButtonBack": "Nazad"
+  "formButtonBack": "Nazad",
+  "dashPagingDescription": "Učitano {{currentItems}} of {{totalItems}} stavki za stranu {{currentPage}} od {{totalPages}}"
 }
