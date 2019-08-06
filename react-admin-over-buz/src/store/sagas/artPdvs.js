@@ -6,7 +6,6 @@ const doFetchArtPdvs = () =>
   api
     .get('/art-pdv')
     .then(response => response.data)
-    .then(response => response.data)
     .then(response =>
       response.map(item => ({
         id: item.id,
