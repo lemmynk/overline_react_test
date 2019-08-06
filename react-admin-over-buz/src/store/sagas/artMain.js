@@ -35,7 +35,8 @@ function* fetchDashDataFlow() {
 
     const vArtikl = yield select(selectArtMainDashVArtikl);
     const s = yield select(selectArtMainDashFilterText);
-    const perPage = yield select(selectAppConfigValue('DEFAULT_PAGINATION'));
+    const configValue = yield select(selectAppConfigValue);
+    const perPage = configValue('DEFAULT_PAGINATION') || 20;
 
     const query = { page, perPage, s };
 
