@@ -44,6 +44,18 @@ app.use((req, res, next) => {
   next();
 });
 
+// NO CORS
+// app.use(adminUrl, libRoutes.user);
+app.use(`${adminUrl}/app-config`, libRoutes.appConfig);
+app.use(`${adminUrl}/files`, libRoutes.filesGet);
+// app.use(adminUrl, libMiddleware.user);
+app.use(`${adminUrl}/asset-categories`, libRoutes.assetCategories);
+app.use(`${adminUrl}/assets`, libRoutes.assets);
+app.use(`${adminUrl}/files`, libRoutes.filesStore);
+
+app.use(adminUrl, require('./routes/admin/mpArt'));
+app.use(adminUrl, require('./routes/admin/mpKom'));
+
 // CORS
 app.use(cors());
 
@@ -61,16 +73,6 @@ app.use(pkceUrl, libRoutes.pkce);
 
 app.use(apiUrl, libMiddleware.pkce);
 app.use(apiUrl, require('./routes/api'));
-
-// app.use(`${adminUrl}/files`, libRoutes.filesGet);
-app.use(adminUrl, libMiddleware.user);
-// app.use(`${adminUrl}/asset-categories`, libRoutes.assetCategories);
-// app.use(`${adminUrl}/assets`, libRoutes.assets);
-// app.use(`${adminUrl}/files`, libRoutes.filesStore);
-
-app.use(`${adminUrl}/app-config`, libRoutes.appConfig);
-app.use(adminUrl, require('./routes/admin/mpArt'));
-app.use(adminUrl, require('./routes/admin/mpKom'));
 // ///////////////////////////////////////
 // /  END OF ROUTING
 // ///////////////////////////////////////

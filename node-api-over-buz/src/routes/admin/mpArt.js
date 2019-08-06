@@ -16,7 +16,7 @@ router.put('/art-pdv/:id', artPdvCtrl.update);
 router.delete('/art-pdv/:id', artPdvCtrl.delete);
 
 const artGrupaCtrl = controllers.crudController(ArtGrupa);
-router.get('/art-grupa', artGrupaCtrl.all);
+router.get('/art-grupa', artGrupaCtrl.allByVersion);
 router.post('/art-grupa', artGrupaCtrl.create);
 router.get('/art-grupa/:id', artGrupaCtrl.find);
 router.put('/art-grupa/:id', artGrupaCtrl.update);
@@ -29,10 +29,7 @@ const artMainCtrl = controllers.crudController(ArtMain);
 const artViewCtrl = controllers.crudController(ArtView, 'vArtikl', {
   orderBy: 'artNaziv',
 });
-router.get(
-  `/art-main/:vArtikl(${roba}|${usluga})`,
-  artViewCtrl.allByPagination,
-);
+router.get(`/art-main/:vArtikl(${roba}|${usluga})`, artViewCtrl.allPaginated);
 router.post('/art-main', artMainCtrl.create);
 router.get('/art-main/:id', artMainCtrl.find);
 router.put('/art-main/:id', artMainCtrl.update);

@@ -16,7 +16,7 @@ router.delete('/kom-mesto/:id', komMestoCtrl.delete);
 
 const komMainCtrl = controllers.crudController(KomMain);
 const komViewCtrl = controllers.crudController(KomView);
-router.get('/kom-main', komViewCtrl.allByPagination);
+router.get('/kom-main', komViewCtrl.allPaginated);
 router.post('/kom-main', komMainCtrl.create);
 router.get('/kom-main/:id', komMainCtrl.find);
 router.put('/kom-main/:id', komMainCtrl.update);
