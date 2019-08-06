@@ -11,6 +11,7 @@ exports.up = knex => {
       .notNullable()
       .defaultTo('string');
     t.text('value').nullable();
+    t.text('description').nullable();
 
     t.dateTime('createdAt').defaultTo(knex.fn.now());
     t.dateTime('updatedAt').defaultTo(knex.fn.now());
