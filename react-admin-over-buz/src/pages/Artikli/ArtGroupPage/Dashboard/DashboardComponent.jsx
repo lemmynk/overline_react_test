@@ -5,9 +5,7 @@ import {
   NavTab,
   SearchBox,
   Table,
-  Pagination,
   FetchWrapper,
-  FETCH_STATUS_FETCHING,
 } from '@newtash/react-app-core';
 import { FlexColumn, FlexColumnItem } from '../../../../components/Flex';
 import { vArtikli } from '../../../../config';
@@ -16,7 +14,6 @@ type Props = {
   vArtikl: string,
   fetching: string,
   data: Array<ArtMainListProps>,
-  paging: PagingProps,
   filterText: string,
   setVArtikl: string => void,
   setFilterText: string => void,
@@ -28,7 +25,6 @@ const DashboardComponent = (props: Props) => {
     vArtikl,
     fetching,
     data,
-    paging,
     filterText,
     setVArtikl,
     setFilterText,
@@ -59,13 +55,6 @@ const DashboardComponent = (props: Props) => {
     doFetchData(1);
   }, []);
 
-  const handlePaginationClick = useCallback((page: number) => {
-    doFetchData(page);
-  }, []);
-
-  const renderDescription = (item: PaginationDescriptionProps) =>
-    t('artMain.dashPagingDescription', item);
-
   const navTabs = vArtikli.map(item => ({
     key: item,
     text: t(item),
@@ -90,14 +79,6 @@ const DashboardComponent = (props: Props) => {
           value={filterText}
           onChange={handleSearchBoxChange}
           onClear={handleSearchBoxClear}
-        />
-      </FlexColumnItem>
-      <FlexColumnItem>
-        <Pagination
-          paging={paging}
-          fetching={fetching === FETCH_STATUS_FETCHING}
-          onClick={handlePaginationClick}
-          renderDescription={renderDescription}
         />
       </FlexColumnItem>
       <FlexColumnItem flex>

@@ -32,7 +32,7 @@ const ArtMainPage = () => {
       default:
         return (
           <PrimaryButton
-            text={t('createButtonTitle')}
+            text={t('artMain.createButtonTitle')}
             onClick={() => setRoute('create')}
           />
         );
@@ -42,7 +42,7 @@ const ArtMainPage = () => {
   return (
     <Page>
       <PageHeader
-        title={t('dahboardTitle')}
+        title={t('artMain.dahboardTitle')}
         renderButtons={renderHeaderButtons}
       />
       <PageContent>
