@@ -54,7 +54,7 @@
     "rollup-plugin-uglify": "^6.0.2"
   },
   "dependencies": {
-    "@newtash/node-api-core": "^0.3.5",
+    "@newtash/node-api-core": "^0.3.6",
     "bcrypt": "^3.0.4",
     "body-parser": "^1.18.3",
     "cookie-parser": "^1.4.4",
