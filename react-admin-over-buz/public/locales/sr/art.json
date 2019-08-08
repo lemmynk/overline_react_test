@@ -1,8 +1,12 @@
 {
   "roba": "Roba",
   "usluga": "Usluga",
-  "dahboardTitle": "Listing Artikala",
-  "createButtonTitle": "Novi artikl",
-  "formButtonBack": "Nazad",
-  "dashPagingDescription": "Učitano {{currentItems}} of {{totalItems}} stavki za stranu {{currentPage}} od {{totalPages}}"
+  "artMain": {
+    "dahboardTitle": "Listing Artikala",
+    "createButtonTitle": "Novi artikl"
+  },
+  "ArtGroup": {
+    "dahboardTitle": "Listing Grupa Artikala",
+    "createButtonTitle": "Nova grupa artikala"
+  }
 }

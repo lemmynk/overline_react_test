@@ -12,7 +12,7 @@ import './i18n';
 
 const withAuth = true;
 const purgeStore = false;
-const withWatchAndLog = false;
+const withWatchAndLog = true;
 const appBlacklist = [];
 
 const NewtashAppProvider = appProviderFactory({
