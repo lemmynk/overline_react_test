@@ -7,7 +7,6 @@ const modelConfig = {
     'vArtikl',
     'grpNaziv',
     'grpSifra',
-    'grpDuzina',
     // 'redosled',
     'createdAt',
     'updatedAt',
