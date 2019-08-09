@@ -1,3 +1,3 @@
-import ArtGroupPage from './ArtGroupPage';
+import ArtGroupPageContainer from './ArtGroupPageContainer';
 
-export default ArtGroupPage;
+export default ArtGroupPageContainer;
