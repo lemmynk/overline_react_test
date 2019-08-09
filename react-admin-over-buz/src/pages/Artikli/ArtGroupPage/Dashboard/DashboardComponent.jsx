@@ -93,8 +93,8 @@ const DashboardComponent = (props: Props) => {
       : [];
 
   const tableColumns = [
-    { key: 'grpSifra', text: 'grpSifra', field: 'grpSifra' },
-    { key: 'grpNaziv', text: 'grpNaziv', field: 'grpNaziv' },
+    { key: 'grpSifra', text: t('grpSifra'), field: 'grpSifra', width: '4em' },
+    { key: 'grpNaziv', text: t('grpNaziv'), field: 'grpNaziv' },
     {
       key: 'id',
       text: '',
@@ -126,7 +126,7 @@ const DashboardComponent = (props: Props) => {
             onClear={handleSearchBoxClear}
           />
         </FlexColumnItem>
-        <FlexColumnItem flex>
+        <FlexColumnItem flex scroll>
           <FetchWrapper fetching={fetching}>
             <Table striped columns={tableColumns} data={tableData} />
           </FetchWrapper>

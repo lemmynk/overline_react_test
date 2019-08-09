@@ -18,6 +18,7 @@ import {
 import {
   selectArtMainDashVArtikl,
   selectArtMainDashFilterText,
+  selectArtMainDashFilterSelect,
 } from '../selectors';
 
 const doFetchArtMainDashData = (vArtikl, query) => {
@@ -35,10 +36,14 @@ function* fetchDashDataFlow() {
 
     const vArtikl = yield select(selectArtMainDashVArtikl);
     const s = yield select(selectArtMainDashFilterText);
+    const grpId = yield select(selectArtMainDashFilterSelect);
     const configValue = yield select(selectAppConfigValue);
     const perPage = configValue('DEFAULT_PAGINATION') || 20;
 
     const query = { page, perPage, s };
+    if (parseInt(grpId, 10) > 0) {
+      query.grpId = grpId;
+    }
 
     yield all([
       put(setArtMainDashFetching(FETCH_STATUS_FETCHING)),

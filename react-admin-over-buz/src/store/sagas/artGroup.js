@@ -53,8 +53,8 @@ function* fetchArtGroupsFlow() {
 
 const getSaveRequest = data =>
   data.id
-    ? api.post('/art-grupa', data)
-    : api.put(`/art-grupa/${data.id}`, data);
+    ? api.put(`/art-grupa/${data.id}`, data)
+    : api.post('/art-grupa', data);
 
 const saveArtGroup = data =>
   getSaveRequest(data)
@@ -66,10 +66,11 @@ function* saveArtGroupFlow() {
   while (true) {
     const { payload: data } = yield take(DO_SAVE_ART_GROUP);
 
-    const { response, error } = yield saveArtGroup(data);
+    const { error } = yield saveArtGroup(data);
 
-    // eslint-disable-next-line no-console
-    console.log('...do save...', data, response, error);
+    if (error) {
+      yield put(addAppError(error));
+    }
 
     yield put(fetchArtGroups());
   }
@@ -86,10 +87,11 @@ function* deleteArtGroupFlow() {
   while (true) {
     const { payload: id } = yield take(DO_DELETE_ART_GROUP);
 
-    const { response, error } = yield deleteArtGroup(id);
+    const { error } = yield deleteArtGroup(id);
 
-    // eslint-disable-next-line no-console
-    console.log('...do delete...', id, response, error);
+    if (error) {
+      yield put(addAppError(error));
+    }
 
     yield put(fetchArtGroups());
   }

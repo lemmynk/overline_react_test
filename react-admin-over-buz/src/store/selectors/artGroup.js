@@ -10,18 +10,22 @@ export const selectArtGroupDashVArtikl = state => state[NS].dashVArtikl;
 export const selectArtGroupDashFetching = state => state[NS].dashFetching;
 export const selectArtGroupDashFilterText = state => state[NS].dashFilterText;
 
-export const selectArtGroupSelectOptions = vArtikl =>
-  createSelector(
-    [selectArtGroupsData],
-    groups =>
-      Object.keys(groups)
-        .filter(key => groups[key].vArtikl === vArtikl)
-        .map(key => ({
-          key: groups[key].id,
-          text: groups[key].grpNaziv,
-        }))
-        .sort(sortByKey('grpNaziv')),
-  );
+const selectAllSortedArtGroups = createSelector(
+  [selectArtGroupsData],
+  groups =>
+    Object.keys(groups)
+      .map(key => ({
+        key: groups[key].id,
+        text: groups[key].grpNaziv,
+        vArtikl: groups[key].vArtikl,
+      }))
+      .sort(sortByKey('grpNaziv')),
+);
+
+export const selectArtGroupSelectOptions = createSelector(
+  selectAllSortedArtGroups,
+  data => _groupBy(data, n => n.vArtikl),
+);
 
 const selectArtGroupsArray = createSelector(
   selectArtGroupsData,

@@ -5,22 +5,27 @@ import {
   FlexColumn,
   FlexColumnItem,
   NavTab,
-  SearchBox,
   Table,
   Pagination,
   FetchWrapper,
-  FETCH_STATUS_FETCHING,
 } from '@newtash/react-app-core';
+import {
+  SelectSearchFilterBar,
+  TableRowEditDeleteActions,
+} from '../../../../components';
 import { vArtikli } from '../../../../config';
 
 type Props = {
   vArtikl: string,
   fetching: string,
-  data: Array<ArtMainListProps>,
+  data: Array<ArtMainListItemProps>,
   paging: PagingProps,
   filterText: string,
+  filterSelect: string,
+  artGroups: ArtGroupDashDataProps,
   setVArtikl: string => void,
   setFilterText: string => void,
+  setFilterSelect: string => void,
   fetchData: number => void,
 };
 
@@ -31,12 +36,16 @@ const DashboardComponent = (props: Props) => {
     data,
     paging,
     filterText,
+    filterSelect,
+    artGroups,
     setVArtikl,
     setFilterText,
+    setFilterSelect,
     fetchData,
   } = props;
 
   const [t] = useTranslation('art');
+  const [tCommon] = useTranslation('common');
 
   const doFetchData = (page: number) => fetchData(page);
 
@@ -47,6 +56,7 @@ const DashboardComponent = (props: Props) => {
   const handleNavTabItemClick = useCallback((item: NavTabItemProps) => {
     setVArtikl(item.key);
     setFilterText('');
+    setFilterSelect('');
     doFetchData(1);
   }, []);
 
@@ -60,21 +70,50 @@ const DashboardComponent = (props: Props) => {
     doFetchData(1);
   }, []);
 
+  const handleFilterSelectChange = useCallback((selectedKey: string) => {
+    setFilterSelect(selectedKey);
+    doFetchData(1);
+  }, []);
+
   const handlePaginationClick = useCallback((page: number) => {
     doFetchData(page);
   }, []);
 
+  const handleEditButtonClick = (item: ArtMainListItemProps) => () => {
+    // eslint-disable-next-line no-console
+    console.log('...edit:', item);
+  };
+
+  const handleDeleteButtonClick = (id: number) => () => {
+    // eslint-disable-next-line no-console
+    console.log('...delete:', id);
+  };
+
   const renderDescription = (item: PaginationDescriptionProps) =>
-    t('dashPagingDescription', item);
+    tCommon('dashPagingDescription', item);
 
   const navTabs = vArtikli.map(item => ({
     key: item,
     text: t(item),
   }));
 
+  const selectOptions = artGroups[vArtikl] || [];
+
   const tableColumns = [
-    { key: 'intSifra', text: 'intSifra', field: 'intsifra' },
-    { key: 'artNaziv', text: 'artNaziv', field: 'artNaziv' },
+    { key: 'intSifra', text: t('intSifra'), field: 'intSifra', width: '6em' },
+    { key: 'artNaziv', text: t('artNaziv'), field: 'artNaziv' },
+    {
+      key: 'id',
+      text: '',
+      onRenderItem: (item: ArtMainListItemProps) => (
+        <TableRowEditDeleteActions
+          onEditClick={handleEditButtonClick(item)}
+          onDeleteClick={handleDeleteButtonClick(item.id)}
+        />
+      ),
+      width: '6em',
+      align: 'center',
+    },
   ];
 
   return (
@@ -87,21 +126,26 @@ const DashboardComponent = (props: Props) => {
         />
       </FlexColumnItem>
       <FlexColumnItem>
-        <SearchBox
-          value={filterText}
-          onChange={handleSearchBoxChange}
-          onClear={handleSearchBoxClear}
+        <SelectSearchFilterBar
+          labelSelect="labelSelect"
+          labelText="labelText"
+          selectOptions={selectOptions}
+          filterSelect={filterSelect}
+          setSelectFilter={handleFilterSelectChange}
+          filterText={filterText}
+          setFilterText={handleSearchBoxChange}
+          clearFilterText={handleSearchBoxClear}
         />
       </FlexColumnItem>
       <FlexColumnItem>
         <Pagination
           paging={paging}
-          fetching={fetching === FETCH_STATUS_FETCHING}
+          fetching={fetching}
           onClick={handlePaginationClick}
           renderDescription={renderDescription}
         />
       </FlexColumnItem>
-      <FlexColumnItem flex>
+      <FlexColumnItem flex scroll>
         <FetchWrapper fetching={fetching}>
           <Table striped columns={tableColumns} data={data} />
         </FetchWrapper>

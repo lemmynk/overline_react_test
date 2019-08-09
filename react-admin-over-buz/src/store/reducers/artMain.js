@@ -6,6 +6,7 @@ import {
   SET_ART_MAIN_DASH_PAGING,
   SET_ART_MAIN_DASH_FETCHING,
   SET_ART_MAIN_DASH_FILTER_TEXT,
+  SET_ART_MAIN_DASH_FILTER_SELECT,
 } from '../actions';
 import { V_ARTIKL_ROBA } from '../../config';
 
@@ -48,10 +49,14 @@ const dashFetching = (state = null, action) => {
 const dashFilterText = (state = '', action) =>
   action.type === SET_ART_MAIN_DASH_FILTER_TEXT ? action.payload : state;
 
+const dashFilterSelect = (state = '', action) =>
+  action.type === SET_ART_MAIN_DASH_FILTER_SELECT ? action.payload : state;
+
 export default combineReducers({
   vArtikl,
   dashData,
   dashPaging,
   dashFetching,
   dashFilterText,
+  dashFilterSelect,
 });

@@ -20,7 +20,7 @@ const FormSaveCancelRow = (props: Props) => {
 
   return (
     <FlexRow align="flex-end">
-      <StyledButton primary text={t('Save')} onClick={onSave} />
+      <Button primary text={t('Save')} onClick={onSave} />
       <StyledButton text={t('Cancel')} onClick={onCancel} />
     </FlexRow>
   );

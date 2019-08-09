@@ -10,5 +10,7 @@
     "createButtonTitle": "Nova grupa artikala"
   },
   "grpNaziv": "Naziv",
-  "grpSifra": "Sifra"
+  "grpSifra": "Šifra",
+  "artNaziv": "Naziv",
+  "intSifra": "Šifra"
 }

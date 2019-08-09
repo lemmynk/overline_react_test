@@ -7,7 +7,7 @@ declare type ArtPdvProps = {
   fisPdv: number,
 };
 
-declare type ArtMainListProps = {
+declare type ArtMainListItemProps = {
   id: number,
   vArtikl: string,
   intSifra: string,

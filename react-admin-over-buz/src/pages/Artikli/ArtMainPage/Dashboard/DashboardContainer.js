@@ -6,9 +6,12 @@ import {
   selectArtMainDashPaging,
   selectArtMainDashFetching,
   selectArtMainDashFilterText,
+  selectArtGroupSelectOptions,
+  selectArtMainDashFilterSelect,
   fetchArtMainDashData,
   setArtMainDashVArtikl,
   setArtMainDashFilterText,
+  setArtMainDashFilterSelect,
 } from '../../../../store';
 
 const mapStateToProps = state => ({
@@ -17,11 +20,14 @@ const mapStateToProps = state => ({
   data: selectArtMainDashData(state),
   paging: selectArtMainDashPaging(state),
   filterText: selectArtMainDashFilterText(state),
+  filterSelect: selectArtMainDashFilterSelect(state),
+  artGroups: selectArtGroupSelectOptions(state),
 });
 
 const mapDispatchToProps = {
   setVArtikl: setArtMainDashVArtikl,
   setFilterText: setArtMainDashFilterText,
+  setFilterSelect: setArtMainDashFilterSelect,
   fetchData: fetchArtMainDashData,
 };
 
