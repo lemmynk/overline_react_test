@@ -5,8 +5,10 @@
     "dahboardTitle": "Listing Artikala",
     "createButtonTitle": "Novi artikl"
   },
-  "ArtGroup": {
+  "artGroup": {
     "dahboardTitle": "Listing Grupa Artikala",
     "createButtonTitle": "Nova grupa artikala"
-  }
+  },
+  "grpNaziv": "Naziv",
+  "grpSifra": "Sifra"
 }

@@ -1,5 +1,7 @@
 {
   "dashPagingDescription": "Učitano {{currentItems}} of {{totalItems}} stavki za stranu {{currentPage}} od {{totalPages}}",
   "formButtonBack": "Nazad",
-  "Logout": "Одјава"
+  "Logout": "Одјава",
+  "Save": "Snimi",
+  "Cancel": "Odustani"
 }

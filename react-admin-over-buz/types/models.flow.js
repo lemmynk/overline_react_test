@@ -1,8 +1,7 @@
 // @flow
-declare type ArtPdvProps = {
+declare type ArtGroupFormDataProps = {
   id: number,
-  pdvStopa: number,
-  pdvOpis: string,
-  isDefault: boolean,
-  fisPdv: number,
+  vArtikl: string,
+  grpNaziv: string,
+  grpSifra: string,
 };

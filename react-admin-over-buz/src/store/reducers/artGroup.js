@@ -1,5 +1,7 @@
 import { combineReducers } from 'redux';
 import {
+  // DO_SAVE_ART_GROUP,
+  // DO_DELETE_ART_GROUP,
   SET_ART_GROUPS,
   SET_ART_GROUPS_VERSION,
   SET_ART_GROUP_DASH_V_ARTIKL,
@@ -8,7 +10,7 @@ import {
 } from '../actions';
 import { V_ARTIKL_ROBA } from '../../config';
 
-const vArtikl = (state = V_ARTIKL_ROBA, action) =>
+const dashVArtikl = (state = V_ARTIKL_ROBA, action) =>
   action.type === SET_ART_GROUP_DASH_V_ARTIKL ? action.payload : state;
 
 const data = (state = {}, action) =>
@@ -32,7 +34,7 @@ const dashFilterText = (state = '', action) =>
   action.type === SET_ART_GROUP_DASH_FILTER_TEXT ? action.payload : state;
 
 export default combineReducers({
-  vArtikl,
+  dashVArtikl,
   data,
   version,
   dashFetching,

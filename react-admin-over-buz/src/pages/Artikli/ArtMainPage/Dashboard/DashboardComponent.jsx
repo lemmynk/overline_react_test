@@ -2,6 +2,8 @@
 import React, { useEffect, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
+  FlexColumn,
+  FlexColumnItem,
   NavTab,
   SearchBox,
   Table,
@@ -9,7 +11,6 @@ import {
   FetchWrapper,
   FETCH_STATUS_FETCHING,
 } from '@newtash/react-app-core';
-import { FlexColumn, FlexColumnItem } from '../../../../components/Flex';
 import { vArtikli } from '../../../../config';
 
 type Props = {
@@ -64,7 +65,7 @@ const DashboardComponent = (props: Props) => {
   }, []);
 
   const renderDescription = (item: PaginationDescriptionProps) =>
-    t('artMain.dashPagingDescription', item);
+    t('dashPagingDescription', item);
 
   const navTabs = vArtikli.map(item => ({
     key: item,
@@ -102,7 +103,7 @@ const DashboardComponent = (props: Props) => {
       </FlexColumnItem>
       <FlexColumnItem flex>
         <FetchWrapper fetching={fetching}>
-          <Table columns={tableColumns} data={data} />
+          <Table striped columns={tableColumns} data={data} />
         </FetchWrapper>
       </FlexColumnItem>
     </FlexColumn>

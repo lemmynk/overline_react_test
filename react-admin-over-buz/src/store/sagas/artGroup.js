@@ -2,6 +2,9 @@ import { take, select, all, put } from 'redux-saga/effects';
 import { api, queryUrl, addAppError } from '@newtash/react-app-core';
 import {
   FETCH_ART_GROUPS,
+  DO_SAVE_ART_GROUP,
+  DO_DELETE_ART_GROUP,
+  fetchArtGroups,
   setArtGroupsData,
   setArtGroupsVersion,
 } from '../actions';
@@ -48,4 +51,48 @@ function* fetchArtGroupsFlow() {
   }
 }
 
-export default [fetchArtGroupsFlow];
+const getSaveRequest = data =>
+  data.id
+    ? api.post('/art-grupa', data)
+    : api.put(`/art-grupa/${data.id}`, data);
+
+const saveArtGroup = data =>
+  getSaveRequest(data)
+    .then(response => response.data)
+    .then(response => ({ response }))
+    .catch(error => ({ error }));
+
+function* saveArtGroupFlow() {
+  while (true) {
+    const { payload: data } = yield take(DO_SAVE_ART_GROUP);
+
+    const { response, error } = yield saveArtGroup(data);
+
+    // eslint-disable-next-line no-console
+    console.log('...do save...', data, response, error);
+
+    yield put(fetchArtGroups());
+  }
+}
+
+const deleteArtGroup = id =>
+  api
+    .delete(`/art-grupa/${id}`)
+    .then(response => response.status)
+    .then(response => ({ response }))
+    .catch(error => ({ error }));
+
+function* deleteArtGroupFlow() {
+  while (true) {
+    const { payload: id } = yield take(DO_DELETE_ART_GROUP);
+
+    const { response, error } = yield deleteArtGroup(id);
+
+    // eslint-disable-next-line no-console
+    console.log('...do delete...', id, response, error);
+
+    yield put(fetchArtGroups());
+  }
+}
+
+export default [fetchArtGroupsFlow, saveArtGroupFlow, deleteArtGroupFlow];
