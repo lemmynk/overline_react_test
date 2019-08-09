@@ -5,7 +5,6 @@
       "vArtikl": "roba",
       "grpNaziv": "ZASTAVA",
       "grpSifra": "1",
-      "grpDuzina": 4,
       "createdAt": "2019-07-31 20:41:47",
       "updatedAt": "2019-07-31 20:41:47",
       "deletedAt": null
@@ -15,7 +14,6 @@
       "vArtikl": "roba",
       "grpNaziv": "VOLKSWAGEN",
       "grpSifra": "2",
-      "grpDuzina": 4,
       "createdAt": "2019-07-31 20:41:47",
       "updatedAt": "2019-07-31 20:41:47",
       "deletedAt": null
@@ -25,7 +23,6 @@
       "vArtikl": "roba",
       "grpNaziv": "OPEL",
       "grpSifra": "3",
-      "grpDuzina": 4,
       "createdAt": "2019-07-31 20:41:47",
       "updatedAt": "2019-07-31 20:41:47",
       "deletedAt": null
@@ -35,7 +32,6 @@
       "vArtikl": "roba",
       "grpNaziv": "LADA",
       "grpSifra": "4",
-      "grpDuzina": 4,
       "createdAt": "2019-07-31 20:41:47",
       "updatedAt": "2019-07-31 20:41:47",
       "deletedAt": null
@@ -45,7 +41,6 @@
       "vArtikl": "roba",
       "grpNaziv": "OSTALA OPREMA",
       "grpSifra": "5",
-      "grpDuzina": 4,
       "createdAt": "2019-07-31 20:41:47",
       "updatedAt": "2019-07-31 20:41:47",
       "deletedAt": null
@@ -55,7 +50,6 @@
       "vArtikl": "usluga",
       "grpNaziv": "USLUGE",
       "grpSifra": "21",
-      "grpDuzina": 4,
       "createdAt": "2019-07-31 20:41:47",
       "updatedAt": "2019-07-31 20:41:47",
       "deletedAt": null
@@ -65,7 +59,6 @@
       "vArtikl": "roba",
       "grpNaziv": "AUDI",
       "grpSifra": "6",
-      "grpDuzina": 4,
       "createdAt": "2019-07-31 20:41:47",
       "updatedAt": "2019-07-31 20:41:47",
       "deletedAt": null
@@ -75,7 +68,6 @@
       "vArtikl": "roba",
       "grpNaziv": "FIAT",
       "grpSifra": "7",
-      "grpDuzina": 4,
       "createdAt": "2019-07-31 20:41:47",
       "updatedAt": "2019-07-31 20:41:47",
       "deletedAt": null
@@ -85,7 +77,6 @@
       "vArtikl": "roba",
       "grpNaziv": "RENO",
       "grpSifra": "8",
-      "grpDuzina": 4,
       "createdAt": "2019-07-31 20:41:47",
       "updatedAt": "2019-07-31 20:41:47",
       "deletedAt": null
@@ -95,7 +86,6 @@
       "vArtikl": "roba",
       "grpNaziv": "POLOVNI AUTOMOBILI",
       "grpSifra": "9",
-      "grpDuzina": 4,
       "createdAt": "2019-07-31 20:41:47",
       "updatedAt": "2019-07-31 20:41:47",
       "deletedAt": null
@@ -105,7 +95,6 @@
       "vArtikl": "roba",
       "grpNaziv": "FORD",
       "grpSifra": "10",
-      "grpDuzina": 4,
       "createdAt": "2019-07-31 20:41:47",
       "updatedAt": "2019-07-31 20:41:47",
       "deletedAt": null
@@ -115,7 +104,6 @@
       "vArtikl": "roba",
       "grpNaziv": "MERCEDES",
       "grpSifra": "11",
-      "grpDuzina": 4,
       "createdAt": "2019-07-31 20:41:47",
       "updatedAt": "2019-07-31 20:41:47",
       "deletedAt": null
@@ -125,7 +113,6 @@
       "vArtikl": "roba",
       "grpNaziv": "ŠKODA",
       "grpSifra": "12",
-      "grpDuzina": 4,
       "createdAt": "2019-07-31 20:41:47",
       "updatedAt": "2019-07-31 20:41:47",
       "deletedAt": null

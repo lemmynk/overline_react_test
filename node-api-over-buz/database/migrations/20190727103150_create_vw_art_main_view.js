@@ -5,7 +5,7 @@ SELECT
 	mp_art_main.vArtikl,
 	mp_art_main.grpId,
 	mp_art_grupa.grpNaziv,
-	mp_art_main.intsifra,
+	mp_art_main.intSifra,
 	mp_art_main.artNaziv,
 	mp_art_main.mera,
 	mp_art_main.pdvId,

@@ -12,10 +12,6 @@ exports.up = knex => {
       .index();
     t.string('grpNaziv', 120).notNullable();
     t.string('grpSifra', 20).notNullable();
-    t.integer('grpDuzina')
-      .notNullable()
-      .defaultTo(4)
-      .comment('duzina rednih brojeva artikala posle sifre grupe');
     // t.string('redosled', 20).nullable();
 
     t.dateTime('createdAt').defaultTo(knex.fn.now());

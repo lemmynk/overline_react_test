@@ -694,10 +694,10 @@
     lodash "^4.17.13"
     to-fast-properties "^2.0.0"
 
-"@newtash/node-api-core@^0.3.6":
-  version "0.3.6"
-  resolved "https://registry.yarnpkg.com/@newtash/node-api-core/-/node-api-core-0.3.6.tgz#2de9b9001fa84d469f402d7c522b82a23c3acc75"
-  integrity sha512-IskEADlfBr7z+Fe+uAngwGpAcMPJo0q1B4ucQ6FotbiC6aLhwiaHVaQOmQHk/ytUF67+mznx/2c0FDHH0d0FOg==
+"@newtash/node-api-core@^0.3.7":
+  version "0.3.7"
+  resolved "https://registry.yarnpkg.com/@newtash/node-api-core/-/node-api-core-0.3.7.tgz#9e87ce2f0058e84b713de6bbf669150e75e24039"
+  integrity sha512-tK7lvZ1Rq0PwAUjtv4DrGc3i2OVLP/RuFzZ0IhQq2nWNCMH5KB+jvJZOeueT2IJrZ6K4XRI0G/mN0EQq4Dha3w==
 
 "@types/babel-types@*", "@types/babel-types@^7.0.0":
   version "7.0.7"
