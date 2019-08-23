@@ -1,3 +1,3 @@
-export { default as headerLinks } from './headerLinks';
-export { default as sidebarLinks } from './sidebarLinks';
-export { default as footerLinks } from './footerLinks';
+export { headerWebLinks, headerAppLinks } from './headerLinks';
+export { sidebarWebLinks, sidebarAppLinks } from './sidebarLinks';
+export { footerWebLinks, footerAppLinks } from './footerLinks';

@@ -1,5 +1,5 @@
 // @flow
-import { headerLinks as links } from '../appLinks';
+import { headerWebLinks, headerAppLinks } from '../appLinks';
 import NavBrand from './NavBrand';
 import HeaderAvatar from './HeaderAvatar';
 
@@ -9,11 +9,19 @@ const headerBrand = NavBrand;
 const headerSearch = null;
 const headerAvatar = HeaderAvatar;
 
-export default {
+export const headerWebConfig = {
+  visible,
+  // withSidebarToggle,
+  headerBrand,
+  headerSearch,
+  links: headerWebLinks,
+};
+
+export const headerAppConfig = {
   visible,
   withSidebarToggle,
   headerBrand,
   headerSearch,
   headerAvatar,
-  links,
+  links: headerAppLinks,
 };

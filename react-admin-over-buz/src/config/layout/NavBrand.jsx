@@ -9,6 +9,7 @@ const Wrapper = styled.div`
   display: flex:
   flex-direction: row;
   align-items: center;
+  margin-left: ${({ theme }) => theme.size.gutter};
 `;
 
 const StyledImg = styled.img`

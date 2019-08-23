@@ -1,9 +1,13 @@
 // @flow
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { AppTemplate, appProviderFactory } from '@newtash/react-app-core';
+import {
+  AppTemplate,
+  appProviderFactory,
+  buildFontsLibrary,
+} from '@newtash/react-app-core';
 import AppRouter from './router';
-import { layout, buildFontsLibrary } from './config';
+import { layout, appFonts } from './config';
 import appSagas from './store/sagas';
 import appReducers from './store/reducers';
 
@@ -27,7 +31,7 @@ const NewtashAppProvider = appProviderFactory({
 
 const root = document.getElementById('root');
 if (root) {
-  buildFontsLibrary();
+  buildFontsLibrary(appFonts);
 
   ReactDOM.render(
     <NewtashAppProvider>

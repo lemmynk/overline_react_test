@@ -1,14 +1,21 @@
 // @flow
-import { footerLinks as links } from '../appLinks';
+import { footerWebLinks, footerAppLinks } from '../appLinks';
 import FooterBrand from './FooterBrand';
 
 const visible = true;
 const withSidebarToggle = true;
 const footerBrand = FooterBrand;
 
-export default {
+export const footerWebConfig = {
   visible,
   withSidebarToggle,
   footerBrand,
-  links,
+  links: footerWebLinks,
+};
+
+export const footerAppConfig = {
+  visible,
+  withSidebarToggle,
+  footerBrand,
+  links: footerAppLinks,
 };

@@ -1,5 +1,5 @@
 // @flow
-import { sidebarLinks as links } from '../appLinks';
+import { sidebarWebLinks, sidebarAppLinks } from '../appLinks';
 import SidebarBrand from './SidebarBrand';
 
 const visible = true;
@@ -10,10 +10,18 @@ const dismissStyle = {
 };
 const sidebarBrand = SidebarBrand;
 
-export default {
+export const sidebarWebConfig = {
+  visible: false,
+  sidebarHeading,
+  dismissStyle,
+  sidebarBrand,
+  links: sidebarWebLinks,
+};
+
+export const sidebarAppConfig = {
   visible,
   sidebarHeading,
   dismissStyle,
   sidebarBrand,
-  links,
+  links: sidebarAppLinks,
 };

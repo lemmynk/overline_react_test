@@ -1,6 +1,6 @@
 import { HOME, ART_MAIN, ART_GROUP } from '../appRoutes';
 
-export default [
+const links = [
   HOME,
   {
     title: 'ArtLinkGroup',
@@ -8,3 +8,6 @@ export default [
     links: [ART_MAIN, ART_GROUP],
   },
 ];
+
+export const sidebarWebLinks = [];
+export const sidebarAppLinks = links;

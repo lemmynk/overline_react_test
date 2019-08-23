@@ -1,3 +1,6 @@
 import { PRIVACY_POLICY } from '../appRoutes';
 
-export default [PRIVACY_POLICY];
+const links = [PRIVACY_POLICY];
+
+export const footerWebLinks = links;
+export const footerAppLinks = links;

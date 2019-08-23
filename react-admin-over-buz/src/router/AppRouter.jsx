@@ -1,7 +1,13 @@
 // @flow
 import React from 'react';
 import { Switch } from 'react-router-dom';
-import { AppRoute, Whoops404, rand } from '@newtash/react-app-core';
+import {
+  AppRoute,
+  WebRoute,
+  HomeRoute,
+  Whoops404,
+  rand,
+} from '@newtash/react-app-core';
 import appRoutes from '../config/appRoutes';
 import * as pages from '../pages';
 
@@ -15,7 +21,8 @@ const AppRouter = () => (
         component={pages[route.component]}
       />
     ))}
-    <AppRoute path="*" component={Whoops404} />
+    <HomeRoute component={pages.HomePage} appComponent={pages.DashboardPage} />
+    <WebRoute path="*" component={Whoops404} />
   </Switch>
 );
 

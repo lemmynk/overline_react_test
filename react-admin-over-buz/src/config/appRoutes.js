@@ -1,4 +1,10 @@
-import { USER_ROLE_ALL } from '@newtash/react-app-core';
+import { USER_ROLE_ALL, LOGIN_PAGE_PATH } from '@newtash/react-app-core';
+
+export const LOGIN = {
+  title: 'Login',
+  url: LOGIN_PAGE_PATH,
+  icon: 'sign-in-alt',
+};
 
 export const HOME = {
   title: 'Home',
@@ -30,4 +36,4 @@ export const PRIVACY_POLICY = {
   role: USER_ROLE_ALL,
 };
 
-export default [ART_MAIN, ART_GROUP, HOME];
+export default [ART_MAIN, ART_GROUP];

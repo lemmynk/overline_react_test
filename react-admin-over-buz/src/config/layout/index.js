@@ -1,5 +1,17 @@
-import headerConfig from './header';
-import footerConfig from './footer';
-import sidebarConfig from './sidebar';
+import { headerWebConfig, headerAppConfig } from './header';
+import { footerWebConfig, footerAppConfig } from './footer';
+import { sidebarWebConfig, sidebarAppConfig } from './sidebar';
 
-export default { headerConfig, footerConfig, sidebarConfig };
+const appLayout = {
+  headerConfig: headerAppConfig,
+  footerConfig: footerWebConfig,
+  sidebarConfig: sidebarWebConfig,
+};
+
+const webLayout = {
+  headerConfig: headerWebConfig,
+  footerConfig: footerAppConfig,
+  sidebarConfig: sidebarAppConfig,
+};
+
+export default { webLayout, appLayout };
