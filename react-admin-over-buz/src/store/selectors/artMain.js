@@ -9,3 +9,6 @@ export const selectArtMainDashFetching = state => state[NS].dashFetching;
 export const selectArtMainDashFilterText = state => state[NS].dashFilterText;
 export const selectArtMainDashFilterSelect = state =>
   state[NS].dashFilterSelect;
+
+export const selectArtMainFormData = state => state[NS].formData;
+export const selectArtMainFormFetching = state => state[NS].formFetching;

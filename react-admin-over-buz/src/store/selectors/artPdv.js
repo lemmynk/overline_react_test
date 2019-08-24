@@ -5,7 +5,7 @@ const NS = `${appNamespace}/pdv`;
 export const selectArtPdvSelectOptions = state =>
   state[NS].map(item => ({
     key: item.id,
-    text: item.pdvOpis,
+    text: `${item.pdvOpis} - ${item.pdvStopa}%`,
   }));
 
 export const selectArtPdvDefault = state =>

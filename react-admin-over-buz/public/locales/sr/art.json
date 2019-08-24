@@ -3,7 +3,20 @@
   "usluga": "Usluga",
   "artMain": {
     "dahboardTitle": "Listing Artikala",
-    "createButtonTitle": "Novi artikl"
+    "createButtonTitle": "Novi artikl",
+    "dashboardSelectGroups": "Sve grupe",
+    "dashboardTextPlaceholder": "Unesite tekst za pretragu"
+  },
+  "artForm": {
+    "createTitle": "Novi artikl",
+    "editTitle": "Azuriranje artikla",
+    "grpPlaceholder": "Izaberite grupu artikala",
+    "grpId": "Grupa artikala",
+    "intSifra": "Sifra artikla",
+    "artNaziv": "Naziv artikla",
+    "mera": "Jedinica mere",
+    "pdvPlaceholder": "Izaberite poresku stopu",
+    "pdvId": "Poreska stopa"
   },
   "artGroup": {
     "dahboardTitle": "Listing Grupa Artikala",

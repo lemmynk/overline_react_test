@@ -4,7 +4,7 @@ import { Switch } from 'react-router-dom';
 import {
   AppRoute,
   WebRoute,
-  HomeRoute,
+  // HomeRoute,
   Whoops404,
   rand,
 } from '@newtash/react-app-core';
@@ -21,7 +21,8 @@ const AppRouter = () => (
         component={pages[route.component]}
       />
     ))}
-    <HomeRoute component={pages.HomePage} appComponent={pages.DashboardPage} />
+    {/* <HomeRoute component={pages.HomePage} appComponent={pages.DashboardPage} /> */}
+    <WebRoute path="/" exact component={pages.HomePage} />
     <WebRoute path="*" component={Whoops404} />
   </Switch>
 );

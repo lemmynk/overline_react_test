@@ -1,21 +1,29 @@
 // @flow
-import React, { useEffect, useCallback } from 'react';
+import React, { useEffect, useCallback, useState } from 'react';
+import { withRouter } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import {
+  Page,
+  PageHeader,
+  PageContent,
+  Link,
   FlexColumn,
   FlexColumnItem,
   NavTab,
   Table,
   Pagination,
   FetchWrapper,
+  ConfirmDialog,
 } from '@newtash/react-app-core';
 import {
   SelectSearchFilterBar,
   TableRowEditDeleteActions,
 } from '../../../../components';
-import { vArtikli } from '../../../../config';
+import { vArtikli, CRUD_URL_CREATE, CRUD_URL_EDIT } from '../../../../config';
 
 type Props = {
+  history: ReactRouterHistory,
+  basePath: string,
   vArtikl: string,
   fetching: string,
   data: Array<ArtMainListItemProps>,
@@ -27,10 +35,13 @@ type Props = {
   setFilterText: string => void,
   setFilterSelect: string => void,
   fetchData: number => void,
+  doDelete: number => void,
 };
 
 const DashboardComponent = (props: Props) => {
   const {
+    history,
+    basePath,
     vArtikl,
     fetching,
     data,
@@ -42,10 +53,13 @@ const DashboardComponent = (props: Props) => {
     setFilterText,
     setFilterSelect,
     fetchData,
+    doDelete,
   } = props;
 
-  const [t] = useTranslation('art');
-  const [tCommon] = useTranslation('common');
+  const [isOpen, setIsOpen] = useState(false);
+  const [deleteId, setDeleteId] = useState(0);
+
+  const [t] = useTranslation(['art', 'common']);
 
   const doFetchData = (page: number) => fetchData(page);
 
@@ -80,17 +94,23 @@ const DashboardComponent = (props: Props) => {
   }, []);
 
   const handleEditButtonClick = (item: ArtMainListItemProps) => () => {
-    // eslint-disable-next-line no-console
-    console.log('...edit:', item);
+    history.push(`${basePath}/${CRUD_URL_EDIT}/${item.id}`);
   };
 
   const handleDeleteButtonClick = (id: number) => () => {
-    // eslint-disable-next-line no-console
-    console.log('...delete:', id);
+    setDeleteId(id);
+    setIsOpen(true);
   };
 
+  const handleDeleteConfirm = useCallback(() => {
+    setIsOpen(false);
+    if (doDelete) {
+      doDelete(deleteId);
+    }
+  }, [deleteId]);
+
   const renderDescription = (item: PaginationDescriptionProps) =>
-    tCommon('dashPagingDescription', item);
+    t('common:dashPagingDescription', item);
 
   const navTabs = vArtikli.map(item => ({
     key: item,
@@ -116,42 +136,67 @@ const DashboardComponent = (props: Props) => {
     },
   ];
 
+  const renderHeaderButtons = useCallback(() => {
+    const parts = [`${basePath}/${CRUD_URL_CREATE}/${vArtikl}`];
+    if (filterSelect && parseInt(filterSelect, 10) > 0) {
+      parts.push(filterSelect);
+    }
+    return (
+      <Link to={parts.join('/')} primary>
+        {t('artMain.createButtonTitle')}
+      </Link>
+    );
+  }, [vArtikl, filterSelect]);
+
   return (
-    <FlexColumn>
-      <FlexColumnItem>
-        <NavTab
-          tabs={navTabs}
-          selectedTab={vArtikl}
-          onItemClick={handleNavTabItemClick}
-        />
-      </FlexColumnItem>
-      <FlexColumnItem>
-        <SelectSearchFilterBar
-          labelSelect="labelSelect"
-          labelText="labelText"
-          selectOptions={selectOptions}
-          filterSelect={filterSelect}
-          setSelectFilter={handleFilterSelectChange}
-          filterText={filterText}
-          setFilterText={handleSearchBoxChange}
-          clearFilterText={handleSearchBoxClear}
-        />
-      </FlexColumnItem>
-      <FlexColumnItem>
-        <Pagination
-          paging={paging}
-          fetching={fetching}
-          onClick={handlePaginationClick}
-          renderDescription={renderDescription}
-        />
-      </FlexColumnItem>
-      <FlexColumnItem flex scroll>
-        <FetchWrapper fetching={fetching}>
-          <Table striped columns={tableColumns} data={data} />
-        </FetchWrapper>
-      </FlexColumnItem>
-    </FlexColumn>
+    <Page>
+      <PageHeader
+        title={t('artMain.dahboardTitle')}
+        renderButtons={renderHeaderButtons}
+      />
+      <PageContent>
+        <FlexColumn>
+          <FlexColumnItem>
+            <NavTab
+              tabs={navTabs}
+              selectedTab={vArtikl}
+              onItemClick={handleNavTabItemClick}
+            />
+          </FlexColumnItem>
+          <FlexColumnItem>
+            <SelectSearchFilterBar
+              labelSelect={t('artMain.dashboardSelectGroups')}
+              labelText={t('artMain.dashboardTextPlaceholder')}
+              selectOptions={selectOptions}
+              filterSelect={filterSelect}
+              setSelectFilter={handleFilterSelectChange}
+              filterText={filterText}
+              setFilterText={handleSearchBoxChange}
+              clearFilterText={handleSearchBoxClear}
+            />
+          </FlexColumnItem>
+          <FlexColumnItem>
+            <Pagination
+              paging={paging}
+              fetching={fetching}
+              onClick={handlePaginationClick}
+              renderDescription={renderDescription}
+            />
+          </FlexColumnItem>
+          <FlexColumnItem flex scroll>
+            <FetchWrapper fetching={fetching}>
+              <Table striped columns={tableColumns} data={data} />
+            </FetchWrapper>
+          </FlexColumnItem>
+        </FlexColumn>
+      </PageContent>
+      <ConfirmDialog
+        isOpen={isOpen}
+        onDismiss={() => setIsOpen(false)}
+        onConfirm={handleDeleteConfirm}
+      />
+    </Page>
   );
 };
 
-export default DashboardComponent;
+export default withRouter(DashboardComponent);

@@ -12,6 +12,7 @@ import {
   setArtMainDashVArtikl,
   setArtMainDashFilterText,
   setArtMainDashFilterSelect,
+  deleteArtMainFormData,
 } from '../../../../store';
 
 const mapStateToProps = state => ({
@@ -29,6 +30,7 @@ const mapDispatchToProps = {
   setFilterText: setArtMainDashFilterText,
   setFilterSelect: setArtMainDashFilterSelect,
   fetchData: fetchArtMainDashData,
+  doDelete: deleteArtMainFormData,
 };
 
 export default connect(

@@ -1,57 +1,31 @@
-import React, { useState, useCallback } from 'react';
-import { useTranslation } from 'react-i18next';
-import {
-  Page,
-  PageHeader,
-  PageContent,
-  PrimaryButton,
-} from '@newtash/react-app-core';
+// @flow
+import React from 'react';
+import { withRouter, Switch, Route } from 'react-router-dom';
 import Dashboard from './Dashboard';
-import Form from './Form';
-import {
-  CRUD_URL_CREATE,
-  CRUD_URL_EDIT,
-  // CRUD_URL_VIEW,
-} from '../../../config';
+import { CreateForm, EditForm } from './Form';
+import { CRUD_URL_CREATE, CRUD_URL_EDIT } from '../../../config';
 
-const ArtMainPage = () => {
-  const { t } = useTranslation('art');
+type Props = {
+  match: ReactRouterMatch,
+};
 
-  const [route, setRoute] = useState('');
-
-  const renderHeaderButtons = useCallback(() => {
-    switch (route) {
-      case CRUD_URL_CREATE:
-      case CRUD_URL_EDIT:
-        return (
-          <PrimaryButton
-            text={t('formButtonBack')}
-            onClick={() => setRoute('')}
-          />
-        );
-      default:
-        return (
-          <PrimaryButton
-            text={t('artMain.createButtonTitle')}
-            onClick={() => setRoute('create')}
-          />
-        );
-    }
-  });
+const ArtMainPage = (props: Props) => {
+  const { match } = props;
+  const { url: basePath } = match;
 
   return (
-    <Page>
-      <PageHeader
-        title={t('artMain.dahboardTitle')}
-        renderButtons={renderHeaderButtons}
+    <Switch>
+      <Route
+        path={`${basePath}/${CRUD_URL_CREATE}/:vArtikl/:grpId?`}
+        component={CreateForm}
       />
-      <PageContent>
-        {!route && <Dashboard />}
-        {route === CRUD_URL_CREATE && <Form />}
-        {route === CRUD_URL_EDIT && <Form />}
-      </PageContent>
-    </Page>
+      <Route
+        path={`${basePath}/${CRUD_URL_EDIT}/:artId`}
+        component={EditForm}
+      />
+      <Route path={basePath} render={() => <Dashboard basePath={basePath} />} />
+    </Switch>
   );
 };
 
-export default ArtMainPage;
+export default withRouter(ArtMainPage);

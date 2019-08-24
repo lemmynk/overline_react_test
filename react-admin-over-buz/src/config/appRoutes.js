@@ -10,8 +10,6 @@ export const HOME = {
   title: 'Home',
   url: '/',
   icon: 'home',
-  role: USER_ROLE_ALL,
-  component: 'DashboardPage',
 };
 
 export const ART_MAIN = {
