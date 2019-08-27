@@ -1,4 +1,5 @@
 import { connect } from 'react-redux';
+import { selectAppConfigValue } from '@newtash/react-app-core';
 import DashboardComponent from './DashboardComponent';
 import {
   selectArtMainDashVArtikl,
@@ -12,7 +13,7 @@ import {
   setArtMainDashVArtikl,
   setArtMainDashFilterText,
   setArtMainDashFilterSelect,
-  deleteArtMainFormData,
+  selectArtPdvDefault,
 } from '../../../../store';
 
 const mapStateToProps = state => ({
@@ -23,6 +24,8 @@ const mapStateToProps = state => ({
   filterText: selectArtMainDashFilterText(state),
   filterSelect: selectArtMainDashFilterSelect(state),
   artGroups: selectArtGroupSelectOptions(state),
+  getConfigValue: selectAppConfigValue(state),
+  defaultPdv: selectArtPdvDefault(state),
 });
 
 const mapDispatchToProps = {
@@ -30,7 +33,6 @@ const mapDispatchToProps = {
   setFilterText: setArtMainDashFilterText,
   setFilterSelect: setArtMainDashFilterSelect,
   fetchData: fetchArtMainDashData,
-  doDelete: deleteArtMainFormData,
 };
 
 export default connect(

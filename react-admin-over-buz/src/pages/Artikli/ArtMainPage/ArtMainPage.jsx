@@ -1,31 +1,39 @@
 // @flow
 import React from 'react';
-import { withRouter, Switch, Route } from 'react-router-dom';
+// import { useTranslation } from 'react-i18next';
+// import { Page, PageHeader, PageContent, Button } from '@newtash/react-app-core';
 import Dashboard from './Dashboard';
-import { CreateForm, EditForm } from './Form';
-import { CRUD_URL_CREATE, CRUD_URL_EDIT } from '../../../config';
 
-type Props = {
-  match: ReactRouterMatch,
-};
+// type Props = {
+// };
 
-const ArtMainPage = (props: Props) => {
-  const { match } = props;
-  const { url: basePath } = match;
+const ArtMainPage = () => {
+  // const [t] = useTranslation(['art', 'common']);
+
+  const handleCreateButtonClick = (item: ArtMainFormDataProps) => {
+    // eslint-disable-next-line no-console
+    console.log('...create:', item);
+  };
+
+  const handleEditButtonClick = (item: ArtMainFormDataProps) => () => {
+    // eslint-disable-next-line no-console
+    console.log('...edit:', item);
+  };
+
+  const handleDeleteButtonClick = (id: number) => () => {
+    // eslint-disable-next-line no-console
+    console.log('...delete:', id);
+  };
 
   return (
-    <Switch>
-      <Route
-        path={`${basePath}/${CRUD_URL_CREATE}/:vArtikl/:grpId?`}
-        component={CreateForm}
+    <>
+      <Dashboard
+        onCreate={handleCreateButtonClick}
+        onEdit={handleEditButtonClick}
+        onDelete={handleDeleteButtonClick}
       />
-      <Route
-        path={`${basePath}/${CRUD_URL_EDIT}/:artId`}
-        component={EditForm}
-      />
-      <Route path={basePath} render={() => <Dashboard basePath={basePath} />} />
-    </Switch>
+    </>
   );
 };
 
-export default withRouter(ArtMainPage);
+export default ArtMainPage;
