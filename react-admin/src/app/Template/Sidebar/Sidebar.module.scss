@@ -1,0 +1,23 @@
+.sidebarContent {
+  position: relative;
+  height: 100%;
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.linksArea {
+  flex: 1;
+}
+
+.linksScroll {
+  height: 100%;
+  width: 100%;
+
+  // overflow-y: auto;
+}
+
+.settingsArea {
+  flex: 0 0 auto;
+}

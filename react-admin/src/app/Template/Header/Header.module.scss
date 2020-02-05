@@ -1,0 +1,27 @@
+@import '@newtash/styles/utils.scss';
+
+.header {
+  position: relative;
+  height: 100%;
+  padding: 0 var(--gutter);
+
+  display: flex;
+  flex-direction: row;
+}
+
+.toggleArea {
+  flex: 0 0 auto;
+
+  @include desktop() {
+    display: none;
+  }
+}
+
+.navArea {
+  flex: 1;
+}
+
+.avatarArea {
+  flex: 0 0 auto;
+  margin-left: var(--gutter);
+}

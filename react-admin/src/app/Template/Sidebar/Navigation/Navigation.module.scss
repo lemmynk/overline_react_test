@@ -1,0 +1,32 @@
+.navLink {
+  position: relative;
+  width: 100%;
+  text-align: center;
+
+  &:hover {
+    background: var(--hover);
+  }
+
+  > a {
+    text-decoration: none;
+    color: inherit;
+  }
+}
+
+.linkGroup {
+  position: relative;
+  width: 100%;
+  text-align: center;
+
+  &:hover {
+    background: var(--hover);
+  }
+}
+
+.active {
+  background: var(--hover);
+}
+
+.iconArea {
+  padding: calc(0.75 * var(--gutter)) 0;
+}

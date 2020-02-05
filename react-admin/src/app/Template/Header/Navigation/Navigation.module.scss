@@ -1,0 +1,40 @@
+.navigation {
+  position: relative;
+  height: 100%;
+
+  list-style: none;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.navItem {
+  height: 100%;
+  padding: 0 var(--gutter);
+  cursor: pointer;
+
+  &:hover {
+    background: var(--hover);
+  }
+
+  > a {
+    text-decoration: none;
+    color: inherit;
+  }
+}
+
+.active {
+  background: var(--hover);
+}
+
+.navItemArea {
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.iconArea {
+  margin-right: calc(0.5 * var(--gutter));
+}

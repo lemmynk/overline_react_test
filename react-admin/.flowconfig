@@ -1,0 +1,24 @@
+[ignore]
+; .*/node_modules/polished/lib/mixins/radialGradient.js.flow
+.*/node_modules/redux-persist/lib/persistReducer.js.flow
+
+[include]
+
+[libs]
+./types/react-router.flow.js
+./types/factories.flow.js
+./types/index.flow.js
+./types/template.flow.js
+./types/components.flow.js
+
+[lints]
+
+[options]
+module.name_mapper='.+\.s?css' -> 'empty/object'
+module.system=haste
+esproposal.decorators=ignore
+
+[strict]
+
+[version]
+^0.117.0
