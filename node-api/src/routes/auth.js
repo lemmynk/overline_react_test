@@ -1,4 +1,5 @@
 const express = require('express');
+const ctrl = require('../controllers/auth/authController');
 // const { decoder, queryString, devCredentials } = require('../utils');
 
 const router = express.Router();
@@ -10,21 +11,11 @@ router.get('/', (req, res) => {
 /**
  * 1. Render Login screen
  */
-router.get('/login', (req, res, errors) => {
-  const { authUrl } = req.urls;
-  const action = `${authUrl}/login`;
-  // const creds = devCredentials();
-  // res.render('signin', { action, errors, ...creds });
-  res.render('signin', { action, errors });
-});
+router.get('/login', ctrl.renderLoginForm);
 
 /**
  * 2. Process Login screen
  */
-router.post('/login', (req, res) => {
-  const { body } = req;
-
-  res.json(body);
-});
+router.post('/login', ctrl.handleLoginFormSubmit);
 
 module.exports = router;

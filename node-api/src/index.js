@@ -26,15 +26,15 @@ const authUrl = process.env.AUTH_URL;
 // const pkceUrl = process.env.PKCE_URL;
 
 // Attach url(s) to request
-// app.use((req, res, next) => {
-//   req.urls = {
-//     apiUrl,
-//     adminUrl,
-//     authUrl,
-//     pkceUrl,
-//   };
-//   next();
-// });
+app.use((req, res, next) => {
+  req.urls = {
+    // apiUrl,
+    // adminUrl,
+    authUrl,
+    // pkceUrl,
+  };
+  next();
+});
 
 // CORS
 // app.use(cors());

@@ -1,0 +1,34 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "pdvStopa": 1800,
+      "pdvOpis": "Општа стопа пореза",
+      "isDefault": 1,
+      "fisPdv": 4,
+      "createdAt": "2019-07-27 13:34:56",
+      "updatedAt": "2019-07-27 13:34:56",
+      "deletedAt": null
+    },
+    {
+      "id": 2,
+      "pdvStopa": 800,
+      "pdvOpis": "Посебна стопа пореза",
+      "isDefault": 0,
+      "fisPdv": 5,
+      "createdAt": "2019-07-27 13:34:56",
+      "updatedAt": "2019-07-27 13:34:56",
+      "deletedAt": null
+    },
+    {
+      "id": 3,
+      "pdvStopa": 0,
+      "pdvOpis": "Ослобођено пореза",
+      "isDefault": 0,
+      "fisPdv": 2,
+      "createdAt": "2019-07-27 13:34:56",
+      "updatedAt": "2019-07-27 13:34:56",
+      "deletedAt": null
+    }
+  ]
+}

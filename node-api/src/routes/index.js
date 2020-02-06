@@ -1,15 +1,15 @@
 const express = require('express');
 const uuid4 = require('uuid4');
-const { encryptSync, decryptSync, generateToken } = require('../utils');
+const { decoder, tokenizer } = require('../utils');
 
 const router = express.Router();
 
 router.get('/', (req, res) => {
   const uuid = uuid4();
-  const encrypted = encryptSync('whatever');
-  const decrypted = decryptSync(encrypted);
+  const encrypted = decoder.encryptSync('whatever');
+  const decrypted = decoder.decryptSync(encrypted);
 
-  generateToken({ uuid }).then(response => {
+  tokenizer.generateToken({ uuid }).then(response => {
     res.json({ uuid, encrypted, decrypted, ...response });
   });
   // res.render('index');
