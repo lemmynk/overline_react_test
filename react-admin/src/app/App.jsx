@@ -4,6 +4,7 @@ import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/lib/integration/react';
+import AuthEntry from './Auth';
 import AppLayout from './Template/AppLayout';
 import storeFactory from './storeFactory';
 import Router from '../router/Router';
@@ -18,13 +19,15 @@ const App = () => (
   <Provider store={store}>
     <PersistGate persistor={persistor}>
       <BrowserRouter>
-        <AppLayout
-          renderSidebar={renderSidebar}
-          renderHeader={renderHeader}
-          renderFooter={renderFooter}
-        >
-          <Router />
-        </AppLayout>
+        <AuthEntry>
+          <AppLayout
+            renderSidebar={renderSidebar}
+            renderHeader={renderHeader}
+            renderFooter={renderFooter}
+          >
+            <Router />
+          </AppLayout>
+        </AuthEntry>
       </BrowserRouter>
     </PersistGate>
   </Provider>

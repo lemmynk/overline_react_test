@@ -1,13 +1,15 @@
-export const DO_AUTHENTICATION = '@newtash/react-app/DO_AUTHENTICATION';
-export const DO_REFRESH_TOKEN = '@newtash/react-app/DO_REFRESH_TOKEN';
-export const DO_LOGOUT = '@newtash/react-app/DO_LOGOUT';
+import { NS } from '../reduxState';
 
-export const SET_ACCESS_TOKEN = '@newtash/react-app/SET_ACCESS_TOKEN';
-export const CLEAR_ACCESS_TOKEN = '@newtash/react-app/CLEAR_ACCESS_TOKEN';
-export const SET_REFRESH_TOKEN = '@newtash/react-app/SET_REFRESH_TOKEN';
-export const CLEAR_REFRESH_TOKEN = '@newtash/react-app/CLEAR_REFRESH_TOKEN';
-export const SET_EXPIRES_AT = '@newtash/react-app/SET_EXPIRES_AT';
-export const CLEAR_EXPIRES_AT = '@newtash/react-app/CLEAR_EXPIRES_AT';
+export const DO_AUTHENTICATION = `${NS}/DO_AUTHENTICATION`;
+export const DO_REFRESH_TOKEN = `${NS}/DO_REFRESH_TOKEN`;
+export const DO_LOGOUT = `${NS}/DO_LOGOUT`;
+
+export const SET_ACCESS_TOKEN = `${NS}/SET_ACCESS_TOKEN`;
+export const CLEAR_ACCESS_TOKEN = `${NS}/CLEAR_ACCESS_TOKEN`;
+export const SET_REFRESH_TOKEN = `${NS}/SET_REFRESH_TOKEN`;
+export const CLEAR_REFRESH_TOKEN = `${NS}/CLEAR_REFRESH_TOKEN`;
+export const SET_EXPIRES_AT = `${NS}/SET_EXPIRES_AT`;
+export const CLEAR_EXPIRES_AT = `${NS}/CLEAR_EXPIRES_AT`;
 
 export const doAuthentication = handshakeCode => ({
   type: DO_AUTHENTICATION,

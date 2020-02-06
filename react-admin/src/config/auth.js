@@ -7,3 +7,4 @@ export const APP_CONFIG_PAGE_PATH = '/app-config';
 // If set to more than 25 days it fires immediatelly
 export const MAX_TIMEOUT_INTERVAL = 24 * 60 * 60;
 export const RENEW_TIMEOUT_BUFFER = 10;
+export const TOKEN_BUFFER = 5;

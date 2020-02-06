@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect';
-import { reduxState } from '../../config';
+import reduxState from '../reduxState';
 import { isExpired } from '../../utils';
 
 const { AUTH } = reduxState;
