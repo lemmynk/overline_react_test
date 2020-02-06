@@ -1,4 +1,5 @@
 const express = require('express');
+// const { decoder, queryString, devCredentials } = require('../utils');
 
 const router = express.Router();
 
@@ -9,16 +10,12 @@ router.get('/', (req, res) => {
 /**
  * 1. Render Login screen
  */
-router.get('/login', (req, res) => {
-  const params =
-    process.env.ENVIRONMENT === 'development'
-      ? {
-          username: process.env.DEV_USERNAME,
-          password: process.env.DEV_PASSWORD,
-        }
-      : {};
-
-  res.render('signin', params);
+router.get('/login', (req, res, errors) => {
+  const { authUrl } = req.urls;
+  const action = `${authUrl}/login`;
+  // const creds = devCredentials();
+  // res.render('signin', { action, errors, ...creds });
+  res.render('signin', { action, errors });
 });
 
 /**

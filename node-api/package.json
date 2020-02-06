@@ -4,7 +4,7 @@
   "description": "OVER.buz NodeJS Api",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon --exec babel-node bin/api",
+    "start": "nodemon -r esm bin/api",
     "debug": "nodemon --exec babel-node debug.js",
     "knex": "./node_modules/.bin/knex",
     "pretest": "eslint --ignore-path .gitignore ."
@@ -24,27 +24,26 @@
   "eslint": {
     "packageManager": "yarn"
   },
+  "dependencies": {
+    "bcrypt": "^3.0.8",
+    "body-parser": "^1.19.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "morgan": "^1.9.1",
+    "nodemod": "^2.3.0",
+    "pug": "^2.0.4",
+    "query-string": "^6.10.1",
+    "uuid4": "^1.1.4"
+  },
   "devDependencies": {
-    "@babel/core": "^7.8.4",
-    "@babel/node": "^7.8.4",
-    "@babel/preset-env": "^7.8.4",
-    "core-js": "^3.6.4",
     "eslint": "^6.8.0",
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-config-prettier": "^6.10.0",
     "eslint-plugin-import": "^2.20.1",
     "eslint-plugin-prettier": "^3.1.2",
+    "esm": "^3.2.25",
     "nodemon": "^2.0.2",
     "prettier": "^1.19.1"
-  },
-  "dependencies": {
-    "body-parser": "^1.19.0",
-    "dotenv": "^8.2.0",
-    "express": "^4.17.1",
-    "knex": "^0.20.8",
-    "morgan": "^1.9.1",
-    "mysql": "^2.18.1",
-    "pug": "^2.0.4",
-    "uuid4": "^1.1.4"
   }
 }

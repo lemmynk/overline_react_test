@@ -3,6 +3,7 @@ const path = require('path');
 const logger = require('morgan');
 // const cors = require('cors');
 const bodyParser = require('body-parser');
+const { apiErrorHandler } = require('./errors');
 
 const app = express();
 
@@ -78,22 +79,6 @@ const errorLogger = (err, req, res, next) => {
 };
 app.use(errorLogger);
 
-// ERROR HANDLER
-const errorHandler = (err, req, res) => {
-  // set locals, only providing error in development
-  // res.locals.message = err.message
-  // res.locals.error = req.app.get('env') === 'development' ? err : {}
-
-  res.status(err.status || 500);
-  // if (err instanceof ValidationError) {
-  //   res.json(err.message);
-  // } else
-  if (process.env.ENVIRONMENT === 'production') {
-    res.end();
-  } else {
-    res.json({ error: err.message });
-  }
-};
-app.use(errorHandler);
+app.use(apiErrorHandler);
 
 module.exports = app;
