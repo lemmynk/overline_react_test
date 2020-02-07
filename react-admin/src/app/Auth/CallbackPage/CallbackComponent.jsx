@@ -11,9 +11,10 @@ type Props = {
 
 const CallbackComponent = (props: Props) => {
   const { history, isAuthenticated, redirectUrl, doAuthentication } = props;
+  const { location } = history || {};
 
   useEffect(() => {
-    const { hash } = history.location;
+    const { hash } = location;
     // Strip-out the code
     let code = decodeURIComponent(hash);
     if (code.indexOf('code=') > -1) {
@@ -25,7 +26,7 @@ const CallbackComponent = (props: Props) => {
     }
 
     doAuthentication(code);
-  }, []);
+  }, [location, doAuthentication]);
 
   if (!isAuthenticated) {
     return <div>...loading...</div>;

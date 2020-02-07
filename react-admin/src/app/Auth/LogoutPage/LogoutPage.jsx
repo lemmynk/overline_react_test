@@ -13,7 +13,7 @@ const LogoutPage = (props: Props) => {
     if (doLogout) {
       doLogout();
     }
-  }, []);
+  }, [doLogout]);
 
   return <Redirect to="/" />;
 };

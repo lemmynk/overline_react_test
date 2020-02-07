@@ -28,7 +28,7 @@ const AppRoute = (props: Props) => {
       return <Redirect to={LOGIN_PAGE_PATH} />;
     }
     return <AppComponent />;
-  }, []);
+  }, [isAuthenticated, path]);
 
   if (!isAuthenticated && setAppRedirectUrl) {
     setAppRedirectUrl(path);

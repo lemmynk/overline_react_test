@@ -22,10 +22,9 @@ const AuthEntry = (props: Props) => {
 
   const authLoginUrl = `${authUrl()}/login`;
 
-  const renderLoginPage = useCallback(
-    () => <LoginPage url={authLoginUrl} />,
-    [],
-  );
+  const renderLoginPage = useCallback(() => <LoginPage url={authLoginUrl} />, [
+    authLoginUrl,
+  ]);
 
   const renderLogoutPage = useCallback(() => <LogoutPage />, []);
 
