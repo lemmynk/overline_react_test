@@ -6,7 +6,6 @@ import LanguageDetector from 'i18next-browser-languagedetector';
 
 const debug = false;
 
-// const loadPath = `${process.env.REACT_APP_I18N_URL}/{{lng}}`;
 const loadPath = '/locales/{{lng}}/{{ns}}.json';
 const addPath = `${process.env.REACT_APP_I18N_URL}/{{lng}}`;
 const saveMissing = process.env.REACT_APP_I18N_SAVE_MISSING === true;
