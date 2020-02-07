@@ -4,7 +4,7 @@
   "description": "OVER.buz NodeJS Api",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon -r esm bin/api",
+    "start": "nodemon bin/api",
     "debug": "nodemon --exec babel-node debug.js",
     "knex": "./node_modules/.bin/knex",
     "pretest": "eslint --ignore-path .gitignore ."

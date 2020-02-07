@@ -32,7 +32,8 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build"
+    "build": "react-scripts build",
+    "scp": "scp -r ./build zoran@newtash.uk:/home/zoran/code/newtash.uk"
   },
   "browserslist": {
     "production": [
