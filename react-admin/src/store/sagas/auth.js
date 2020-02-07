@@ -12,10 +12,7 @@ import {
   addAppError,
 } from '../actions';
 import { selectRefreshToken } from '../selectors';
-import {
-  authApiInstance,
-  dispatchRenewTokenIn,
-} from '../../factories/apiFactory';
+import { authApiInstance, dispatchRenewTokenIn } from '../api';
 import { buildChallenge, encryptSync, isWithApi, expiresAt } from '../../utils';
 
 /*

@@ -1,7 +1,7 @@
 const express = require('express');
 const path = require('path');
 const logger = require('morgan');
-// const cors = require('cors');
+const cors = require('cors');
 const bodyParser = require('body-parser');
 const { apiErrorHandler } = require('./errors');
 
@@ -37,9 +37,10 @@ app.use((req, res, next) => {
 });
 
 // CORS
-// app.use(cors());
+app.use(cors());
 
-app.use(authUrl, require('./routes/auth'));
+app.use(authUrl, require('./routes/auth/index'));
+app.use(`${authUrl}/debug`, require('./routes/auth/debug'));
 
 // NO CORS
 

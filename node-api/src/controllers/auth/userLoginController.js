@@ -1,16 +1,25 @@
+/*
+ |----------------------------------------------------------
+ | USER LOGIN CONTROLLER
+ |----------------------------------------------------------
+ | Controller responsible for login routes
+ |  - render login page
+ |  - process form submit
+ */
 const queryString = require('query-string');
 const User = require('../../models/User');
 const AuthFlow = require('../../models/AuthFlow');
-const { env, decoder } = require('../../utils');
+const { env, decoder, tools } = require('../../utils');
 const { UnauthorizedUserError } = require('../../errors');
 
 /**
  * Render Login form
  */
-const renderLoginForm = (req, res, errors) => {
+const renderLoginForm = (req, res, withErrors) => {
   const { authUrl } = req.urls;
   const action = `${authUrl}/login`;
   const creds = env.devCredentials();
+  const errors = tools.isArray(withErrors) ? withErrors : undefined;
   res.render('signin', { action, errors, ...creds });
 };
 
@@ -28,6 +37,7 @@ const handleLoginFormSubmit = (req, res, next) => {
       return AuthFlow.create({ authCode, handshakeCode, userUuid });
     })
     .then(flow => decoder.encrypt(flow.handshakeCode))
+    // .then(code => res.json({ code }))
     .then(code => {
       const redirectUrl = process.env.REDIRECT_URL;
       const query = queryString.stringify({ code });

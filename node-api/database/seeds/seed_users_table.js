@@ -1,4 +1,4 @@
-const { utils } = require('@newtash/node-api-core');
+const decoder = require('../decoder');
 
 exports.seed = knex => {
   // Truncate ALL existing entries
@@ -6,7 +6,7 @@ exports.seed = knex => {
     .truncate()
     .then(() => {
       const dataPera = {
-        uuid: utils.decoder.uuid(),
+        uuid: decoder.uuid(),
         username: 'pera',
         firstName: 'Pera',
         lastName: 'Zdera',
@@ -15,7 +15,7 @@ exports.seed = knex => {
         createdAt: knex.raw('NOW()'),
       };
       const dataAdmin = {
-        uuid: utils.decoder.uuid(),
+        uuid: decoder.uuid(),
         username: 'admin',
         firstName: 'Admin',
         lastName: '',
@@ -24,7 +24,7 @@ exports.seed = knex => {
         createdAt: knex.raw('NOW()'),
       };
       const dataDemo = {
-        uuid: utils.decoder.uuid(),
+        uuid: decoder.uuid(),
         username: 'demo',
         firstName: 'Demo',
         lastName: '',
@@ -33,18 +33,18 @@ exports.seed = knex => {
         createdAt: knex.raw('NOW()'),
       };
 
-      return utils.decoder
+      return decoder
         .passwordHash('zdera')
         .then(hash => {
           dataPera.password = hash;
           return knex('users').insert([dataPera]);
         })
-        .then(() => utils.decoder.passwordHash('admin'))
+        .then(() => decoder.passwordHash('admin'))
         .then(hash => {
           dataAdmin.password = hash;
           return knex('users').insert([dataAdmin]);
         })
-        .then(() => utils.decoder.passwordHash('demo'))
+        .then(() => decoder.passwordHash('demo'))
         .then(hash => {
           dataDemo.password = hash;
           return knex('users').insert([dataDemo]);

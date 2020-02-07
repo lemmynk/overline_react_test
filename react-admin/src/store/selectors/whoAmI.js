@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
+import reduxState from '../reduxState';
 import {
-  reduxState,
   hasRoleCheck,
   USER_ROLE_DEFAULT,
   USER_ROLE_DEVELOPER,
@@ -27,15 +27,12 @@ const isLinkAllowed = (userRole, link) =>
   link.role ? hasRoleCheck(link.role, userRole) : true;
 
 export const selectFilteredLinksByRole = links =>
-  createSelector(
-    [selectWhoAmIRole],
-    userRole => {
-      if (!userRole) {
-        return links;
-      }
-      return links.filter(link => isLinkAllowed(userRole, link));
-    },
-  );
+  createSelector([selectWhoAmIRole], userRole => {
+    if (!userRole) {
+      return links;
+    }
+    return links.filter(link => isLinkAllowed(userRole, link));
+  });
 
 const selectRouteRole = (state, props) => props.role;
 

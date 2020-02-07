@@ -1,7 +1,7 @@
 const env = require('./env');
 const decoder = require('./decoder');
 const tokenizer = require('./tokenizer');
-const object = require('./object');
+const tools = require('./tools');
 
 const Challenger = require('./challenger');
 
@@ -9,6 +9,6 @@ module.exports = {
   env,
   decoder,
   tokenizer,
-  object,
+  tools,
   Challenger,
 };

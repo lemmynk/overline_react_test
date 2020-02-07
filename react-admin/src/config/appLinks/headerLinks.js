@@ -1,6 +1,6 @@
-// import {  } from '../appRoutes';
+import { LOGOUT } from '../appRoutes';
 
-const links = [];
+const links = [LOGOUT];
 
 export const headerWebLinks = links;
 export const headerAppLinks = links;
