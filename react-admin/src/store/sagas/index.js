@@ -5,6 +5,7 @@ import appConfigSagas from './appConfig';
 import authSagas from './auth';
 
 import artPdvSagas from './artPdv';
+import artGrupaSagas from './artGrupa';
 
 function* watchAndLog() {
   while (true) {
@@ -28,5 +29,7 @@ export const allSagas = [
   ...appSagas,
   ...authSagas,
   ...appConfigSagas,
+
   ...artPdvSagas,
+  ...artGrupaSagas,
 ];

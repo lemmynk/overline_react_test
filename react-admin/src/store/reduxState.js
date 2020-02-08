@@ -8,6 +8,7 @@ const reduxState = {
   ERRORS: `${NS}/errors`,
 
   ART_PDV: `${NS}/artPdv`,
+  ART_GRUPA: `${NS}/artGrupa`,
 };
 
 export const blacklist = [`${NS}/errors`, `${NS}/app`];

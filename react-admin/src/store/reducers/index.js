@@ -5,9 +5,19 @@ import appConfigReducer from './appConfig';
 import authReducer from './auth';
 import whoAmIReducer from './whoAmI';
 import errorsReducer from './errors';
-import artPdvReducer from './artPdv';
 
-const { APP, APP_CONFIG, AUTH, WHO_AM_I, ERRORS, ART_PDV } = reduxState;
+import artPdvReducer from './artPdv';
+import artGrupaReducer from './artGrupa';
+
+const {
+  APP,
+  APP_CONFIG,
+  AUTH,
+  WHO_AM_I,
+  ERRORS,
+  ART_PDV,
+  ART_GRUPA,
+} = reduxState;
 
 export default combineReducers({
   [APP]: appReducer,
@@ -17,4 +27,5 @@ export default combineReducers({
   [ERRORS]: errorsReducer,
 
   [ART_PDV]: artPdvReducer,
+  [ART_GRUPA]: artGrupaReducer,
 });

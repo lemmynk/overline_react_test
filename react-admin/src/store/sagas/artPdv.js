@@ -9,7 +9,7 @@ import { selectArtPdvVersion } from '../selectors';
 import { queryUrl } from '../../utils';
 import { apiInstance } from '../api';
 
-const fetchAppConfig = v =>
+const makeFetchArtPdvsRequest = v =>
   apiInstance
     .get(queryUrl('/art-pdv', { v }))
     .then(response => response.data)
@@ -22,7 +22,7 @@ function* fetchArtPdvsFlow() {
 
     const v = yield select(selectArtPdvVersion);
 
-    const { response, error } = yield fetchAppConfig(v);
+    const { response, error } = yield makeFetchArtPdvsRequest(v);
 
     if (response) {
       const { data, version } = response;

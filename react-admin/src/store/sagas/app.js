@@ -1,5 +1,10 @@
 import { take, put, all } from 'redux-saga/effects';
-import { DO_INIT_APP, doFetchAppConfig, fetchArtPdvs } from '../actions';
+import {
+  DO_INIT_APP,
+  doFetchAppConfig,
+  fetchArtPdvs,
+  fetchArtGroups,
+} from '../actions';
 
 function* appInitFlow() {
   while (true) {
@@ -8,7 +13,11 @@ function* appInitFlow() {
     // eslint-disable-next-line no-console
     console.log('...do init app...');
 
-    yield all([put(doFetchAppConfig()), put(fetchArtPdvs())]);
+    yield all([
+      put(doFetchAppConfig()),
+      put(fetchArtPdvs()),
+      put(fetchArtGroups()),
+    ]);
   }
 }
 

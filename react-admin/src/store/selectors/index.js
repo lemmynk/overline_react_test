@@ -5,3 +5,4 @@ export * from './auth';
 export * from './whoAmI';
 
 export * from './artPdv';
+export * from './artGrupa';
