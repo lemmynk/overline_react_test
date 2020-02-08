@@ -1,5 +1,6 @@
 // @flow
-import React from 'react';
+import React, { Suspense } from 'react';
+import SuspenseFallback from '@newtash/core/SuspenseFallback';
 import Navigation from './Navigation';
 import Settings from './Settings';
 import styles from './Sidebar.module.scss';
@@ -15,7 +16,9 @@ export default (props: RenderSidebarProps) => {
         </div>
       </div>
       <div className={styles.settingsArea}>
-        <Settings />
+        <Suspense fallback={<SuspenseFallback />}>
+          <Settings />
+        </Suspense>
       </div>
     </div>
   );

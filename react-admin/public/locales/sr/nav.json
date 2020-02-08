@@ -1,20 +1,4 @@
 {
   "Home": "Početna",
-  "Login": "Prijava",
-  "Theme": "Teme",
-  "PrivacyPolicy": "PrivacyPolicy",
-  "Page": "Page",
-  "Layout": "Layout",
-  "Buttons-Links": "Buttons-Links",
-  "Table": "Table",
-  "Messages": "Messages",
-  "Modal": "Modal Component",
-  "DatePicker": "DatePicker Component",
-  "Form": "Form Components",
-  "NavTab": "NavTab Component",
-  "Pagination": "Pagination Component",
-  "i18n": "i18n",
-  "Whoops403": "Not Authorised Page",
-  "Whoops404": "Page Not Found",
-  "ApiSelect": "ApiSelect Component"
+  "Settings": "Podešavanja"
 }

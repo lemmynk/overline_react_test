@@ -3,6 +3,7 @@ const path = require('path');
 const logger = require('morgan');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const middleware = require('./routes/middleware');
 const { apiErrorHandler } = require('./errors');
 
 const app = express();
@@ -20,18 +21,14 @@ app.set('view engine', 'pug');
 // ///////////////////////////////////////
 // /  ROUTING
 // ///////////////////////////////////////
-// const apiUrl = process.env.API_URL;
-// const adminUrl = process.env.ADMIN_URL;
+const apiUrl = process.env.API_URL;
 const authUrl = process.env.AUTH_URL;
-// const pkceUrl = process.env.PKCE_URL;
 
 // Attach url(s) to request
 app.use((req, res, next) => {
   req.urls = {
-    // apiUrl,
-    // adminUrl,
+    apiUrl,
     authUrl,
-    // pkceUrl,
   };
   next();
 });
@@ -39,12 +36,16 @@ app.use((req, res, next) => {
 // CORS
 app.use(cors());
 
+app.use('/', require('./routes/index'));
+
+// API ROUTES
+app.use(apiUrl, middleware.user);
+app.use(`${apiUrl}/users`, require('./routes/api/users'));
+app.use(`${apiUrl}/app-config`, require('./routes/api/appConfig'));
+
+// AUTH ROUTES
 app.use(authUrl, require('./routes/auth/index'));
 app.use(`${authUrl}/debug`, require('./routes/auth/debug'));
-
-// NO CORS
-
-app.use('/', require('./routes/index'));
 // ///////////////////////////////////////
 // /  END OF ROUTING
 // ///////////////////////////////////////

@@ -1,17 +1,12 @@
-export const DO_FETCH_APP_CONFIG = '@newtash/react-app/DO_FETCH_APP_CONFIG';
-export const DO_UPDATE_APP_CONFIG = '@newtash/react-app/DO_UPDATE_APP_CONFIG';
+import { NS } from '../reduxState';
 
-export const SET_APP_CONFIG = '@newtash/react-app/SET_APP_CONFIG';
-export const SET_APP_CONFIG_VERISON =
-  '@newtash/react-app/SET_APP_CONFIG_VERSION';
+export const DO_FETCH_APP_CONFIG = `${NS}/DO_FETCH_APP_CONFIG`;
+
+export const SET_APP_CONFIG = `${NS}/SET_APP_CONFIG`;
+export const SET_APP_CONFIG_VERISON = `${NS}/SET_APP_CONFIG_VERSION`;
 
 export const doFetchAppConfig = () => ({
   type: DO_FETCH_APP_CONFIG,
-});
-
-export const doUpdateAppConfig = (key, id, data) => ({
-  type: DO_UPDATE_APP_CONFIG,
-  payload: { key, id, data },
 });
 
 export const setAppConfig = config => ({

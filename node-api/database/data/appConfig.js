@@ -1,0 +1,32 @@
+module.exports = [
+  {
+    name: 'appLanguage',
+    valueType: 'string',
+    value: 'sr',
+    userSpecific: true,
+    description: 'User interface language',
+    createdAt: '2019-07-27T12:34:56.000Z',
+    updatedAt: '2019-07-27T12:34:56.000Z',
+    deletedAt: null,
+  },
+  {
+    name: 'defaultPagination',
+    valueType: 'number',
+    value: '50',
+    description: 'Default pagination length',
+    userSpecific: false,
+    createdAt: '2019-07-27T12:34:56.000Z',
+    updatedAt: '2019-07-27T12:34:56.000Z',
+    deletedAt: null,
+  },
+  {
+    name: 'artGroupSifraLength',
+    valueType: 'number',
+    value: '4',
+    userSpecific: false,
+    description: 'Default artMain sifra length',
+    createdAt: '2019-07-27T12:34:56.000Z',
+    updatedAt: '2019-07-27T12:34:56.000Z',
+    deletedAt: null,
+  },
+];

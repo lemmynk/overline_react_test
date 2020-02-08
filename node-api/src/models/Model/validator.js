@@ -16,6 +16,16 @@ const validator = {
       );
     }
   },
+
+  validateEnum: (model, params, prop, values) => {
+    const value = params[prop];
+    if (value && !values.includes(value)) {
+      model.addValidationError(
+        prop,
+        `${prop} must be one of [${values.join(',')}]`,
+      );
+    }
+  },
 };
 
 module.exports = validator;

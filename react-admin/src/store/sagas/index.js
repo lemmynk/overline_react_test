@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import { take } from 'redux-saga/effects';
 import appSagas from './app';
-// import appConfigSagas from './appConfig';
+import appConfigSagas from './appConfig';
 import authSagas from './auth';
 
 function* watchAndLog() {
@@ -22,6 +22,4 @@ function* watchAndLog() {
 }
 
 export const watchAndLogSagas = [watchAndLog];
-export const allSagas = [...appSagas, ...authSagas];
-// export const baseSagas = [...appSagas, ...authSagas];
-// export const withAuthSagas = [...appSagas, ...appConfigSagas, ...authSagas];
+export const allSagas = [...appSagas, ...authSagas, ...appConfigSagas];

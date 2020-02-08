@@ -4,5 +4,9 @@
   },
   "i18n": {
     "title": "Current language: {{lang}}"
+  },
+  "settings": {
+    "title": "Settings",
+    "description": "User configuration"
   }
 }

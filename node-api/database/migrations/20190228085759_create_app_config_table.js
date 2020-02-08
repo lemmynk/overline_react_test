@@ -4,13 +4,16 @@ exports.up = knex => {
       .unsigned()
       .primary();
 
-    t.string('key', 120)
+    t.string('name', 120)
       .notNullable()
       .index();
-    t.enum('type', ['string', 'number', 'boolean', 'json'])
+    t.enum('valueType', ['string', 'number', 'boolean', 'json'])
       .notNullable()
       .defaultTo('string');
     t.text('value').nullable();
+    t.boolean('userSpecific')
+      .notNullable()
+      .defaultTo(false);
     t.text('description').nullable();
 
     t.dateTime('createdAt').defaultTo(knex.fn.now());

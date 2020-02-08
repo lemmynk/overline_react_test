@@ -18,7 +18,7 @@ const Router = () => (
         />
       ))}
     <AppRoute path="/" exact component={pages.HomePage} />
-    <Route path="*" render={() => <div>...Ooops</div>} />
+    <Route path="*" component={pages.Whoops404Page} />
   </Switch>
 );
 

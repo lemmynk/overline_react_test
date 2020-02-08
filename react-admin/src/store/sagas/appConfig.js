@@ -1,18 +1,17 @@
 import { take, put, select, all } from 'redux-saga/effects';
 import {
   DO_FETCH_APP_CONFIG,
-  DO_UPDATE_APP_CONFIG,
   setAppConfig,
   setAppConfigVersion,
   addAppError,
 } from '../actions';
 import { selectAppConfigVersion } from '../selectors';
 import { queryUrl } from '../../utils';
-import { apiInstance } from '../../factories/apiFactory';
+import { apiInstance } from '../api';
 
 const fetchAppConfig = v =>
   apiInstance
-    .get(queryUrl('/app-config', { v }))
+    .get(queryUrl('/app-config/api', { v }))
     .then(response => response.data)
     .then(response => ({ response }))
     .catch(error => ({ error }));
@@ -28,13 +27,7 @@ function* fetchAppConfigFlow() {
     );
 
     if (response) {
-      const { data: responseData, version } = response;
-      const data = {};
-      responseData.forEach(item => {
-        const { id, key, type, value, description, deletedAt } = item;
-        const isDeleted = deletedAt !== null;
-        data[key] = { id, type, value, description, isDeleted };
-      });
+      const { data, version } = response;
       yield all([put(setAppConfig(data)), put(setAppConfigVersion(version))]);
     } else if (error) {
       yield put(addAppError(error));
@@ -42,24 +35,25 @@ function* fetchAppConfigFlow() {
   }
 }
 
-const updateAppConfig = (id, data) =>
-  apiInstance
-    .put(`/app-config/${id}`, data)
-    .then(response => response.data)
-    .then(response => ({ response }))
-    .catch(error => ({ error }));
+// const updateAppConfig = (id, data) =>
+//   apiInstance
+//     .put(`/app-config/${id}`, data)
+//     .then(response => response.data)
+//     .then(response => ({ response }))
+//     .catch(error => ({ error }));
 
-function* updateAppConfigFlow() {
-  while (true) {
-    const { payload } = yield take(DO_UPDATE_APP_CONFIG);
-    const { id, data } = payload;
+// function* updateAppConfigFlow() {
+//   while (true) {
+//     const { payload } = yield take(SET_APP_CONFIG);
+//     const { id, data } = payload;
 
-    const { error } = yield updateAppConfig(id, data);
+//     const { error } = yield updateAppConfig(id, data);
 
-    if (error) {
-      yield put(addAppError(error));
-    }
-  }
-}
+//     if (error) {
+//       yield put(addAppError(error));
+//     }
+//   }
+// }
 
-export default [fetchAppConfigFlow, updateAppConfigFlow];
+export default [fetchAppConfigFlow];
+// export default [fetchAppConfigFlow, updateAppConfigFlow];

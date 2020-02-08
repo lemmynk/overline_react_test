@@ -1,4 +1,4 @@
 const seeder = require('../config');
-const data = require('../config/appConfig');
+const data = require('../data/appConfig');
 
 exports.seed = knex => seeder(knex, 'app_config', data);

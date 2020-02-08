@@ -1,2 +1,3 @@
+export { Whoops403Page, Whoops404Page } from '../app/WhoopsPages';
 export { default as HomePage } from '../pages/HomePage';
-export { Whoops403Page, Whoops404Page } from '../pages/WhoopsPages';
+export { default as SettingsPage } from '../pages/SettingsPage';

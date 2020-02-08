@@ -88,7 +88,7 @@ const findAll = (model, req, queryParams = {}) => {
   const { query: reqQuery } = req;
   const query = { ...queryParams, ...reqQuery };
   const { page, v, version } = query;
-  if (v || version) {
+  if (typeof v !== 'undefined' || typeof version !== 'undefined') {
     return findAllByVersion(model, query);
   }
 
@@ -98,7 +98,7 @@ const findAll = (model, req, queryParams = {}) => {
 
   const finalQueryParams = { ...query, ...withoutDeletedParams };
 
-  if (page) {
+  if (typeof page !== 'undefined') {
     return findAllPaginated(model, finalQueryParams);
   }
   return baseFindAll(model, finalQueryParams);

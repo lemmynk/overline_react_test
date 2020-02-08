@@ -10,6 +10,15 @@ export const HOME = {
   component: 'HomePage',
 };
 
+export const SETTINGS = {
+  key: 'settings',
+  title: 'Settings',
+  url: '/settings',
+  icon: 'cog',
+  // role: USER_ROLE_ALL,
+  component: 'SettingsPage',
+};
+
 export const LOGOUT = {
   key: 'logout',
   title: 'Log Out',
@@ -20,4 +29,4 @@ export const LOGOUT = {
 };
 
 // List of routes to load by router
-export default [];
+export default [SETTINGS];

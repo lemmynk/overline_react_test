@@ -2,6 +2,7 @@ export const NS = '@newtash/core';
 
 const reduxState = {
   APP: `${NS}/app`,
+  APP_CONFIG: `${NS}/appConfig`,
   AUTH: `${NS}/auth`,
   WHO_AM_I: `${NS}/whoAmI`,
   ERRORS: `${NS}/errors`,
