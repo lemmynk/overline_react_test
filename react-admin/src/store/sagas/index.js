@@ -4,6 +4,8 @@ import appSagas from './app';
 import appConfigSagas from './appConfig';
 import authSagas from './auth';
 
+import artPdvSagas from './artPdv';
+
 function* watchAndLog() {
   while (true) {
     const action = yield take('*');
@@ -22,4 +24,9 @@ function* watchAndLog() {
 }
 
 export const watchAndLogSagas = [watchAndLog];
-export const allSagas = [...appSagas, ...authSagas, ...appConfigSagas];
+export const allSagas = [
+  ...appSagas,
+  ...authSagas,
+  ...appConfigSagas,
+  ...artPdvSagas,
+];

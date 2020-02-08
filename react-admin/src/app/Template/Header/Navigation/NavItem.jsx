@@ -3,7 +3,7 @@ import React, { Suspense } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import classNames from 'classnames';
 import SuspenseFallback from '@newtash/core/SuspenseFallback';
-import Icon from '@newtash/core/Icon';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styles from './Navigation.module.scss';
 
 type Props = {
@@ -33,7 +33,7 @@ const NavItem = (props: Props) => {
           <div className={styles.navItemArea}>
             {icon && (
               <div className={styles.iconArea}>
-                <Icon icon={icon} />
+                <FontAwesomeIcon icon={icon} />
               </div>
             )}
             <div className={styles.title}>{title}</div>

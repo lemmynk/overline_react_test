@@ -3,7 +3,7 @@ import React, { useState, Suspense } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import classNames from 'classnames';
 import SuspenseFallback from '@newtash/core/SuspenseFallback';
-import Icon from '@newtash/core/Icon';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { DropRight } from '@newtash/core/Dropdown';
 import { NavList } from '@newtash/core/Nav';
 import styles from './Navigation.module.scss';
@@ -51,7 +51,7 @@ const NavLink = (props: Props) => {
             onMouseLeave={() => setIsDropDownOpen(false)}
           >
             <div className={styles.iconArea}>
-              <Icon icon={icon} />
+              <FontAwesomeIcon icon={icon} />
             </div>
             <DropRight
               isOpen={isDropdownOpen}
@@ -69,7 +69,7 @@ const NavLink = (props: Props) => {
         {!hasLinks && (
           <Link to={url} title={title} tabIndex={-1}>
             <div className={styles.iconArea}>
-              <Icon icon={icon} />
+              <FontAwesomeIcon icon={icon} />
             </div>
           </Link>
         )}

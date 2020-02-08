@@ -16,5 +16,5 @@ export const setAppConfig = config => ({
 
 export const setAppConfigVersion = version => ({
   type: SET_APP_CONFIG_VERISON,
-  payload: version,
+  payload: parseInt(version, 10),
 });

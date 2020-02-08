@@ -13,7 +13,7 @@ import {
 } from '../actions';
 import { selectRefreshToken } from '../selectors';
 import { authApiInstance, dispatchRenewTokenIn } from '../api';
-import { buildChallenge, encryptSync, isWithApi, expiresAt } from '../../utils';
+import { buildChallenge, encryptSync, expiresAt } from '../../utils';
 
 /*
  |------------------------------------------------------------------------------
@@ -26,18 +26,6 @@ function* setAuth(auth) {
     put(setAccessToken(accessToken)),
     put(setRefreshToken(refreshToken)),
     put(setExpiresAt(expiresAt(expiresIn))),
-  ]);
-}
-
-function* doOfflineAuthentication() {
-  const expiresIn10Mins = expiresAt(10 * 60);
-
-  yield all([
-    put(setAccessToken('accessToken')),
-    put(setRefreshToken('refreshToken')),
-    put(setExpiresAt(expiresIn10Mins)),
-    put(doWhoAmI()),
-    put(doInitApp()),
   ]);
 }
 
@@ -63,22 +51,16 @@ function* authenticationFlow() {
     const action = yield take(DO_AUTHENTICATION);
     const { payload: handshakeCode } = action;
 
-    const offline = !isWithApi();
+    const { response, error } = yield makeAuthRequest(handshakeCode);
 
-    if (offline) {
-      yield doOfflineAuthentication();
-    } else {
-      const { response, error } = yield makeAuthRequest(handshakeCode);
+    if (response) {
+      const { expiresIn } = response;
+      yield setAuth(response);
+      yield all([put(doWhoAmI()), put(doInitApp())]);
 
-      if (response) {
-        const { expiresIn } = response;
-        yield setAuth(response);
-        yield all([put(doWhoAmI()), put(doInitApp())]);
-
-        dispatchRenewTokenIn(expiresIn);
-      } else if (error) {
-        yield put(addAppError(error));
-      }
+      dispatchRenewTokenIn(expiresIn);
+    } else if (error) {
+      yield put(addAppError(error));
     }
   }
 }
@@ -125,20 +107,6 @@ function* renewTokenRequestFlow() {
  |------------------------------------------------------------------------------
  */
 
-function* doOfflineWhoAmI() {
-  yield put(
-    setWhoAmI({
-      id: 1,
-      username: 'pera',
-      firstName: 'Pera',
-      lastName: 'Zdera',
-      email: 'pera@zdera.com',
-      loginAttempts: 0,
-      loginAttemptAt: null,
-    }),
-  );
-}
-
 const makeWhoAmIRequest = () =>
   authApiInstance
     .request({ method: 'post', url: '/whoami', withAuth: true })
@@ -150,18 +118,13 @@ function* whoAmIRequestFlow() {
   while (true) {
     yield take(DO_WHO_AM_I_REQUEST);
 
-    const offline = !isWithApi();
-    if (offline) {
-      yield doOfflineWhoAmI();
-    } else {
-      const { response, error } = yield makeWhoAmIRequest();
+    const { response, error } = yield makeWhoAmIRequest();
 
-      if (response) {
-        yield put(setWhoAmI(response));
-      }
-      if (error) {
-        yield put(addAppError(error));
-      }
+    if (response) {
+      yield put(setWhoAmI(response));
+    }
+    if (error) {
+      yield put(addAppError(error));
     }
   }
 }

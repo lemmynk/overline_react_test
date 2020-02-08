@@ -5,6 +5,7 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const middleware = require('./routes/middleware');
 const { apiErrorHandler } = require('./errors');
+const { env } = require('./utils');
 
 const app = express();
 
@@ -42,10 +43,15 @@ app.use('/', require('./routes/index'));
 app.use(apiUrl, middleware.user);
 app.use(`${apiUrl}/users`, require('./routes/api/users'));
 app.use(`${apiUrl}/app-config`, require('./routes/api/appConfig'));
+app.use(`${apiUrl}/art-pdv`, require('./routes/api/artPdv'));
 
 // AUTH ROUTES
 app.use(authUrl, require('./routes/auth/index'));
-app.use(`${authUrl}/debug`, require('./routes/auth/debug'));
+
+if (!env.isProduction()) {
+  // eslint-disable-next-line global-require
+  app.use(`${authUrl}/debug`, require('./routes/auth/debug'));
+}
 // ///////////////////////////////////////
 // /  END OF ROUTING
 // ///////////////////////////////////////

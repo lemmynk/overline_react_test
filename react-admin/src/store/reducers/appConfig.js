@@ -5,7 +5,7 @@ const data = (state = {}, action) =>
   action.type === SET_APP_CONFIG ? { ...state, ...action.payload } : state;
 
 const version = (state = 0, action) =>
-  action.type === SET_APP_CONFIG_VERISON ? parseInt(action.payload, 10) : state;
+  action.type === SET_APP_CONFIG_VERISON ? action.payload : state;
 
 export default combineReducers({
   data,

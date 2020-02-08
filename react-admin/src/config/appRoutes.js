@@ -23,7 +23,7 @@ export const LOGOUT = {
   key: 'logout',
   title: 'Log Out',
   url: LOGOUT_PAGE_PATH,
-  icon: 'gavel',
+  icon: 'sign-out-alt',
   // role: USER_ROLE_ALL,
   // component: 'LogoutPage',
 };

@@ -6,6 +6,8 @@ const reduxState = {
   AUTH: `${NS}/auth`,
   WHO_AM_I: `${NS}/whoAmI`,
   ERRORS: `${NS}/errors`,
+
+  ART_PDV: `${NS}/artPdv`,
 };
 
 export const blacklist = [`${NS}/errors`, `${NS}/app`];
