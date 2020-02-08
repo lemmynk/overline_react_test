@@ -1,5 +1,5 @@
 // @flow
-import React, { Suspense } from 'react';
+import React from 'react';
 import SuspenseFallback from '@newtash/core/SuspenseFallback';
 import { rand } from '@newtash/core/utils';
 import NavItem from './NavItem';
@@ -11,9 +11,9 @@ export default () => {
     <ul className={styles.navigation}>
       {headerAppLinks &&
         headerAppLinks.map(item => (
-          <Suspense key={rand()} fallback={<SuspenseFallback />}>
+          <SuspenseFallback key={rand()}>
             <NavItem item={item} />
-          </Suspense>
+          </SuspenseFallback>
         ))}
     </ul>
   );

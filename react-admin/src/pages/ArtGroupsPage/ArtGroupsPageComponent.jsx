@@ -1,9 +1,12 @@
 // @flow
-import React from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Page, PageHeader, PageContent } from '@newtash/core/Page';
 import Card from '@newtash/core/Card';
 import Tab from '@newtash/core/Tab';
+import SearchBox from '@newtash/core/SearchBox';
+import { Table } from '@newtash/core/Table';
+import styles from './ArtGroupsPage.module.scss';
 
 type Props = {
   vArtikl: string,
@@ -16,10 +19,27 @@ const tabs = [
   { key: 'usluga', title: 'Usluga' },
 ];
 
+const columns = [
+  {
+    key: 'grpSifra',
+    text: '#',
+    field: 'grpSifra',
+    width: '5%',
+    align: 'center',
+  },
+  { key: 'grpNaziv', text: 'Naziv', field: 'grpNaziv' },
+];
+
 export default (props: Props) => {
   const { vArtikl, data, setArtGroupsVArtikl } = props;
 
   const [t] = useTranslation('pages');
+
+  const [search, setSearch] = useState('');
+
+  const filteredData = data.filter(item =>
+    item.grpNaziv.toLowerCase().includes(search.toLowerCase()),
+  );
 
   const handleTabChange = (key: string) => {
     if (setArtGroupsVArtikl) {
@@ -27,7 +47,15 @@ export default (props: Props) => {
     }
   };
 
-  const renderTitle = () => <div>...search...</div>;
+  const renderTabTitle = () => (
+    <div className={styles.titleArea}>
+      <SearchBox compact value={search} onChange={setSearch} />
+    </div>
+  );
+
+  const handleTableRowClick = (row: Data) => {
+    console.log('table row clicked:', row);
+  };
 
   return (
     <Page>
@@ -38,12 +66,20 @@ export default (props: Props) => {
       <PageContent>
         <Card>
           <Tab
+            bottom
             tabs={tabs}
             selectedTab={vArtikl}
-            renderTitle={renderTitle}
+            renderTitle={renderTabTitle}
             onChange={handleTabChange}
           />
-          <pre>{JSON.stringify({ vArtikl, data }, null, 2)}</pre>
+          <Table
+            striped
+            hoverable
+            columns={columns}
+            data={filteredData}
+            onRowClick={handleTableRowClick}
+          />
+          {/* <pre>{JSON.stringify({ vArtikl, data: filteredData }, null, 2)}</pre> */}
         </Card>
       </PageContent>
     </Page>

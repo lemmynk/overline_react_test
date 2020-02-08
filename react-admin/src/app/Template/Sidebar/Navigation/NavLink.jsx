@@ -5,9 +5,9 @@ import { useTranslation } from 'react-i18next';
 import classNames from 'classnames';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { DropRight } from '@newtash/core/Dropdown';
-import { NavList } from '@newtash/core/Nav';
+import { NavList, NavListItem, NavListTitle } from '@newtash/core/Nav';
 import styles from './Navigation.module.scss';
-import { translateLinkItem } from '../../../../utils';
+// import { translateLinkItem } from '../../../../utils';
 
 type Props = {
   item: AppLinkProps,
@@ -36,6 +36,18 @@ const NavLink = (props: Props) => {
     return activeItems && activeItems.length > 0;
   };
 
+  const renderTitle = (link: AppLinkProps) => (
+    <NavListTitle title={t(link.title)} />
+  );
+
+  const renderLink = (link: AppLinkProps) => (
+    <NavListItem
+      // item={translateLinkItem(t, link)}
+      item={{ ...link, title: t(link.title) }}
+      onLinkClick={() => setIsDropDownOpen(false)}
+    />
+  );
+
   return (
     <li
       className={classNames({
@@ -61,9 +73,11 @@ const NavLink = (props: Props) => {
             onDismiss={() => setIsDropDownOpen(false)}
           >
             <NavList
-              item={translateLinkItem(t, item)}
+              // item={translateLinkItem(t, item)}
+              item={item}
+              renderTitle={renderTitle}
+              renderLink={renderLink}
               activeUrl={activeUrl}
-              onLinkClick={() => setIsDropDownOpen(false)}
             />
           </DropRight>
         </div>
