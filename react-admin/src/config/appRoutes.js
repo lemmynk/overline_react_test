@@ -10,6 +10,15 @@ export const HOME = {
   component: 'HomePage',
 };
 
+export const ART_GROUPS = {
+  key: 'artGroups',
+  title: 'ArtGroups',
+  url: '/art-groups',
+  icon: 'cog',
+  // role: USER_ROLE_ALL,
+  component: 'ArtGroupsPage',
+};
+
 export const SETTINGS = {
   key: 'settings',
   title: 'Settings',
@@ -21,7 +30,7 @@ export const SETTINGS = {
 
 export const LOGOUT = {
   key: 'logout',
-  title: 'Log Out',
+  title: 'LogOut',
   url: LOGOUT_PAGE_PATH,
   icon: 'sign-out-alt',
   // role: USER_ROLE_ALL,
@@ -29,4 +38,4 @@ export const LOGOUT = {
 };
 
 // List of routes to load by router
-export default [SETTINGS];
+export default [ART_GROUPS, SETTINGS];

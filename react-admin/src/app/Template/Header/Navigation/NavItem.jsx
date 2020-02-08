@@ -1,8 +1,8 @@
 // @flow
-import React, { Suspense } from 'react';
+import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import classNames from 'classnames';
-import SuspenseFallback from '@newtash/core/SuspenseFallback';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styles from './Navigation.module.scss';
 
@@ -19,6 +19,8 @@ const NavItem = (props: Props) => {
     location: { pathname: activeUrl },
   } = history;
 
+  const [t] = useTranslation('nav');
+
   const isActive = activeUrl === url;
 
   return (
@@ -28,18 +30,16 @@ const NavItem = (props: Props) => {
         [styles.active]: isActive,
       })}
     >
-      <Suspense fallback={<SuspenseFallback />}>
-        <Link to={url} title={title} tabIndex={-1}>
-          <div className={styles.navItemArea}>
-            {icon && (
-              <div className={styles.iconArea}>
-                <FontAwesomeIcon icon={icon} />
-              </div>
-            )}
-            <div className={styles.title}>{title}</div>
-          </div>
-        </Link>
-      </Suspense>
+      <Link to={url} title={t(title)} tabIndex={-1}>
+        <div className={styles.navItemArea}>
+          {icon && (
+            <div className={styles.iconArea}>
+              <FontAwesomeIcon icon={icon} />
+            </div>
+          )}
+          <div className={styles.title}>{t(title)}</div>
+        </div>
+      </Link>
     </li>
   );
 };

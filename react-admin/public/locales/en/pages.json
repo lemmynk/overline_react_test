@@ -5,6 +5,10 @@
   "i18n": {
     "title": "Current language: {{lang}}"
   },
+  "artGroups": {
+    "title": "Article Groups",
+    "description": "Some descritpion here"
+  },
   "settings": {
     "title": "Settings",
     "description": "User configuration"

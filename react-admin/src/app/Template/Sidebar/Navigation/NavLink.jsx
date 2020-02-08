@@ -1,12 +1,13 @@
 // @flow
-import React, { useState, Suspense } from 'react';
+import React, { useState } from 'react';
 import { Link, withRouter } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import classNames from 'classnames';
-import SuspenseFallback from '@newtash/core/SuspenseFallback';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { DropRight } from '@newtash/core/Dropdown';
 import { NavList } from '@newtash/core/Nav';
 import styles from './Navigation.module.scss';
+import { translateLinkItem } from '../../../../utils';
 
 type Props = {
   item: AppLinkProps,
@@ -19,6 +20,8 @@ const NavLink = (props: Props) => {
   const {
     location: { pathname: activeUrl },
   } = history;
+
+  const [t] = useTranslation('nav');
 
   const [isDropdownOpen, setIsDropDownOpen] = useState(false);
 
@@ -40,40 +43,38 @@ const NavLink = (props: Props) => {
         [styles.active]: isActive,
       })}
     >
-      <Suspense fallback={<SuspenseFallback />}>
-        {hasLinks && (
-          <div
-            className={classNames({
-              [styles.linkGroup]: true,
-              [styles.active]: isGroupActive(),
-            })}
-            onMouseEnter={() => setIsDropDownOpen(true)}
-            onMouseLeave={() => setIsDropDownOpen(false)}
-          >
-            <div className={styles.iconArea}>
-              <FontAwesomeIcon icon={icon} />
-            </div>
-            <DropRight
-              isOpen={isDropdownOpen}
-              compact
-              onDismiss={() => setIsDropDownOpen(false)}
-            >
-              <NavList
-                item={item}
-                activeUrl={activeUrl}
-                onLinkClick={() => setIsDropDownOpen(false)}
-              />
-            </DropRight>
+      {hasLinks && (
+        <div
+          className={classNames({
+            [styles.linkGroup]: true,
+            [styles.active]: isGroupActive(),
+          })}
+          onMouseEnter={() => setIsDropDownOpen(true)}
+          onMouseLeave={() => setIsDropDownOpen(false)}
+        >
+          <div className={styles.iconArea}>
+            <FontAwesomeIcon icon={icon} />
           </div>
-        )}
-        {!hasLinks && (
-          <Link to={url} title={title} tabIndex={-1}>
-            <div className={styles.iconArea}>
-              <FontAwesomeIcon icon={icon} />
-            </div>
-          </Link>
-        )}
-      </Suspense>
+          <DropRight
+            isOpen={isDropdownOpen}
+            compact
+            onDismiss={() => setIsDropDownOpen(false)}
+          >
+            <NavList
+              item={translateLinkItem(t, item)}
+              activeUrl={activeUrl}
+              onLinkClick={() => setIsDropDownOpen(false)}
+            />
+          </DropRight>
+        </div>
+      )}
+      {!hasLinks && (
+        <Link to={url} title={t(title)} tabIndex={-1}>
+          <div className={styles.iconArea}>
+            <FontAwesomeIcon icon={icon} />
+          </div>
+        </Link>
+      )}
     </li>
   );
 };
