@@ -1,3 +1,5 @@
+/* eslint-disable class-methods-use-this */
+const { body, param } = require('express-validator');
 const Model = require('./Model');
 
 const modelConfig = {
@@ -20,18 +22,48 @@ class ArtGrupa extends Model {
   }
 
   /**
-   * Validate params provided
+   * Validate params provided using express-validator
    *
-   * @param {Object} params
-   * @return {Boolean}
+   * @return {Array}
    */
-  static validate(params) {
-    this.clearValidationErrors()
-      .validateRequired(['vArtikl', 'grpNaziv', 'grpSifra'], params)
-      .validateStringLength(params, 'grpNaziv', 120)
-      .validateStringLength(params, 'grpSifra', 20);
-    // .validateStringLength(params, 'redosled', 20);
-    return Object.keys(this.validationErrors).length === 0;
+  static validate() {
+    return [
+      body('vArtikl')
+        .exists()
+        .withMessage('vArtikl.required')
+        .bail()
+        .isIn(['roba', 'usluga'])
+        .withMessage('vArtikl.enum'),
+      body('grpNaziv')
+        .exists()
+        .withMessage('grpNaziv.required')
+        .bail()
+        .isLength({ min: 1, max: 120 })
+        .withMessage('grpNaziv.length'),
+      body('grpSifra')
+        .exists()
+        .withMessage('grpSifra.required')
+        .bail()
+        .isLength({ min: 1, max: 20 })
+        .withMessage('grpSifra.length'),
+    ];
+  }
+
+  /**
+   * Validate should Model be deleted
+   *
+   * @return {Array}
+   */
+  static canDelete() {
+    return [
+      param('id').custom(value => {
+        // return Promise.reject(new Error('artGrupa.not.empty'));
+        if (value > 200) {
+          throw new Error('artGrupa.not.empty');
+        }
+        return true;
+      }),
+    ];
   }
 }
 

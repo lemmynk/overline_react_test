@@ -1,3 +1,4 @@
+const { validationResult } = require('express-validator');
 const { ValidationError } = require('../errors');
 
 /* FindAll functions */
@@ -37,6 +38,17 @@ const findAllPaginated = (Model, parentKey, defaultParams) => {
   return doFindAllRequest(Model, parentKey, { page: 1 }, defaultParams);
 };
 
+const formatErrors = errors => {
+  const output = {};
+
+  errors.forEach(error => {
+    const { param, msg } = error;
+    output[param] = output[param] ? [...output[param], msg] : [msg];
+  });
+
+  return output;
+};
+
 const self = (Model, parentKey = null, defaultParams = {}) => ({
   /* FindAll */
   allByVersion: findAllByVersion(Model, parentKey, defaultParams),
@@ -54,12 +66,15 @@ const self = (Model, parentKey = null, defaultParams = {}) => ({
 
   create: (req, res, next) => {
     const { body, params } = req;
+    // Finds the validation errors in this request and wraps them in an object with handy functions
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      throw new ValidationError(formatErrors(errors.array()));
+      // return res.status(422).json({ errors: errors.array() });
+    }
+
     if (parentKey && typeof parentKey === 'string' && !body[parentKey]) {
       body[parentKey] = params[parentKey];
-    }
-    const isValid = Model.validate(body);
-    if (!isValid) {
-      throw new ValidationError(Model.validationErrors);
     }
     Model.create(body)
       .then(response => response.id)
@@ -70,12 +85,15 @@ const self = (Model, parentKey = null, defaultParams = {}) => ({
   update: (req, res, next) => {
     const { params, body } = req;
     const { id } = params;
+
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      throw new ValidationError(formatErrors(errors.array()));
+      // return res.status(422).json({ errors: errors.array() });
+    }
+
     if (parentKey && typeof parentKey === 'string' && !body[parentKey]) {
       body[parentKey] = params[parentKey];
-    }
-    const isValid = Model.validate(body);
-    if (!isValid) {
-      throw new ValidationError(Model.validationErrors);
     }
     Model.find(id)
       .then(model => model.fill(body).save())
@@ -86,6 +104,16 @@ const self = (Model, parentKey = null, defaultParams = {}) => ({
   delete: (req, res, next) => {
     const { params } = req;
     const { id } = params;
+
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      throw new ValidationError({
+        errors: errors.array().map(err => err.msg),
+      });
+      // throw new ValidationError(formatErrors(errors.array()));
+      // return res.status(422).json({ errors: errors.array() });
+    }
+
     Model.find(id)
       .then(model => model.delete())
       .then(() => res.status(204).end())

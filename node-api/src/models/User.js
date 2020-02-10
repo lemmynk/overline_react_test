@@ -94,5 +94,6 @@ class User extends Model {
 }
 
 User.exclude = ['password'];
+// User.exclude = ['password', 'createdAt', 'updatedAt'];
 
 module.exports = User;

@@ -1,5 +1,5 @@
 /* eslint-disable import/order */
-/* eslint class-methods-use-this: ["error", { "exceptMethods": ["db"] }] */
+/* eslint class-methods-use-this: ["error", { "exceptMethods": ["db", "excludeAlways"] }] */
 const knexFile = require('../../../knexfile');
 const dbInstance = require('knex')(knexFile);
 const versionModel = require('./version');
@@ -126,6 +126,16 @@ class Model {
     });
     return this;
   }
+
+  /**
+   * List of attributes to be excluded always from output
+   *
+   * @return {Array}
+   */
+  // excludeAlways() {
+  //   return ['createdAt', 'updatedAt'];
+  // }
+
   /**
    * -------------------------------------------------------------------
    * CRUD FUNCTIONS

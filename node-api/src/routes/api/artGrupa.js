@@ -6,9 +6,10 @@ const router = express.Router();
 
 const crudCtrl = crudController(ArtGrupa);
 router.get('/', crudCtrl.all);
-router.post('/', crudCtrl.create);
+router.post('/', ArtGrupa.validate(), crudCtrl.create);
 router.get('/:id', crudCtrl.find);
-router.put('/:id', crudCtrl.update);
-router.delete('/:id', crudCtrl.delete);
+router.put('/:id', ArtGrupa.validate(), crudCtrl.update);
+// router.delete('/:id', crudCtrl.delete);
+router.delete('/:id', ArtGrupa.canDelete(), crudCtrl.delete);
 
 module.exports = router;
