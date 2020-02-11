@@ -5,6 +5,7 @@ import {
   selectArtGroupVArtikl,
   selectArtGroupDataByVArtikl,
   setArtGroupsVArtikl,
+  initForm,
 } from '../../store';
 
 const mapStateToProps = state => ({
@@ -14,6 +15,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   setArtGroupsVArtikl,
+  initForm,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Page);

@@ -4,6 +4,7 @@ import appSagas from './app';
 import appConfigSagas from './appConfig';
 import authSagas from './auth';
 
+import formSagas from './form';
 import artPdvSagas from './artPdv';
 import artGrupaSagas from './artGrupa';
 
@@ -30,6 +31,7 @@ export const allSagas = [
   ...authSagas,
   ...appConfigSagas,
 
+  ...formSagas,
   ...artPdvSagas,
   ...artGrupaSagas,
 ];

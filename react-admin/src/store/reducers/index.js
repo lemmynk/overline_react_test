@@ -6,6 +6,7 @@ import authReducer from './auth';
 import whoAmIReducer from './whoAmI';
 import errorsReducer from './errors';
 
+import formReducer from './form';
 import artPdvReducer from './artPdv';
 import artGrupaReducer from './artGrupa';
 
@@ -15,6 +16,7 @@ const {
   AUTH,
   WHO_AM_I,
   ERRORS,
+  FORM,
   ART_PDV,
   ART_GRUPA,
 } = reduxState;
@@ -26,6 +28,7 @@ export default combineReducers({
   [WHO_AM_I]: whoAmIReducer,
   [ERRORS]: errorsReducer,
 
+  [FORM]: formReducer,
   [ART_PDV]: artPdvReducer,
   [ART_GRUPA]: artGrupaReducer,
 });

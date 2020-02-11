@@ -5,13 +5,16 @@ import { Page, PageHeader, PageContent } from '@newtash/core/Page';
 import Card from '@newtash/core/Card';
 import Tab from '@newtash/core/Tab';
 import SearchBox from '@newtash/core/SearchBox';
+import { Modal } from '@newtash/core/Modal';
 import { Table } from '@newtash/core/Table';
+import Form from '../../forms/ArtGroupsForm';
 import styles from './ArtGroupsPage.module.scss';
 
 type Props = {
   vArtikl: string,
   data: Array<Object>,
   setArtGroupsVArtikl: string => void,
+  initForm: Object => void,
 };
 
 const tabs = [
@@ -31,11 +34,12 @@ const columns = [
 ];
 
 export default (props: Props) => {
-  const { vArtikl, data, setArtGroupsVArtikl } = props;
+  const { vArtikl, data, setArtGroupsVArtikl, initForm } = props;
 
   const [t] = useTranslation('pages');
 
   const [search, setSearch] = useState('');
+  const [isFormOpen, setIsFormOpen] = useState(false);
 
   const filteredData = data.filter(item =>
     item.grpNaziv.toLowerCase().includes(search.toLowerCase()),
@@ -54,7 +58,15 @@ export default (props: Props) => {
   );
 
   const handleTableRowClick = (row: Data) => {
-    console.log('table row clicked:', row);
+    // console.log('table row clicked:', row);
+    if (initForm) {
+      initForm(row);
+    }
+    setIsFormOpen(true);
+  };
+
+  const dismissModal = () => {
+    setIsFormOpen(false);
   };
 
   return (
@@ -82,6 +94,13 @@ export default (props: Props) => {
           {/* <pre>{JSON.stringify({ vArtikl, data: filteredData }, null, 2)}</pre> */}
         </Card>
       </PageContent>
+      <Modal
+        isOpen={isFormOpen}
+        title="Art Group Title"
+        onDismiss={dismissModal}
+      >
+        <Form onDismiss={dismissModal} />
+      </Modal>
     </Page>
   );
 };
