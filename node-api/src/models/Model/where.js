@@ -4,9 +4,7 @@ const isPropValue = (model, key, value) =>
   typeof value !== 'undefined' && typeof value !== 'object' && model.has(key);
 
 const baseWhereQuery = (model, whereParams) => {
-  const query = model.baseFindAllQuery
-    ? model.baseFindAllQuery()
-    : model.baseQuery();
+  const query = model.baseQuery();
 
   if (typeof whereParams === 'object') {
     Object.keys(whereParams).forEach(key => {

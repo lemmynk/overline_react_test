@@ -132,9 +132,9 @@ class Model {
    *
    * @return {Array}
    */
-  // excludeAlways() {
-  //   return ['createdAt', 'updatedAt'];
-  // }
+  excludeAlways() {
+    return ['createdAt', 'updatedAt'];
+  }
 
   /**
    * -------------------------------------------------------------------

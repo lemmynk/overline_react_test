@@ -8,6 +8,16 @@ const buildPagination = (currentPage, perPage, totalItems) => ({
 });
 
 /**
+ * Strip-out timestamp fields
+ */
+const baseDataQuery = (model, queryParams) => {
+  const exclude = model.excludeAlways();
+  const keys = model.keys.filter(key => !exclude.includes(key));
+  const query = baseWhereQuery(model, queryParams).select(keys);
+  return query;
+};
+
+/**
  * Find all by version
  */
 const findAllByVersion = (model, queryParams) => {
@@ -15,7 +25,7 @@ const findAllByVersion = (model, queryParams) => {
   const { v, version: reqVersion } = queryParams;
   const byVersion = parseInt(v || reqVersion, 10);
 
-  const dataQuery = baseWhereQuery(model, queryParams);
+  const dataQuery = baseDataQuery(model, queryParams);
 
   // Apply versioning
   if (model.has('updatedAt')) {
@@ -57,7 +67,7 @@ const findAllPaginated = (model, queryParams) => {
   const offset = (currentPage - 1) * perPage;
   const orderBy = reqOrderBy || 'id';
 
-  const dataQuery = baseWhereQuery(model, queryParams)
+  const dataQuery = baseDataQuery(model, queryParams)
     .orderByRaw(orderBy)
     .limit(perPage)
     .offset(offset);
@@ -78,7 +88,9 @@ const findAllPaginated = (model, queryParams) => {
 const baseFindAll = (model, queryParams) => {
   const { orderBy } = queryParams;
 
-  return baseWhereQuery(model, queryParams).orderByRaw(orderBy || 'id');
+  return baseDataQuery(model, queryParams).orderByRaw(
+    orderBy || model.primaryKey,
+  );
 };
 
 /**
