@@ -6,6 +6,7 @@ const versionModel = require('./version');
 const countModel = require('./count');
 const findModel = require('./find');
 const findAllModel = require('./findAll');
+const validator = require('./validator');
 const { doSave, doUpdate, doDelete } = require('./crud');
 const { doMoveToTop, doMoveUp, doMoveDown, doMoveToBottom } = require('./move');
 
@@ -132,7 +133,7 @@ class Model {
    * @return {Array}
    */
   excludeAlways() {
-    return Model.timestamps;
+    return ['createdAt', 'updatedAt'];
   }
 
   /**
@@ -320,8 +321,78 @@ class Model {
       .limit(pageLength)
       .offset(offsetSize);
   }
+
+  /**
+   * -------------------------------------------------------------------
+   * VALIDATION
+   * -------------------------------------------------------------------
+   */
+
+  /**
+   * Clear all recent validation errors
+   * @return {self}
+   */
+  static clearValidationErrors() {
+    this.validationErrors = {};
+    return this;
+  }
+
+  /**
+   * Add validation error message
+   * @param {String} key
+   * @param {String} message
+   * @return {self}
+   */
+  static addValidationError(key, message) {
+    this.validationErrors[key] = message;
+    return this;
+  }
+
+  /**
+   * Validate required params
+   *
+   * @param {Array}   props   List of required props
+   * @param {Object}  params  Params to validate
+   * @return {self}
+   */
+  static validateRequired(props, params) {
+    validator.validateRequired(this, props, params);
+    return this;
+  }
+
+  /**
+   * Validate string length
+   *
+   * @param {Object}  params    Params to validate
+   * @param {String}  prop      Prop name to validate
+   * @param {Number}  maxLength Max length allowed
+   * @return {self}
+   */
+  static validateStringLength(params, prop, maxLength) {
+    validator.validateStringLength(this, params, prop, maxLength);
+    return this;
+  }
+
+  /**
+   * Validate params provided for adding to Model
+   * Should be overridden in child Model
+   *
+   * @param {Object} params
+   * @return {Boolean}
+   */
+  static validate(params) {
+    const { nonExistingProp } = params;
+    if (!nonExistingProp) {
+      this.addValidationError(
+        'exampleProp',
+        'Example validation error message',
+      );
+    }
+    return Object.keys(this.validationErrors).length === 0;
+  }
 }
 
+Model.validationErrors = {};
 Model.timestamps = ['createdAt', 'updatedAt', 'deletedAt'];
 
 module.exports = Model;

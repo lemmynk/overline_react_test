@@ -68,7 +68,7 @@ class User extends Model {
    * @return {Array}
    */
   excludeAlways() {
-    return User.exclude;
+    return [...Model.timestamps, ...User.exclude];
   }
 
   /**
@@ -93,7 +93,6 @@ class User extends Model {
   }
 }
 
-User.exclude = ['password'];
-// User.exclude = ['password', 'createdAt', 'updatedAt'];
+User.exclude = ['password', 'refreshToken'];
 
 module.exports = User;
