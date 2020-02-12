@@ -23,17 +23,23 @@ export default (props: Props) => {
     saveForm,
   } = props;
 
-  const form = useForm(data);
-  const { formData, getPropValue, setPropValue } = form;
+  // const form = useForm(data, validationErrors);
+  const {
+    state,
+    formData,
+    getPropValue,
+    setPropValue,
+    getPropHasErrors,
+  } = useForm(data, validationErrors);
 
-  const saveCallback = (err: Object, response: Object) => {
-    console.log('saveCallback:', err, response);
+  const saveCallback = (status: number, response: Object) => {
+    console.log('saveCallback:', status, response);
     // setTimeout(() => {
     //   clearValidationErrors();
     // }, 1000);
-    if (!err && onDismiss) {
-      onDismiss();
-    }
+    // if (!err && onDismiss) {
+    //   onDismiss();
+    // }
   };
 
   const handleSaveClick = () => {
@@ -52,13 +58,15 @@ export default (props: Props) => {
         label="grpSifra"
         value={getPropValue('grpSifra')}
         onChange={setPropValue('grpSifra')}
+        hasErrors={getPropHasErrors('grpSifra')}
       />
       <TextInput
         label="grpNaziv"
         value={getPropValue('grpNaziv')}
         onChange={setPropValue('grpNaziv')}
+        hasErrors={getPropHasErrors('grpNaziv')}
       />
-      {/* <pre>{JSON.stringify({ formData }, null, 2)}</pre> */}
+      <pre>{JSON.stringify({ formData, state }, null, 2)}</pre>
       <SaveCancelFooter
         fetching={fetching}
         onCancel={onDismiss}

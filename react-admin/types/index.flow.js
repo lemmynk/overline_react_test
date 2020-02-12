@@ -7,7 +7,7 @@ declare module CSSModule {
 
 declare type Data = { [key: string]: any };
 
-declare type SaveCallback = (Object, Object) => void;
+declare type SaveCallback = (number, Object) => void;
 
 declare type KeyTextObject = {
   key: string,
