@@ -12,9 +12,10 @@ export const initForm = data => ({
   payload: data,
 });
 
-export const saveForm = (data, callback) => ({
+export const saveForm = (url, data, callback) => ({
   type: DO_SAVE_FORM,
-  payload: data,
+  url,
+  data,
   callback,
 });
 

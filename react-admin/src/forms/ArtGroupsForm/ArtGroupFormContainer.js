@@ -6,6 +6,7 @@ import {
   selectFormErrors,
   saveForm,
   clearFormErrors,
+  fetchArtGroups,
 } from '../../store';
 
 const mapStateToProps = state => ({
@@ -17,6 +18,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {
   saveForm,
   clearValidationErrors: clearFormErrors,
+  fetchArtGroups,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form);

@@ -5,6 +5,7 @@ import { Page, PageHeader, PageContent } from '@newtash/core/Page';
 import Card from '@newtash/core/Card';
 import Tab from '@newtash/core/Tab';
 import SearchBox from '@newtash/core/SearchBox';
+import Button from '@newtash/core/Button';
 import { Modal } from '@newtash/core/Modal';
 import { Table } from '@newtash/core/Table';
 import Form from '../../forms/ArtGroupsForm';
@@ -51,6 +52,15 @@ export default (props: Props) => {
     }
   };
 
+  const handleAddArtGroup = () => {
+    if (initForm) {
+      initForm({
+        vArtikl,
+      });
+    }
+    setIsFormOpen(true);
+  };
+
   const renderTabTitle = () => (
     <div className={styles.titleArea}>
       <SearchBox compact value={search} onChange={setSearch} />
@@ -74,6 +84,9 @@ export default (props: Props) => {
       <PageHeader
         title={t('artGroups.title')}
         description={t('artGroups.description')}
+        renderButtons={() => (
+          <Button primary text="Add" onClick={handleAddArtGroup} />
+        )}
       />
       <PageContent>
         <Card>

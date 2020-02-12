@@ -7,10 +7,18 @@ declare module CSSModule {
 
 declare type Data = { [key: string]: any };
 
-declare type SaveCallback = (number, Object) => void;
-
 declare type KeyTextObject = {
   key: string,
   text: string,
   disabled?: boolean,
 };
+
+declare type AxiosResponseProps = {
+  data: any,
+  status: number,
+  statusText: string,
+  headers: Object,
+  config: Object,
+};
+
+declare type SaveCallback = (AxiosResponseProps) => void;

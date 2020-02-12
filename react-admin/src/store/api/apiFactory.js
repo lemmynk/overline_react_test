@@ -3,7 +3,11 @@
 import axios from 'axios';
 import { selectAuth } from '../selectors';
 import { doRefreshToken } from '../actions';
-import { RENEW_TIMEOUT_BUFFER, MAX_TIMEOUT_INTERVAL } from '../../config';
+import {
+  RENEW_TIMEOUT_BUFFER,
+  MAX_TIMEOUT_INTERVAL,
+  RESPONSE_STATUS_UNPROCESSABLE_ENTITY,
+} from '../../config';
 
 let storeInstance;
 
@@ -133,6 +137,14 @@ const apiInterceptorFactory = store => {
       return response;
     },
     responseError => {
+      const { response } = responseError;
+      if (
+        response &&
+        response.status &&
+        response.status === RESPONSE_STATUS_UNPROCESSABLE_ENTITY
+      ) {
+        return Promise.resolve(response);
+      }
       const error = handleError(responseError);
       return Promise.reject(error);
     },
