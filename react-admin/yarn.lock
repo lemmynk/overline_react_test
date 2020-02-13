@@ -1129,10 +1129,10 @@
     call-me-maybe "^1.0.1"
     glob-to-regexp "^0.3.0"
 
-"@newtash/core@^0.1.9":
-  version "0.1.9"
-  resolved "https://registry.yarnpkg.com/@newtash/core/-/core-0.1.9.tgz#d6591129c5f335ad1554fdaa4c3362df1217c200"
-  integrity sha512-jgdaKJ6KgwTI4REoq2qVrm85N+NHjv5cbMZbOE86naFSoC5k3r9pwzMaJ6sRmvmnf12nLuqKhue/dZZdK3Fnlw==
+"@newtash/core@^0.1.10":
+  version "0.1.10"
+  resolved "https://registry.yarnpkg.com/@newtash/core/-/core-0.1.10.tgz#7368d28c0a450766d4aaa0968720cc94952d5830"
+  integrity sha512-GQ8p05zeQ9UbFIplJwm38CB0UyxF2t7NWxHU4aikmSHNGpgXvp2whaCMiSgWnc2gJtqudocme4ath6EbWpfDQA==
   dependencies:
     "@fortawesome/fontawesome-svg-core" "^1.2.25"
     "@fortawesome/free-solid-svg-icons" "^5.11.2"

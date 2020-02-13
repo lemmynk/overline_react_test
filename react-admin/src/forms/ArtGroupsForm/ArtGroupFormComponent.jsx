@@ -1,8 +1,8 @@
 // @flow
 import React from 'react';
 import { TextInput } from '@newtash/core/Input';
+import { useForm } from '@newtash/core/hooks';
 import { FormErrorsBox, SaveCancelFooter } from '../components';
-import useForm from './useForm';
 import { RESPONSE_STATUS_UNPROCESSABLE_ENTITY } from '../../config';
 
 type Props = {
