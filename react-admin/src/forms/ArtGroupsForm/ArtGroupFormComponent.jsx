@@ -1,8 +1,13 @@
 // @flow
 import React from 'react';
+import {
+  ModalHeader,
+  ModalBody,
+  FormSaveCancelFooter,
+} from '@newtash/core/Modal';
 import { TextInput } from '@newtash/core/Input';
+import FormErrorsBox from '@newtash/core/FormErrorsBox';
 import { useForm } from '@newtash/core/hooks';
-import { FormErrorsBox, SaveCancelFooter } from '../components';
 import { RESPONSE_STATUS_UNPROCESSABLE_ENTITY } from '../../config';
 
 type Props = {
@@ -54,27 +59,31 @@ export default (props: Props) => {
 
   return (
     <>
-      <FormErrorsBox
-        errors={validationErrors}
-        onClear={clearValidationErrors}
-      />
-      <TextInput
-        label="grpSifra"
-        value={getPropValue('grpSifra')}
-        onChange={setPropValue('grpSifra')}
-        hasErrors={getPropHasErrors('grpSifra')}
-      />
-      <TextInput
-        label="grpNaziv"
-        value={getPropValue('grpNaziv')}
-        onChange={setPropValue('grpNaziv')}
-        hasErrors={getPropHasErrors('grpNaziv')}
-      />
-      {/* <pre>{JSON.stringify({ formData }, null, 2)}</pre> */}
-      <SaveCancelFooter
+      <ModalHeader title="Title" onDismiss={onDismiss} />
+      <ModalBody>
+        <FormErrorsBox
+          errors={validationErrors}
+          onClear={clearValidationErrors}
+        />
+        <TextInput
+          label="grpSifra"
+          value={getPropValue('grpSifra')}
+          onChange={setPropValue('grpSifra')}
+          hasErrors={getPropHasErrors('grpSifra')}
+        />
+        <TextInput
+          label="grpNaziv"
+          value={getPropValue('grpNaziv')}
+          onChange={setPropValue('grpNaziv')}
+          hasErrors={getPropHasErrors('grpNaziv')}
+        />
+      </ModalBody>
+      <FormSaveCancelFooter
         fetching={fetching}
-        onCancel={doDismiss}
+        textSave="xSave"
+        textCancel="xCancel"
         onSave={handleSaveClick}
+        onCancel={onDismiss}
       />
     </>
   );

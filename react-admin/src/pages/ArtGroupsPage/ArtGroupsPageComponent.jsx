@@ -141,11 +141,7 @@ export default (props: Props) => {
           {/* <pre>{JSON.stringify({ vArtikl, data: filteredData }, null, 2)}</pre> */}
         </Card>
       </PageContent>
-      <Modal
-        isOpen={isFormOpen}
-        title="Art Group Title"
-        onDismiss={dismissModal}
-      >
+      <Modal isOpen={isFormOpen} onDismiss={dismissModal}>
         <Form onDismiss={dismissModal} />
       </Modal>
     </Page>
