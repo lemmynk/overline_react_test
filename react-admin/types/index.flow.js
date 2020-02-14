@@ -22,3 +22,5 @@ declare type AxiosResponseProps = {
 };
 
 declare type SaveCallback = (AxiosResponseProps) => void;
+
+declare type DeleteCallback = (AxiosResponseProps) => void;

@@ -1,5 +1,5 @@
 // @flow
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Page, PageHeader, PageContent } from '@newtash/core/Page';
@@ -8,16 +8,25 @@ import Tab from '@newtash/core/Tab';
 import SearchBox from '@newtash/core/SearchBox';
 import Button from '@newtash/core/Button';
 import { Modal } from '@newtash/core/Modal';
+import Confirm from '@newtash/core/Confirm';
+import Icon from '@newtash/core/Icon';
 import { Table } from '@newtash/core/Table';
+// import { Table, TableButton } from '@newtash/core/Table';
 import { sortByKey } from '@newtash/core/utils';
 import Form from '../../forms/ArtGroupsForm';
 import styles from './ArtGroupsPage.module.scss';
+import {
+  ART_GROUPS_CRUD_URL,
+  RESPONSE_STATUS_UNPROCESSABLE_ENTITY,
+} from '../../config';
 
 type Props = {
   vArtikl: string,
   data: Array<Object>,
   setArtGroupsVArtikl: string => void,
+  fetchArtGroups: () => void,
   initForm: Object => void,
+  deleteForm: (string, number, DeleteCallback) => void,
 };
 
 const tabs = [
@@ -26,7 +35,14 @@ const tabs = [
 ];
 
 export default (props: Props) => {
-  const { vArtikl, data, setArtGroupsVArtikl, initForm } = props;
+  const {
+    vArtikl,
+    data,
+    setArtGroupsVArtikl,
+    fetchArtGroups,
+    initForm,
+    deleteForm,
+  } = props;
 
   const [t] = useTranslation('pages');
 
@@ -34,6 +50,15 @@ export default (props: Props) => {
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [sortedKey, setSortedKey] = useState('grpNaziv');
   const [sortedAsc, setSortAscending] = useState(true);
+
+  const [isConfirmOpen, setConfirmOpen] = useState(false);
+  const [deleteId, setDeleteId] = useState(0);
+
+  useEffect(() => {
+    if (fetchArtGroups) {
+      fetchArtGroups();
+    }
+  }, []);
 
   const columns = () => [
     {
@@ -44,22 +69,29 @@ export default (props: Props) => {
       align: 'center',
       sortable: true,
     },
-    { key: 'grpNaziv', text: 'Naziv', field: 'grpNaziv', sortable: true },
+    {
+      key: 'grpNaziv',
+      text: t('artGroups.columns.grpNaziv'),
+      field: 'grpNaziv',
+      sortable: true,
+    },
     {
       key: 'id',
       text: '',
       field: 'id',
-      onRenderItem: () => (
-        <span>
-          <s>X</s>
-        </span>
+      onRenderItem: item => (
+        <button
+          type="button"
+          onClick={e => {
+            e.stopPropagation();
+            setDeleteId(item.id);
+            setConfirmOpen(true);
+          }}
+        >
+          <Icon icon="minus-square" />
+        </button>
       ),
-      // onRenderItem: () => (
-      //   <Button small compact>
-      //     <FontAwesomeIcon icon="minus-square" />
-      //   </Button>
-      // ),
-      width: '36px',
+      width: '2rem',
     },
   ];
 
@@ -110,13 +142,33 @@ export default (props: Props) => {
     setIsFormOpen(false);
   };
 
+  const deleteCallback = (response: AxiosResponseProps) => {
+    // console.log('delete response:', response);
+    const { status } = response;
+    if (status !== RESPONSE_STATUS_UNPROCESSABLE_ENTITY && fetchArtGroups) {
+      fetchArtGroups();
+    }
+  };
+
+  const handleDeleteConfirmationClick = () => {
+    setConfirmOpen(false);
+    if (deleteForm) {
+      deleteForm(ART_GROUPS_CRUD_URL, deleteId, deleteCallback);
+    }
+  };
+
   return (
     <Page>
       <PageHeader
         title={t('artGroups.title')}
         description={t('artGroups.description')}
         renderButtons={() => (
-          <Button primary compact text="Add" onClick={handleAddArtGroup} />
+          <Button
+            primary
+            compact
+            text={t('artGroups.addButtonTitle')}
+            onClick={handleAddArtGroup}
+          />
         )}
       />
       <PageContent>
@@ -144,6 +196,16 @@ export default (props: Props) => {
       <Modal isOpen={isFormOpen} onDismiss={dismissModal}>
         <Form onDismiss={dismissModal} />
       </Modal>
+      <Confirm
+        isOpen={isConfirmOpen}
+        title={t('areYouSure')}
+        textConfirm={t('Yes')}
+        textCancel={t('No')}
+        onConfirm={handleDeleteConfirmationClick}
+        onDismiss={() => setConfirmOpen(false)}
+      >
+        whatever
+      </Confirm>
     </Page>
   );
 };

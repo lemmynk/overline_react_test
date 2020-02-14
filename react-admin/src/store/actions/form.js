@@ -2,6 +2,7 @@ import { NS } from '../reduxState';
 
 export const DO_INIT_FORM = `${NS}/DO_INIT_FORM`;
 export const DO_SAVE_FORM = `${NS}/DO_SAVE_FORM`;
+export const DO_DELETE_FORM = `${NS}/DO_DELETE_FORM`;
 export const SET_FORM_DATA = `${NS}/SET_FORM_DATA`;
 export const SET_FORM_FETCHING = `${NS}/SET_FORM_FETCHING`;
 export const SET_FORM_ERRORS = `${NS}/SET_FORM_ERRORS`;
@@ -16,6 +17,13 @@ export const saveForm = (url, data, callback) => ({
   type: DO_SAVE_FORM,
   url,
   data,
+  callback,
+});
+
+export const deleteForm = (url, id, callback) => ({
+  type: DO_DELETE_FORM,
+  url,
+  id,
   callback,
 });
 

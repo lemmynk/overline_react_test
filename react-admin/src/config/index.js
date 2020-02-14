@@ -3,3 +3,4 @@ export * from './appLinks';
 export * from './auth';
 export * from './roles';
 export * from './fetchStatus';
+export * from './crudUrls';

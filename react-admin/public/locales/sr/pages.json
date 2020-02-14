@@ -7,7 +7,11 @@
   },
   "artGroups": {
     "title": "Групе артикала",
-    "description": "Листинг група артикала"
+    "description": "Листинг група артикала",
+    "addButtonTitle": "Nova grupa",
+    "columns": {
+      "grpNaziv": "Naziv"
+    }
   },
   "settings": {
     "title": "Подешавања",

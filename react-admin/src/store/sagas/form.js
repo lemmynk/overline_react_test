@@ -2,6 +2,7 @@ import { take, all, put } from 'redux-saga/effects';
 import {
   DO_INIT_FORM,
   DO_SAVE_FORM,
+  DO_DELETE_FORM,
   setFormData,
   setFormFetching,
   setFormErrors,
@@ -11,6 +12,7 @@ import {
 import { apiInstance } from '../api';
 import {
   RESPONSE_STATUS_CREATED,
+  // RESPONSE_STATUS_NO_CONSENT,
   RESPONSE_STATUS_UNPROCESSABLE_ENTITY,
 } from '../../config';
 
@@ -53,7 +55,7 @@ function* doSaveFormFlow() {
     if (response) {
       const { status, data: responseData } = response;
       if (status === RESPONSE_STATUS_UNPROCESSABLE_ENTITY) {
-        // UNprocessable Entity
+        // Unprocessable Entity
         yield put(setFormErrors(responseData));
       } else if (status === RESPONSE_STATUS_CREATED) {
         // Created
@@ -70,4 +72,37 @@ function* doSaveFormFlow() {
   }
 }
 
-export default [doInitFormFlow, doSaveFormFlow];
+const doDeleteFormData = (url, id) =>
+  apiInstance
+    .delete(`${url}/${id}`)
+    .then(response => ({ response }))
+    .catch(error => ({ error }));
+
+function* doDeleteFormFlow() {
+  while (true) {
+    const action = yield take(DO_DELETE_FORM);
+    const { url, id, callback } = action;
+
+    const { response, error } = yield doDeleteFormData(url, id);
+
+    console.log('...do delete form...', { response, error });
+
+    if (response) {
+      const {
+        status,
+        data: { errors },
+      } = response;
+      if (status === RESPONSE_STATUS_UNPROCESSABLE_ENTITY) {
+        // Unprocessable Entity
+        yield put(addAppError(errors[0]));
+      }
+      if (callback) {
+        callback(response);
+      }
+    } else if (error) {
+      yield put(addAppError(error));
+    }
+  }
+}
+
+export default [doInitFormFlow, doSaveFormFlow, doDeleteFormFlow];

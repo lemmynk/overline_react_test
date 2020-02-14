@@ -1,5 +1,6 @@
 // @flow
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   ModalHeader,
   ModalBody,
@@ -8,7 +9,10 @@ import {
 import { TextInput } from '@newtash/core/Input';
 import FormErrorsBox from '@newtash/core/FormErrorsBox';
 import { useForm } from '@newtash/core/hooks';
-import { RESPONSE_STATUS_UNPROCESSABLE_ENTITY } from '../../config';
+import {
+  RESPONSE_STATUS_UNPROCESSABLE_ENTITY,
+  ART_GROUPS_CRUD_URL,
+} from '../../config';
 
 type Props = {
   fetching: boolean,
@@ -30,6 +34,8 @@ export default (props: Props) => {
     saveForm,
     fetchArtGroups,
   } = props;
+
+  const [t] = useTranslation('forms');
 
   const { formData, getPropValue, setPropValue, getPropHasErrors } = useForm(
     data,
@@ -53,26 +59,26 @@ export default (props: Props) => {
 
   const handleSaveClick = () => {
     if (saveForm) {
-      saveForm('/art-grupa', formData, saveCallback);
+      saveForm(ART_GROUPS_CRUD_URL, formData, saveCallback);
     }
   };
 
   return (
     <>
-      <ModalHeader title="Title" onDismiss={onDismiss} />
+      <ModalHeader title={t('artGroups.title')} onDismiss={onDismiss} />
       <ModalBody>
         <FormErrorsBox
           errors={validationErrors}
           onClear={clearValidationErrors}
         />
         <TextInput
-          label="grpSifra"
+          label={t('artGroups.fields.grpSifra')}
           value={getPropValue('grpSifra')}
           onChange={setPropValue('grpSifra')}
           hasErrors={getPropHasErrors('grpSifra')}
         />
         <TextInput
-          label="grpNaziv"
+          label={t('artGroups.fields.grpNaziv')}
           value={getPropValue('grpNaziv')}
           onChange={setPropValue('grpNaziv')}
           hasErrors={getPropHasErrors('grpNaziv')}
@@ -80,8 +86,8 @@ export default (props: Props) => {
       </ModalBody>
       <FormSaveCancelFooter
         fetching={fetching}
-        textSave="xSave"
-        textCancel="xCancel"
+        textSave={t('Save')}
+        textCancel={t('Cancel')}
         onSave={handleSaveClick}
         onCancel={onDismiss}
       />

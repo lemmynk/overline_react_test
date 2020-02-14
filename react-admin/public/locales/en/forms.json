@@ -1,4 +1,15 @@
 {
   "Save": "Save",
-  "Cancel": "Cancel"
+  "Cancel": "Cancel",
+  "errors": {
+    "required": "Required field {{field}} value missing"
+  },
+  "artGroups": {
+    "title": "Article Groups",
+    "description": "Some description here",
+    "fields": {
+      "grpSifra": "Group code",
+      "grpNaziv": "Group name"
+    }
+  }
 }

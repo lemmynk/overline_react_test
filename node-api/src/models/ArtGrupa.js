@@ -56,12 +56,8 @@ class ArtGrupa extends Model {
    */
   static canDelete() {
     return [
-      param('id').custom(value => {
-        // return Promise.reject(new Error('artGrupa.not.empty'));
-        if (value > 200) {
-          throw new Error('artGrupa.not.empty');
-        }
-        return true;
+      param('id').custom(() => {
+        throw new Error('not-empty');
       }),
     ];
   }

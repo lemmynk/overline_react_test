@@ -1,4 +1,15 @@
 {
   "Save": "Snimi",
-  "Cancel": "Odustani"
+  "Cancel": "Odustani",
+  "errors": {
+    "required": "Vrednost obaveznog polja [{{field}}] nedostaje"
+  },
+  "artGroups": {
+    "title": "Article Groups",
+    "description": "Some description here",
+    "fields": {
+      "grpSifra": "Sifra grupe artikala",
+      "grpNaziv": "Naziv grupe artikala"
+    }
+  }
 }

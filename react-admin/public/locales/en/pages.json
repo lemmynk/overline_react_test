@@ -7,7 +7,11 @@
   },
   "artGroups": {
     "title": "Article Groups",
-    "description": "Some description here"
+    "description": "Some description here",
+    "addButtonTitle": "Add it",
+    "columns": {
+      "grpNaziv": "Name"
+    }
   },
   "settings": {
     "title": "Settings",
