@@ -20,7 +20,7 @@ type Props = {
   validationErrors: Object,
   clearValidationErrors: () => void,
   onDismiss: () => void,
-  saveForm: (string, Object, SaveCallback) => void,
+  saveForm: (Object, SaveCallback) => void,
   fetchArtGroups: () => void,
 };
 
@@ -58,8 +58,12 @@ export default (props: Props) => {
   };
 
   const handleSaveClick = () => {
+    const payload = {
+      url: ART_GROUPS_CRUD_URL,
+      data: formData,
+    };
     if (saveForm) {
-      saveForm(ART_GROUPS_CRUD_URL, formData, saveCallback);
+      saveForm(payload, saveCallback);
     }
   };
 
