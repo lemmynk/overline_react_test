@@ -1,7 +1,6 @@
 // @flow
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Page, PageHeader, PageContent } from '@newtash/core/Page';
 import Card from '@newtash/core/Card';
 import Tab from '@newtash/core/Tab';
@@ -9,10 +8,8 @@ import SearchBox from '@newtash/core/SearchBox';
 import Button from '@newtash/core/Button';
 import { Modal } from '@newtash/core/Modal';
 import Confirm from '@newtash/core/Confirm';
-import Icon from '@newtash/core/Icon';
-import { Table } from '@newtash/core/Table';
-// import { Table, TableButton } from '@newtash/core/Table';
-import { sortByKey } from '@newtash/core/utils';
+import { Table, TableButton } from '@newtash/core/Table';
+import { sortByKey, rand } from '@newtash/core/utils';
 import Form from '../../forms/ArtGroupsForm';
 import styles from './ArtGroupsPage.module.scss';
 import {
@@ -26,7 +23,7 @@ type Props = {
   setArtGroupsVArtikl: string => void,
   fetchArtGroups: () => void,
   initForm: Object => void,
-  deleteForm: (string, number, DeleteCallback) => void,
+  deleteForm: (Object, DeleteCallback) => void,
 };
 
 const tabs = [
@@ -44,7 +41,7 @@ export default (props: Props) => {
     deleteForm,
   } = props;
 
-  const [t] = useTranslation('pages');
+  const [t] = useTranslation(['pages', 'common']);
 
   const [search, setSearch] = useState('');
   const [isFormOpen, setIsFormOpen] = useState(false);
@@ -58,7 +55,7 @@ export default (props: Props) => {
     if (fetchArtGroups) {
       fetchArtGroups();
     }
-  }, []);
+  }, [fetchArtGroups]);
 
   const columns = () => [
     {
@@ -71,7 +68,7 @@ export default (props: Props) => {
     },
     {
       key: 'grpNaziv',
-      text: t('artGroups.columns.grpNaziv'),
+      text: t('artGroups.fields.grpNaziv'),
       field: 'grpNaziv',
       sortable: true,
     },
@@ -80,16 +77,14 @@ export default (props: Props) => {
       text: '',
       field: 'id',
       onRenderItem: item => (
-        <button
-          type="button"
-          onClick={e => {
-            e.stopPropagation();
+        <TableButton
+          danger
+          icon="minus-square"
+          onClick={() => {
             setDeleteId(item.id);
             setConfirmOpen(true);
           }}
-        >
-          <Icon icon="minus-square" />
-        </button>
+        />
       ),
       width: '2rem',
     },
@@ -151,22 +146,27 @@ export default (props: Props) => {
   };
 
   const handleDeleteConfirmationClick = () => {
+    const payload = {
+      url: ART_GROUPS_CRUD_URL,
+      id: deleteId,
+      errorMsg: t('artGroups.errors.not-empty'),
+    };
     setConfirmOpen(false);
     if (deleteForm) {
-      deleteForm(ART_GROUPS_CRUD_URL, deleteId, deleteCallback);
+      deleteForm(payload, deleteCallback);
     }
   };
 
   return (
     <Page>
       <PageHeader
-        title={t('artGroups.title')}
-        description={t('artGroups.description')}
+        title={t('artGroups.pageTitle')}
+        description={t('artGroups.pageDescription')}
         renderButtons={() => (
           <Button
             primary
             compact
-            text={t('artGroups.addButtonTitle')}
+            text={t('artGroups.buttons.add')}
             onClick={handleAddArtGroup}
           />
         )}
@@ -198,13 +198,17 @@ export default (props: Props) => {
       </Modal>
       <Confirm
         isOpen={isConfirmOpen}
-        title={t('areYouSure')}
-        textConfirm={t('Yes')}
-        textCancel={t('No')}
+        title={t('common:areYouSure')}
+        textConfirm={t('common:Yes')}
+        textCancel={t('common:No')}
         onConfirm={handleDeleteConfirmationClick}
         onDismiss={() => setConfirmOpen(false)}
       >
-        whatever
+        {t('artGroups.deleteConfirmation')
+          .split('|')
+          .map(str => (
+            <p key={rand()}>{str}</p>
+          ))}
       </Confirm>
     </Page>
   );

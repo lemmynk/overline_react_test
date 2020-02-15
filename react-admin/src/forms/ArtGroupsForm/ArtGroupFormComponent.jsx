@@ -35,7 +35,7 @@ export default (props: Props) => {
     fetchArtGroups,
   } = props;
 
-  const [t] = useTranslation('forms');
+  const [t] = useTranslation(['pages', 'common']);
 
   const { formData, getPropValue, setPropValue, getPropHasErrors } = useForm(
     data,
@@ -65,7 +65,7 @@ export default (props: Props) => {
 
   return (
     <>
-      <ModalHeader title={t('artGroups.title')} onDismiss={onDismiss} />
+      <ModalHeader title={t('artGroups.formTitle')} onDismiss={onDismiss} />
       <ModalBody>
         <FormErrorsBox
           errors={validationErrors}
@@ -86,8 +86,8 @@ export default (props: Props) => {
       </ModalBody>
       <FormSaveCancelFooter
         fetching={fetching}
-        textSave={t('Save')}
-        textCancel={t('Cancel')}
+        textSave={t('common:Save')}
+        textCancel={t('common:Cancel')}
         onSave={handleSaveClick}
         onCancel={onDismiss}
       />

@@ -1,1 +1,8 @@
-{}
+{
+  "Yes": "Yes",
+  "No": "No",
+  "Save": "Save",
+  "Cancel": "Cancel",
+  "Delete": "Delete",
+  "areYouSure": "Are you sure?"
+}

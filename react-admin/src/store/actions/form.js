@@ -13,17 +13,15 @@ export const initForm = data => ({
   payload: data,
 });
 
-export const saveForm = (url, data, callback) => ({
+export const saveForm = (payload, callback) => ({
   type: DO_SAVE_FORM,
-  url,
-  data,
+  payload,
   callback,
 });
 
-export const deleteForm = (url, id, callback) => ({
+export const deleteForm = (payload, callback) => ({
   type: DO_DELETE_FORM,
-  url,
-  id,
+  payload,
   callback,
 });
 

@@ -6,11 +6,21 @@
     "title": "Тренутни језик: {{lang}}"
   },
   "artGroups": {
-    "title": "Групе артикала",
-    "description": "Листинг група артикала",
-    "addButtonTitle": "Nova grupa",
-    "columns": {
-      "grpNaziv": "Naziv"
+    "pageTitle": "Article Groups",
+    "pageDescription": "Some description here",
+    "formTitle": "Article Groups",
+    "formDescription": "Some description here",
+    "deleteConfirmation": "This action is permanent.|You sure, sure?",
+    "buttons": {
+      "add": "Add it"
+    },
+    "fields": {
+      "grpSifra": "Sifra",
+      "grpNaziv": "Name"
+    },
+    "errors": {
+      "not-empty": "Grupa sa artiklima ne moze biti obrisana",
+      "required": "Required"
     }
   },
   "settings": {

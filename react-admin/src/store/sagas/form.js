@@ -43,8 +43,8 @@ const doSaveFormData = (url, data) => {
 
 function* doSaveFormFlow() {
   while (true) {
-    const action = yield take(DO_SAVE_FORM);
-    const { url, data, callback } = action;
+    const { payload, callback } = yield take(DO_SAVE_FORM);
+    const { url, data } = payload;
 
     yield all([put(setFormFetching(true)), put(clearFormErrors())]);
 
@@ -80,21 +80,18 @@ const doDeleteFormData = (url, id) =>
 
 function* doDeleteFormFlow() {
   while (true) {
-    const action = yield take(DO_DELETE_FORM);
-    const { url, id, callback } = action;
+    const { payload, callback } = yield take(DO_DELETE_FORM);
+    const { url, id, errorMsg } = payload;
 
     const { response, error } = yield doDeleteFormData(url, id);
 
     console.log('...do delete form...', { response, error });
 
     if (response) {
-      const {
-        status,
-        data: { errors },
-      } = response;
+      const { status } = response;
       if (status === RESPONSE_STATUS_UNPROCESSABLE_ENTITY) {
         // Unprocessable Entity
-        yield put(addAppError(errors[0]));
+        yield put(addAppError(errorMsg));
       }
       if (callback) {
         callback(response);
