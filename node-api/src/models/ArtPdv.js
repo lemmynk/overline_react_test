@@ -1,5 +1,5 @@
-const { body } = require('express-validator');
 const Model = require('./Model');
+const { validator } = require('../utils');
 
 const modelConfig = {
   tableName: 'mp_art_pdv',
@@ -27,27 +27,10 @@ class ArtPdv extends Model {
    */
   static validate() {
     return [
-      body('pdvStopa')
-        .exists()
-        .withMessage('pdvStopa.required')
-        .bail()
-        .isInt()
-        .withMessage('pdvStopa.invalid-format'),
-      body('pdvOpis')
-        .exists()
-        .withMessage('pdvOpis.required')
-        .bail()
-        .isLength({ min: 1, max: 120 })
-        .withMessage('pdvOpis.invalid-length'),
-      body('isDefault')
-        .optional()
-        .toBoolean(),
-      body('fisPdv')
-        .exists()
-        .withMessage('fisPdv.required')
-        .bail()
-        .isInt()
-        .withMessage('fisPdv.invalid-format'),
+      validator.validateInteger('pdvStopa'),
+      validator.validateStringLength('pdvOpis', 120),
+      validator.validateBoolean('isDefault'),
+      validator.validateInteger('fisPdv'),
     ];
   }
 }

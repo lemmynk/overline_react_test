@@ -7,6 +7,7 @@ SELECT
 	mp_kom_main.intsifra,
 	mp_kom_main.naziv,
 	mp_kom_main.adresa,
+	mp_kom_main.mestoId,
 	mp_kom_mesto.zip,
 	mp_kom_mesto.naziv AS mesto,
 	mp_kom_main.telefon,

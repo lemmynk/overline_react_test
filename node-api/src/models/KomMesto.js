@@ -1,22 +1,21 @@
 const Model = require('./Model');
-const ArtMainView = require('./ArtMainView');
+const KomMainView = require('./KomMainView');
 const { validator } = require('../utils');
 
 const modelConfig = {
-  tableName: 'mp_art_grupa',
+  tableName: 'mp_kom_mesto',
   keys: [
     'id',
-    'vArtikl',
-    'grpNaziv',
-    'grpSifra',
-    // 'redosled',
+    'zip',
+    'naziv',
+    'opstina',
     'createdAt',
     'updatedAt',
     'deletedAt',
   ],
 };
 
-class ArtGrupa extends Model {
+class KomMesto extends Model {
   constructor(props) {
     super(props, modelConfig);
   }
@@ -28,9 +27,9 @@ class ArtGrupa extends Model {
    */
   static validate() {
     return [
-      validator.validateVArtikl(),
-      validator.validateStringLength('grpNaziv', 120),
-      validator.validateStringLength('grpSifra', 20),
+      validator.validateStringLength('zip', 6),
+      validator.validateStringLength('naziv', 120),
+      validator.validateStringLength('opstina', 120),
     ];
   }
 
@@ -40,8 +39,8 @@ class ArtGrupa extends Model {
    * @return {Array}
    */
   static canDelete() {
-    return [validator.validateNoChildren('id', ArtMainView, 'grpId')];
+    return [validator.validateNoChildren('id', KomMainView, 'mestoId')];
   }
 }
 
-module.exports = ArtGrupa;
+module.exports = KomMesto;
