@@ -45,6 +45,7 @@ app.use(`${apiUrl}/users`, require('./routes/api/users'));
 app.use(`${apiUrl}/app-config`, require('./routes/api/appConfig'));
 app.use(`${apiUrl}/art-pdv`, require('./routes/api/artPdv'));
 app.use(`${apiUrl}/art-grupa`, require('./routes/api/artGrupa'));
+app.use(`${apiUrl}/art-main`, require('./routes/api/artMain'));
 
 // AUTH ROUTES
 app.use(authUrl, require('./routes/auth/index'));

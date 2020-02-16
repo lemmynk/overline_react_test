@@ -1,6 +1,7 @@
 const seeder = require('../config');
 const artPdv = require('../data/artPdv.json');
 const artGrupa = require('../data/artGrupa.json');
+const artMain = require('../data/artMain.json');
 
 // TBC: This works, maybe we should load different data per environment (?!)
 // console.log('ENVIRONMENT:', process.env.ENVIRONMENT);
@@ -8,4 +9,5 @@ const artGrupa = require('../data/artGrupa.json');
 exports.seed = knex =>
   seeder(knex, 'mp_art_pdv', artPdv.data)
     .then(() => seeder(knex, 'mp_art_grupa', artGrupa.data))
+    .then(() => seeder(knex, 'mp_art_main', artMain.data))
     .then(() => console.log('...and...'));

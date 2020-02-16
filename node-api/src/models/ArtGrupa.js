@@ -1,6 +1,6 @@
-/* eslint-disable class-methods-use-this */
 const { body, param } = require('express-validator');
 const Model = require('./Model');
+const ArtMain = require('./ArtMain');
 
 const modelConfig = {
   tableName: 'mp_art_grupa',
@@ -32,7 +32,7 @@ class ArtGrupa extends Model {
         .exists()
         .withMessage('vArtikl.required')
         .bail()
-        .isIn(['roba', 'usluga'])
+        .isIn(['roba', 'repro', 'gp', 'os', 'usluga'])
         .withMessage('vArtikl.enum'),
       body('grpNaziv')
         .exists()
@@ -55,11 +55,17 @@ class ArtGrupa extends Model {
    * @return {Array}
    */
   static canDelete() {
-    return [
-      param('id').custom(() => {
-        throw new Error('not-empty');
-      }),
-    ];
+    return [];
+    //   return [
+    //     param('id').custom(value =>
+    //       ArtMain.count({ grpId: value, deletedAt: 'NULL' }).then(count => {
+    //         if (count > 0) {
+    //           return Promise.reject(new Error('not-empty'));
+    //         }
+    //         return true;
+    //       }),
+    //     ),
+    //   ];
   }
 }
 

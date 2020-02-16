@@ -236,7 +236,7 @@ class Model {
   /**
    * Create pre-populated model
    * @param   {Object}  props
-   * @return  {Object}
+   * @return  {Promise}
    */
   static count(params) {
     const model = new this();
@@ -246,7 +246,7 @@ class Model {
   /**
    * Create pre-populated model
    * @param   {Object}  props
-   * @return  {Object}
+   * @return  {Promise}
    */
   static create(props) {
     const model = new this(props);
