@@ -1,9 +1,11 @@
 import { take, all, put } from 'redux-saga/effects';
 import {
+  FETCH_FORM_DATA,
   DO_INIT_FORM,
   DO_SAVE_FORM,
   DO_DELETE_FORM,
   setFormData,
+  setFormDataFetching,
   setFormFetching,
   setFormErrors,
   clearFormErrors,
@@ -14,9 +16,41 @@ import {
   RESPONSE_STATUS_CREATED,
   // RESPONSE_STATUS_NO_CONSENT,
   RESPONSE_STATUS_UNPROCESSABLE_ENTITY,
+  FETCH_STATUS_FETCHING,
+  FETCH_STATUS_SUCCEEDED,
+  FETCH_STATUS_FAILED,
 } from '../../config';
 
 const blacklist = ['id', 'createdAt', 'updatedAt', 'deletedAt'];
+
+const doFetchFormData = ({ url }) =>
+  apiInstance
+    .get(url)
+    .then(response => response.data)
+    .then(response => ({ response }))
+    .catch(error => ({ error }));
+
+function* doFetchFormDataFlow() {
+  while (true) {
+    const { payload } = yield take(FETCH_FORM_DATA);
+
+    yield all([put(setFormDataFetching(FETCH_STATUS_FETCHING))]);
+
+    const { response, error } = yield doFetchFormData(payload);
+
+    if (response) {
+      yield all([
+        put(setFormData(response)),
+        put(setFormDataFetching(FETCH_STATUS_SUCCEEDED)),
+      ]);
+    } else if (error) {
+      yield all([
+        put(addAppError(error)),
+        put(setFormDataFetching(FETCH_STATUS_FAILED)),
+      ]);
+    }
+  }
+}
 
 function* doInitFormFlow() {
   while (true) {
@@ -102,4 +136,9 @@ function* doDeleteFormFlow() {
   }
 }
 
-export default [doInitFormFlow, doSaveFormFlow, doDeleteFormFlow];
+export default [
+  doFetchFormDataFlow,
+  doInitFormFlow,
+  doSaveFormFlow,
+  doDeleteFormFlow,
+];

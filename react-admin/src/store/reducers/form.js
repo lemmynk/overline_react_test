@@ -2,6 +2,7 @@ import { combineReducers } from 'redux';
 import {
   DO_INIT_FORM,
   SET_FORM_DATA,
+  SET_FORM_DATA_FETCHING,
   SET_FORM_FETCHING,
   SET_FORM_ERRORS,
   CLEAR_FORM_ERRORS,
@@ -11,6 +12,17 @@ const data = (state = {}, action) => {
   switch (action.type) {
     case DO_INIT_FORM:
     case SET_FORM_DATA:
+      return action.payload;
+    default:
+      return state;
+  }
+};
+
+const dataFetching = (state = null, action) => {
+  switch (action.type) {
+    case DO_INIT_FORM:
+      return null;
+    case SET_FORM_DATA_FETCHING:
       return action.payload;
     default:
       return state;
@@ -42,6 +54,7 @@ const errors = (state = {}, action) => {
 
 export default combineReducers({
   fetching,
+  dataFetching,
   data,
   errors,
 });

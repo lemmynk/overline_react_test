@@ -13,6 +13,7 @@ import { sortByKey, rand } from '@newtash/core/utils';
 import Form from '../../forms/ArtGroupsForm';
 import styles from './ArtGroupsPage.module.scss';
 import {
+  vArtikliTabs,
   ART_GROUPS_CRUD_URL,
   RESPONSE_STATUS_UNPROCESSABLE_ENTITY,
 } from '../../config';
@@ -25,11 +26,6 @@ type Props = {
   initForm: Object => void,
   deleteForm: (Object, DeleteCallback) => void,
 };
-
-const tabs = [
-  { key: 'roba', title: 'Roba' },
-  { key: 'usluga', title: 'Usluga' },
-];
 
 export default (props: Props) => {
   const {
@@ -100,6 +96,14 @@ export default (props: Props) => {
     }
   };
 
+  const handleTableRowClick = (row: Data) => {
+    // console.log('table row clicked:', row);
+    if (initForm) {
+      initForm(row);
+    }
+    setIsFormOpen(true);
+  };
+
   const filteredData = data
     .filter(item => item.grpNaziv.toLowerCase().includes(search.toLowerCase()))
     .sort(sortByKey(sortedKey, sortedAsc));
@@ -110,6 +114,16 @@ export default (props: Props) => {
     }
   };
 
+  const renderTabTitle = () => (
+    <div className={styles.titleArea}>
+      <SearchBox compact value={search} onChange={setSearch} />
+    </div>
+  );
+
+  const dismissModal = () => {
+    setIsFormOpen(false);
+  };
+
   const handleAddArtGroup = () => {
     if (initForm) {
       initForm({
@@ -117,24 +131,6 @@ export default (props: Props) => {
       });
     }
     setIsFormOpen(true);
-  };
-
-  const renderTabTitle = () => (
-    <div className={styles.titleArea}>
-      <SearchBox compact value={search} onChange={setSearch} />
-    </div>
-  );
-
-  const handleTableRowClick = (row: Data) => {
-    // console.log('table row clicked:', row);
-    if (initForm) {
-      initForm(row);
-    }
-    setIsFormOpen(true);
-  };
-
-  const dismissModal = () => {
-    setIsFormOpen(false);
   };
 
   const deleteCallback = (response: AxiosResponseProps) => {
@@ -175,7 +171,7 @@ export default (props: Props) => {
         <Card>
           <Tab
             bottom
-            tabs={tabs}
+            tabs={vArtikliTabs}
             selectedTab={vArtikl}
             renderTitle={renderTabTitle}
             onChange={handleTabChange}

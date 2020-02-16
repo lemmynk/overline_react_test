@@ -9,6 +9,7 @@ import errorsReducer from './errors';
 import formReducer from './form';
 import artPdvReducer from './artPdv';
 import artGrupaReducer from './artGrupa';
+import artMainReducer from './artMain';
 
 const {
   APP,
@@ -19,6 +20,7 @@ const {
   FORM,
   ART_PDV,
   ART_GRUPA,
+  ART_MAIN,
 } = reduxState;
 
 export default combineReducers({
@@ -31,4 +33,5 @@ export default combineReducers({
   [FORM]: formReducer,
   [ART_PDV]: artPdvReducer,
   [ART_GRUPA]: artGrupaReducer,
+  [ART_MAIN]: artMainReducer,
 });

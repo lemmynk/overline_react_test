@@ -5,12 +5,13 @@ const koms = [];
 
 for (let index = 0; index < COUNT_KUPAC; index += 1) {
   const id = index + 1;
+  const komIme = id.toString().padStart(5, '0');
   const pib = id.toString().padStart(9, '0');
   const sifra = id.toString().padStart(5, '0');
   const kom = {
     id,
     pib,
-    komime: `kom${id}`,
+    komime: `kom${komIme}`,
     intsifra: `01${sifra}`,
     naziv: `Kupac ${id}`,
     adresa: 'Nepoznata bb',
@@ -44,12 +45,13 @@ for (let index = 0; index < COUNT_KUPAC; index += 1) {
 
 for (let index = 0; index < COUNT_DOBAVLJAC; index += 1) {
   const id = index + 1;
+  const komIme = (id + COUNT_DOBAVLJAC).toString().padStart(5, '0');
   const pib = `9${id.toString().padStart(8, '0')}`;
   const sifra = id.toString().padStart(5, '0');
   const kom = {
     id: id + COUNT_DOBAVLJAC,
     pib,
-    komime: `kom${id + COUNT_DOBAVLJAC}`,
+    komime: `kom${komIme}`,
     intsifra: `02${sifra}`,
     naziv: `Dobavljac ${id}`,
     adresa: 'Nepoznata bb',

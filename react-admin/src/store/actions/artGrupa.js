@@ -9,9 +9,9 @@ export const fetchArtGroups = () => ({
   type: FETCH_ART_GROUPS,
 });
 
-export const setArtGroupsData = pdvs => ({
+export const setArtGroupsData = groups => ({
   type: SET_ART_GROUPS_DATA,
-  payload: pdvs,
+  payload: groups,
 });
 
 export const setArtGroupsVersion = version => ({

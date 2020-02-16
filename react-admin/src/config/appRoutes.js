@@ -19,6 +19,15 @@ export const ART_GROUPS = {
   component: 'ArtGroupsPage',
 };
 
+export const ART_MAIN = {
+  key: 'artMain',
+  title: 'ArtMain',
+  url: '/art-main',
+  icon: 'cog',
+  // role: USER_ROLE_ALL,
+  component: 'ArtMainPage',
+};
+
 export const SETTINGS = {
   key: 'settings',
   title: 'Settings',
@@ -38,4 +47,4 @@ export const LOGOUT = {
 };
 
 // List of routes to load by router
-export default [ART_GROUPS, SETTINGS];
+export default [ART_GROUPS, ART_MAIN, SETTINGS];

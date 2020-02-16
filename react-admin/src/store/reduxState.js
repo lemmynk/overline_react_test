@@ -10,6 +10,7 @@ const reduxState = {
   FORM: `${NS}/form`,
   ART_PDV: `${NS}/artPdv`,
   ART_GRUPA: `${NS}/artGrupa`,
+  ART_MAIN: `${NS}/artMain`,
 };
 
 // export const blacklist = [`${NS}/errors`, `${NS}/app`, `${NS}/form`];

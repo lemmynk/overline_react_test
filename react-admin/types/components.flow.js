@@ -59,3 +59,8 @@ declare type PaginationDescriptionProps = {
   totalItems: number,
   itemsPerPage: number,
 };
+
+declare type PaginatedDataProps = {
+  data: Array<any>,
+  pagination: PaginationProps,
+};

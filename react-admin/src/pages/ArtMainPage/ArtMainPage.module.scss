@@ -1,0 +1,11 @@
+.searchRow {
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+.column {
+  flex: 1;
+  &:not(:first-child) {
+    margin-left: 0.25rem;
+  }
+}

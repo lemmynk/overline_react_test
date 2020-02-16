@@ -1,12 +1,19 @@
 import { NS } from '../reduxState';
 
+export const FETCH_FORM_DATA = `${NS}/FETCH_FORM_DATA`;
 export const DO_INIT_FORM = `${NS}/DO_INIT_FORM`;
 export const DO_SAVE_FORM = `${NS}/DO_SAVE_FORM`;
 export const DO_DELETE_FORM = `${NS}/DO_DELETE_FORM`;
 export const SET_FORM_DATA = `${NS}/SET_FORM_DATA`;
+export const SET_FORM_DATA_FETCHING = `${NS}/SET_FORM_DATA_FETCHING`;
 export const SET_FORM_FETCHING = `${NS}/SET_FORM_FETCHING`;
 export const SET_FORM_ERRORS = `${NS}/SET_FORM_ERRORS`;
 export const CLEAR_FORM_ERRORS = `${NS}/CLEAR_FORM_ERRORS`;
+
+export const fetchFormData = payload => ({
+  type: FETCH_FORM_DATA,
+  payload,
+});
 
 export const initForm = data => ({
   type: DO_INIT_FORM,
@@ -28,6 +35,11 @@ export const deleteForm = (payload, callback) => ({
 export const setFormData = data => ({
   type: SET_FORM_DATA,
   payload: data,
+});
+
+export const setFormDataFetching = fetching => ({
+  type: SET_FORM_DATA_FETCHING,
+  payload: fetching,
 });
 
 export const setFormFetching = fetching => ({
