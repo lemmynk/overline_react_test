@@ -25,12 +25,6 @@ exports.up = knex => {
     t.string('pdvBroj', 30).nullable();
     t.string('maticniBroj', 30).nullable();
     t.string('sifraDelatnosti', 30).nullable();
-    t.string('tracun1', 30).nullable();
-    t.string('tracun2', 30).nullable();
-    t.string('tracun3', 30).nullable();
-    t.string('banka1', 120).nullable();
-    t.string('banka2', 120).nullable();
-    t.string('banka3', 120).nullable();
     t.text('napomena').nullable();
 
     t.boolean('isKupac')

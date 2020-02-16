@@ -23,12 +23,6 @@ const modelConfig = {
     'pdvBroj',
     'maticniBroj',
     'sifraDelatnosti',
-    'tracun1',
-    'tracun2',
-    'tracun3',
-    'banka1',
-    'banka2',
-    'banka3',
     'napomena',
     'isKupac',
     'isDobavljac',
@@ -43,35 +37,6 @@ const modelConfig = {
     'deletedAt',
   ],
 };
-
-// const validateStringLength = (field, max) =>
-//   body(field)
-//     .exists()
-//     .withMessage(`${field}.required`)
-//     .bail()
-//     .isLength({ min: 1, max })
-//     .withMessage(`${field}.length`);
-
-// const validateOptionalStringLength = (field, max) =>
-//   body(field)
-//     .optional()
-//     .isLength({ min: 1, max })
-//     .withMessage(`${field}.length`);
-
-// const validateBoolean = field =>
-//   body(field)
-//     .optional()
-//     .toBoolean();
-
-// const validateOptionalInteger = field =>
-//   body(field)
-//     .optional()
-//     .toInt();
-
-// const validateOptionalText = field =>
-//   body(field)
-//     .optional()
-//     .escape();
 
 class KomMain extends Model {
   constructor(props) {
@@ -101,12 +66,6 @@ class KomMain extends Model {
       validator.validateOptionalStringLength('pdvBroj', 30),
       validator.validateOptionalStringLength('maticniBroj', 30),
       validator.validateOptionalStringLength('sifraDelatnosti', 30),
-      validator.validateOptionalStringLength('tracun1', 30),
-      validator.validateOptionalStringLength('tracun2', 30),
-      validator.validateOptionalStringLength('tracun3', 30),
-      validator.validateOptionalStringLength('banka1', 120),
-      validator.validateOptionalStringLength('banka2', 120),
-      validator.validateOptionalStringLength('banka3', 120),
       validator.validateOptionalText('napomena'),
       validator.validateBoolean('isKupac'),
       validator.validateBoolean('isDobavljac'),
