@@ -1,3 +1,4 @@
+const { body } = require('express-validator');
 const Model = require('./Model');
 
 const modelConfig = {
@@ -20,16 +21,34 @@ class ArtPdv extends Model {
   }
 
   /**
-   * Validate params provided
+   * Validate params provided using express-validator
    *
-   * @param {Object} params
-   * @return {Boolean}
+   * @return {Array}
    */
-  static validate(params) {
-    this.clearValidationErrors()
-      .validateRequired(['pdvStopa', 'pdvOpis', 'isDefault', 'fisPdv'], params)
-      .validateStringLength(params, 'pdvOpis', 120);
-    return Object.keys(this.validationErrors).length === 0;
+  static validate() {
+    return [
+      body('pdvStopa')
+        .exists()
+        .withMessage('pdvStopa.required')
+        .bail()
+        .isInt()
+        .withMessage('pdvStopa.invalid-format'),
+      body('pdvOpis')
+        .exists()
+        .withMessage('pdvOpis.required')
+        .bail()
+        .isLength({ min: 1, max: 120 })
+        .withMessage('pdvOpis.invalid-length'),
+      body('isDefault')
+        .optional()
+        .toBoolean(),
+      body('fisPdv')
+        .exists()
+        .withMessage('fisPdv.required')
+        .bail()
+        .isInt()
+        .withMessage('fisPdv.invalid-format'),
+    ];
   }
 }
 

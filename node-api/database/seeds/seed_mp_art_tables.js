@@ -9,5 +9,4 @@ const artMain = require('../data/artMain.json');
 exports.seed = knex =>
   seeder(knex, 'mp_art_pdv', artPdv.data)
     .then(() => seeder(knex, 'mp_art_grupa', artGrupa.data))
-    .then(() => seeder(knex, 'mp_art_main', artMain.data))
-    .then(() => console.log('...and...'));
+    .then(() => seeder(knex, 'mp_art_main', artMain.data));

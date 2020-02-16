@@ -1,6 +1,6 @@
 const { body, param } = require('express-validator');
 const Model = require('./Model');
-const ArtMain = require('./ArtMain');
+const ArtMainView = require('./ArtMainView');
 
 const modelConfig = {
   tableName: 'mp_art_grupa',
@@ -55,17 +55,21 @@ class ArtGrupa extends Model {
    * @return {Array}
    */
   static canDelete() {
-    return [];
-    //   return [
-    //     param('id').custom(value =>
-    //       ArtMain.count({ grpId: value, deletedAt: 'NULL' }).then(count => {
-    //         if (count > 0) {
-    //           return Promise.reject(new Error('not-empty'));
-    //         }
-    //         return true;
-    //       }),
-    //     ),
-    //   ];
+    return [
+      param('id')
+        .isInt()
+        .withMessage('invalid-format')
+        .bail()
+        .toInt()
+        .custom(value =>
+          ArtMainView.count({ grpId: value, isDeleted: false }).then(count => {
+            if (count > 0) {
+              return Promise.reject(new Error('not-empty'));
+            }
+            return true;
+          }),
+        ),
+    ];
   }
 }
 

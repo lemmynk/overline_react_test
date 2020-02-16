@@ -43,30 +43,6 @@ class ArtMain extends Model {
    */
   static validate() {
     return [
-      body('grpId').custom(value => {
-        return ArtGrupa.find({ id: value }).then(() => {
-          return Promise.reject(new Error('whatever grp'));
-        });
-      }),
-      body('pdvId')
-        .exists()
-        .withMessage('pdvId.required')
-        .bail()
-        .custom(value =>
-          ArtPdv.find({ id: value })
-            .then(() => true)
-            .catch(() => Promise.reject(new Error('whatever pdv'))),
-        ),
-    ];
-  }
-
-  /**
-   * Validate params provided using express-validator
-   *
-   * @return {Array}
-   */
-  static validates() {
-    return [
       body('vArtikl')
         .exists()
         .withMessage('vArtikl.required')
@@ -76,7 +52,21 @@ class ArtMain extends Model {
       body('grpId')
         .exists()
         .withMessage('grpId.required')
-        .toInt(),
+        .bail()
+        .isInt()
+        .withMessage('grpId.invalid-format')
+        .bail()
+        .toInt()
+        .custom(value =>
+          ArtGrupa.count({ id: value })
+            .then(count => {
+              if (count > 0) {
+                return true;
+              }
+              return Promise.reject(new Error('grpId.invalid'));
+            })
+            .catch(() => Promise.reject(new Error('grpId.db-error'))),
+        ),
       body('artNaziv')
         .exists()
         .withMessage('artNaziv.required')
@@ -98,7 +88,21 @@ class ArtMain extends Model {
       body('pdvId')
         .exists()
         .withMessage('pdvId.required')
-        .toInt(),
+        .bail()
+        .isInt()
+        .withMessage('pdvId.invalid-format')
+        .bail()
+        .toInt()
+        .custom(value =>
+          ArtPdv.count({ id: value })
+            .then(count => {
+              if (count > 0) {
+                return true;
+              }
+              return Promise.reject(new Error('pdvId.invalid'));
+            })
+            .catch(() => Promise.reject(new Error('pdvId.db-error'))),
+        ),
     ];
   }
 }
