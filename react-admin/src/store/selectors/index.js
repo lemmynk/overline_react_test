@@ -8,3 +8,4 @@ export * from './form';
 export * from './artPdv';
 export * from './artGrupa';
 export * from './artMain';
+export * from './komMesta';

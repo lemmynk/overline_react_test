@@ -7,6 +7,7 @@ export * from './actions/form';
 export * from './actions/artPdv';
 export * from './actions/artGrupa';
 export * from './actions/artMain';
+export * from './actions/komMesta';
 
 export * from './selectors/app';
 export * from './selectors/appConfig';
@@ -17,3 +18,4 @@ export * from './selectors/form';
 export * from './selectors/artPdv';
 export * from './selectors/artGrupa';
 export * from './selectors/artMain';
+export * from './selectors/komMesta';

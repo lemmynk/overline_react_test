@@ -28,6 +28,24 @@ export const ART_MAIN = {
   component: 'ArtMainPage',
 };
 
+export const KOM_MESTA = {
+  key: 'komMesta',
+  title: 'KomMesta',
+  url: '/kom-mesto',
+  icon: 'cog',
+  // role: USER_ROLE_ALL,
+  component: 'KomMestaPage',
+};
+
+export const KOM_MAIN = {
+  key: 'komMain',
+  title: 'KomMain',
+  url: '/kom-main',
+  icon: 'cog',
+  // role: USER_ROLE_ALL,
+  component: 'KomMainPage',
+};
+
 export const SETTINGS = {
   key: 'settings',
   title: 'Settings',
@@ -47,4 +65,4 @@ export const LOGOUT = {
 };
 
 // List of routes to load by router
-export default [ART_GROUPS, ART_MAIN, SETTINGS];
+export default [ART_GROUPS, ART_MAIN, KOM_MESTA, KOM_MAIN, SETTINGS];

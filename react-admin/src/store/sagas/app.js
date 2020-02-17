@@ -4,6 +4,7 @@ import {
   doFetchAppConfig,
   fetchArtPdvs,
   fetchArtGroups,
+  fetchKomMesta,
 } from '../actions';
 
 function* appInitFlow() {
@@ -17,6 +18,7 @@ function* appInitFlow() {
       put(doFetchAppConfig()),
       put(fetchArtPdvs()),
       put(fetchArtGroups()),
+      put(fetchKomMesta()),
     ]);
   }
 }

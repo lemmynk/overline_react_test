@@ -10,6 +10,7 @@ import formReducer from './form';
 import artPdvReducer from './artPdv';
 import artGrupaReducer from './artGrupa';
 import artMainReducer from './artMain';
+import komMestaReducer from './komMesta';
 
 const {
   APP,
@@ -21,6 +22,7 @@ const {
   ART_PDV,
   ART_GRUPA,
   ART_MAIN,
+  KOM_MESTA,
 } = reduxState;
 
 export default combineReducers({
@@ -34,4 +36,5 @@ export default combineReducers({
   [ART_PDV]: artPdvReducer,
   [ART_GRUPA]: artGrupaReducer,
   [ART_MAIN]: artMainReducer,
+  [KOM_MESTA]: komMestaReducer,
 });
