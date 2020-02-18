@@ -24,3 +24,5 @@ declare type AxiosResponseProps = {
 declare type SaveCallback = (AxiosResponseProps) => void;
 
 declare type DeleteCallback = (AxiosResponseProps) => void;
+
+declare type I18nTranslator = (string, Object) => string;

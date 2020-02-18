@@ -1,79 +1,100 @@
 // @flow
-import { useReducer, useEffect } from 'react';
-import reducer from './reducer';
-// import {
-//   setFormData,
-//   setFormErrors,
-//   setFormDataPropValue,
-//   setFormDataPropChanged,
-//   setFormDataPropErrors,
-// } from './actions';
-// import {
-//   selectFormData,
-//   selectFormChanged,
-//   selectFormHasErrors,
-//   selectFormDataPropValue,
-//   selectFormPropChanged,
-//   selectFormPropErrors,
-//   selectFormPropHasErrors,
-// } from './selectors';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 
-const initialState = {};
+export default (
+  initalData: Object,
+  validationErrors: Object = {},
+  t: ?I18nTranslator = null,
+) => {
+  const [data, setData] = useState(initalData);
+  const [errs, setErrors] = useState(validationErrors);
+  const [changes, setChanges] = useState([]);
 
-export default (initalData: Object, validationErrors: Object = {}) => {
-  const [state, dispatch] = useReducer(reducer, initialState, () => initalData);
-
+  /**
+   * Store data change with clearing changes
+   */
   useEffect(() => {
-    console.log('### initalData effect', initalData);
-    // dispatch(setFormData(initalData));
-  }, [initalData]);
+    // console.log('### initalData effect', initalData);
+    setData(initalData);
+    setChanges([]);
+  }, [initalData, setData, setChanges]);
 
+  /**
+   * Translate errors before storing
+   */
   useEffect(() => {
-    console.log('### validationErrors effect', validationErrors);
-    // dispatch(setFormErrors(validationErrors));
-  }, [validationErrors]);
+    // console.log('### validationErrors effect', validationErrors);
+    if (t) {
+      const translatedErrors = {};
+      Object.keys(validationErrors).forEach(key => {
+        const propErrors = validationErrors[key];
+        const transErrs = propErrors.map(e => t(e));
+        translatedErrors[key] = transErrs;
+      });
+      setErrors(translatedErrors);
+    } else {
+      setErrors(validationErrors);
+    }
+  }, [validationErrors, setErrors, t]);
 
-  // const getPropValue = (propName: string, defaultsTo: any = null) =>
-  //   selectFormDataPropValue(state, propName, defaultsTo);
+  /*
+   |---------------------------------------------------------------------------------
+   | MEMOIZED VALUES
+   |---------------------------------------------------------------------------------
+   */
+  const formData = useMemo(() => data, [data]);
+  const errors = useMemo(() => errs, [errs]);
+  const hasErrors = useMemo(() => errors && Object.keys(errors).length > 0, [
+    errors,
+  ]);
+  const propChanges = useMemo(() => changes, [changes]);
 
-  // const setPropValue = (propName: string) => (newValue: any) => {
-  //   dispatch(setFormDataPropValue(propName, newValue));
-  // };
+  /*
+   |---------------------------------------------------------------------------------
+   | HOOK METHODS
+   |---------------------------------------------------------------------------------
+   */
+  const setPropValueAction = useCallback(
+    (propName: string, newValue: any) => {
+      setData({ ...data, [propName]: newValue });
+      if (!changes.includes(propName)) {
+        setChanges([...changes, propName]);
+      }
+    },
+    [data, setData, changes, setChanges],
+  );
 
-  // const getFormChanged = () => selectFormChanged(state);
+  const setPropValue = (propName: string) => (newValue: string) =>
+    setPropValueAction(propName, newValue);
 
-  // const getPropChanged = (propName: string) =>
-  //   selectFormPropChanged(state, propName);
+  const getPropValue = useCallback(
+    (propName: string, defaultsTo: any = null) =>
+      formData[propName] || defaultsTo,
+    [formData],
+  );
 
-  // const setPropChanged = (propName: string) => (changed: boolean) => {
-  //   dispatch(setFormDataPropChanged(propName, changed));
-  // };
+  const getPropHasErrors = useCallback(
+    (propName: string) => {
+      return errors[propName] && errors[propName].length > 0;
+    },
+    [errors],
+  );
 
-  // const getFormHasErrors = () => selectFormHasErrors(state);
-
-  // const getPropHasErrors = (propName: string) =>
-  //   selectFormPropHasErrors(state, propName);
-
-  // const getPropErrors = (propName: string) =>
-  //   selectFormPropErrors(state, propName);
-
-  // const setPropErrors = (propName: string, errors: Array<string>) => {
-  //   dispatch(setFormDataPropErrors(propName, errors));
-  // };
+  const getPropHasChanged = useCallback(
+    (propName: string) => propChanges.includes(propName),
+    [propChanges],
+  );
 
   return {
-    // state,
-    // formData: selectFormData(state),
-    // setPropValue,
-    // getPropValue,
-    // isChanged: getFormChanged(),
-    // getFormChanged,
-    // setPropChanged,
-    // getPropChanged,
-    // hasErrors: getFormHasErrors(),
-    // getFormHasErrors,
-    // setPropErrors,
-    // getPropHasErrors,
-    // getPropErrors,
+    formData,
+    errors,
+    hasErrors,
+    changes,
+
+    setPropValueAction,
+    setPropValue,
+    getPropValue,
+    getPropHasErrors,
+    getPropHasChanged,
   };
 };

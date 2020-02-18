@@ -7,8 +7,7 @@ import Card from '@newtash/core/Card';
 import FormErrorsBox from '@newtash/core/FormErrorsBox';
 import Button from '@newtash/core/Button';
 import { TextInput } from '@newtash/core/Input';
-// import { useForm } from '@newtash/core/hooks';
-import { useFormState } from '../../providers/form-context';
+import useForm from '../../utils/useForm';
 import { ART_MAIN_CRUD_URL } from '../../config';
 
 type Props = {
@@ -30,16 +29,15 @@ const Form = (props: Props) => {
   const history = useHistory();
   const { action, id } = useParams();
 
+  const form = useForm(data, validationErrors);
   const {
     formData,
-    setFormData,
-    setPropValue,
+    errors,
+    changes,
     getPropValue,
+    setPropValue,
     getPropHasErrors,
-  } = useFormState();
-  // console.log('formData:', state, formData);
-
-  // const { setPropValue } = useForm(data, validationErrors);
+  } = form;
 
   useEffect(() => {
     if (id && fetchFormData) {
@@ -48,13 +46,6 @@ const Form = (props: Props) => {
       });
     }
   }, [id, fetchFormData]);
-
-  useEffect(() => {
-    if (Object.keys(data).length > 0) {
-      console.log('### data useEffect', data);
-      setFormData(data);
-    }
-  }, [data, setFormData]);
 
   const handleBackButtonClick = () => {
     history.goBack();
@@ -99,10 +90,7 @@ const Form = (props: Props) => {
       />
       <PageContent>
         <Card>
-          <FormErrorsBox
-            errors={validationErrors}
-            onClear={clearValidationErrors}
-          />
+          <FormErrorsBox errors={errors} onClear={clearValidationErrors} />
           <TextInput
             label={t('artMain.fields.intSifra')}
             value={getPropValue('intSifra')}
@@ -123,7 +111,9 @@ const Form = (props: Props) => {
           />
         </Card>
         <Card>
-          <pre>{JSON.stringify({ data, formData }, null, 2)}</pre>
+          <pre>
+            {JSON.stringify({ data, formData, errors, changes }, null, 2)}
+          </pre>
         </Card>
       </PageContent>
     </Page>
