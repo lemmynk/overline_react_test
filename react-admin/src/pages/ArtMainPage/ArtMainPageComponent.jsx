@@ -146,14 +146,7 @@ const ArtMainPage = (props: Props) => {
   };
 
   const renderDescription = (desc: PaginationDescriptionProps) => {
-    const parts = [
-      `Showing ${desc.currentItems}`,
-      `of ${desc.totalItems} items`,
-      `for page ${desc.currentPage}`,
-      `of ${desc.totalPages}`,
-      `[${desc.itemsPerPage} items/page]`,
-    ];
-    return <div>{parts.join(' ')}</div>;
+    return <div>{t('artMain.listPagination', desc)}</div>;
   };
 
   const translatedGrpOptions = grpOptions.map(item =>

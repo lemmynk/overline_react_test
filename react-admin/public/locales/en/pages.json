@@ -5,6 +5,29 @@
   "i18n": {
     "title": "Current language: {{lang}}"
   },
+  "artMain": {
+    "pageTitle": "Articles",
+    "pageDescription": "Articles description here",
+    "formTitleAdd": "Create New Article",
+    "formTitleEdit": "Edit Article",
+    "formDescription": "Some description here",
+    "deleteConfirmation": "This action is permanent.|You sure, sure?",
+    "listPagination": "Showing {{currentItems}} of {{totalItems}} items for page {{currentPage}} of {{totalPages}} {{itemsPerPage}} items/page]",
+    "buttons": {
+      "add": "Add it"
+    },
+    "fields": {
+      "intSifra": "Code",
+      "artNaziv": "Name",
+      "grpNaziv": "Group Name",
+      "mera": "Unit",
+      "pdvStopa": "PDV"
+    },
+    "errors": {
+      "not-empty": "Not empty group cannot be deleted",
+      "required": "Required"
+    }
+  },
   "artGroups": {
     "pageTitle": "Article Groups",
     "pageDescription": "Some description here",
