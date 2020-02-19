@@ -1,7 +1,6 @@
 import { take, all, put } from 'redux-saga/effects';
 import {
   FETCH_FORM_DATA,
-  DO_INIT_FORM,
   DO_SAVE_FORM,
   DO_DELETE_FORM,
   setFormData,
