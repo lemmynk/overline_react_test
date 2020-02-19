@@ -1,41 +1,87 @@
 // @flow
 import { useState, useEffect, useCallback, useMemo } from 'react';
+import { USE_FORM_DEFAULT_TIMEOUT_SECS } from '../../config';
+
+type Params = {
+  t?: I18nTranslator,
+  tDomain?: string,
+  saveTimeoutSecs?: number,
+};
+
+let saveTimeout;
 
 export default (
-  initalData: Object,
+  initialData: Object,
   validationErrors: Object = {},
-  t: ?I18nTranslator = null,
+  params?: Params = {},
 ) => {
-  const [data, setData] = useState(initalData);
-  const [errs, setErrors] = useState(validationErrors);
+  const { t, tDomain, saveTimeoutSecs } = params;
+  const [data, setData] = useState(initialData || {});
+  const [errs, setErrors] = useState(validationErrors || {});
   const [changes, setChanges] = useState([]);
+  const [isSaved, setIsSaved] = useState(false);
 
   /**
    * Store data change with clearing changes
    */
   useEffect(() => {
-    // console.log('### initalData effect', initalData);
-    setData(initalData);
-    setChanges([]);
-  }, [initalData, setData, setChanges]);
+    // console.log('### initialData effect', initialData);
+    if (initialData) {
+      setData(initialData);
+      setChanges([]);
+    }
+  }, [initialData, setData, setChanges]);
+
+  /**
+   * Clear timeout (if any) on close
+   */
+  useEffect(() => {
+    return () => {
+      if (saveTimeout) {
+        clearTimeout(saveTimeout);
+      }
+    };
+  }, []);
 
   /**
    * Translate errors before storing
    */
   useEffect(() => {
     // console.log('### validationErrors effect', validationErrors);
-    if (t) {
-      const translatedErrors = {};
-      Object.keys(validationErrors).forEach(key => {
-        const propErrors = validationErrors[key];
-        const transErrs = propErrors.map(e => t(e));
-        translatedErrors[key] = transErrs;
-      });
-      setErrors(translatedErrors);
-    } else {
-      setErrors(validationErrors);
+    setErrors(validationErrors);
+  }, [validationErrors, setErrors]);
+
+  /**
+   * Fired when the form is successfuly saved
+   */
+  useEffect(() => {
+    const timeout =
+      parseInt(saveTimeoutSecs || USE_FORM_DEFAULT_TIMEOUT_SECS, 10) * 1000;
+
+    if (isSaved) {
+      if (saveTimeout) {
+        clearTimeout(saveTimeout);
+      }
+
+      saveTimeout = setTimeout(() => {
+        setIsSaved(false);
+      }, timeout);
     }
-  }, [validationErrors, setErrors, t]);
+  }, [isSaved, setIsSaved, saveTimeoutSecs]);
+
+  const translateErrors = useCallback(() => {
+    const errors = {};
+    if (t && tDomain) {
+      Object.keys(errs).forEach(key => {
+        const errKey = t(`${tDomain}.fields.${key}`);
+        const propErrors = errs[key];
+        const transErrs = propErrors.map(str => t(`${tDomain}.errors.${str}`));
+        errors[errKey] = transErrs;
+      });
+      return errors;
+    }
+    return errs;
+  }, [errs, t, tDomain]);
 
   /*
    |---------------------------------------------------------------------------------
@@ -43,10 +89,8 @@ export default (
    |---------------------------------------------------------------------------------
    */
   const formData = useMemo(() => data, [data]);
-  const errors = useMemo(() => errs, [errs]);
-  const hasErrors = useMemo(() => errors && Object.keys(errors).length > 0, [
-    errors,
-  ]);
+  const errors = useMemo(() => translateErrors(), [translateErrors]);
+  const hasErrors = useMemo(() => errs && Object.keys(errs).length > 0, [errs]);
   const propChanges = useMemo(() => changes, [changes]);
 
   /*
@@ -67,15 +111,29 @@ export default (
   const setPropValue = (propName: string) => (newValue: string) =>
     setPropValueAction(propName, newValue);
 
+  const getHasProp = useCallback(
+    (propName: string) =>
+      Object.keys(formData).includes(propName) &&
+      typeof formData[propName] !== 'undefined' &&
+      formData[propName] !== null,
+    [formData],
+  );
+
   const getPropValue = useCallback(
     (propName: string, defaultsTo: any = null) =>
-      formData[propName] || defaultsTo,
+      typeof formData === 'object' && formData[propName]
+        ? formData[propName] || defaultsTo
+        : defaultsTo,
     [formData],
   );
 
   const getPropHasErrors = useCallback(
     (propName: string) => {
-      return errors[propName] && errors[propName].length > 0;
+      return (
+        typeof errors === 'object' &&
+        errors[propName] &&
+        errors[propName].length > 0
+      );
     },
     [errors],
   );
@@ -85,16 +143,23 @@ export default (
     [propChanges],
   );
 
+  const setSaved = () => {
+    setIsSaved(true);
+  };
+
   return {
     formData,
     errors,
     hasErrors,
     changes,
+    isSaved,
 
     setPropValueAction,
     setPropValue,
+    getHasProp,
     getPropValue,
     getPropHasErrors,
     getPropHasChanged,
+    setSaved,
   };
 };

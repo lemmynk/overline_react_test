@@ -15,9 +15,10 @@ export const fetchFormData = payload => ({
   payload,
 });
 
-export const initForm = data => ({
+export const initForm = (data, fetching = null) => ({
   type: DO_INIT_FORM,
   payload: data,
+  fetching,
 });
 
 export const saveForm = (payload, callback) => ({

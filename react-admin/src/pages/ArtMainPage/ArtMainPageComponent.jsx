@@ -10,7 +10,7 @@ import SearchBox from '@newtash/core/SearchBox';
 import Button from '@newtash/core/Button';
 import { Table } from '@newtash/core/Table';
 import Pagination from '@newtash/core/Pagination';
-import { vArtikliTabs } from '../../config';
+import { vArtikliTabs, ART_DEFAULT_MERA, ART_DEFAULT_PDV } from '../../config';
 import styles from './ArtMainPage.module.scss';
 
 type Props = {
@@ -22,7 +22,7 @@ type Props = {
   clearArtMainData: () => void,
   setArtMainVArtikl: string => void,
   fetchArtMain: Object => void,
-  initForm: Data => void,
+  initForm: (Data, ?string) => void,
 };
 
 const ArtMainPage = (props: Props) => {
@@ -126,6 +126,10 @@ const ArtMainPage = (props: Props) => {
 
   const handleTableRowClick = (row: Data) => {
     const { id } = row;
+    // This is important to early set fetch status to fetching
+    if (initForm) {
+      initForm(row);
+    }
     history.push(`${match.url}/edit/${id}`);
   };
 
@@ -133,10 +137,12 @@ const ArtMainPage = (props: Props) => {
     const row = {
       vArtikl,
       grpId,
+      mera: ART_DEFAULT_MERA,
+      pdvId: ART_DEFAULT_PDV,
     };
 
     if (initForm) {
-      initForm(row);
+      initForm(row, '...no null...');
     }
     history.push(`${match.url}/create`);
   };

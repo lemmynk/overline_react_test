@@ -11,7 +11,7 @@ export const selectArtPdvSelectOptions = createSelector(
   data =>
     data.map(item => ({
       key: item.id,
-      text: `${item.pdvOpis} - ${item.pdvStopa}%`,
+      text: `${item.pdvOpis} - ${item.pdvStopa / 100}%`,
     })),
 );
 

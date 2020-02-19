@@ -145,7 +145,7 @@ export default (props: Props) => {
     const payload = {
       url: ART_GROUPS_CRUD_URL,
       id: deleteId,
-      errorMsg: t('artGroups.errors.not-empty'),
+      errorMsg: t('artGroups.errors.delete-error'),
     };
     setConfirmOpen(false);
     if (deleteForm) {

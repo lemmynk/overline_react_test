@@ -52,15 +52,6 @@ function* doFetchFormDataFlow() {
   }
 }
 
-function* doInitFormFlow() {
-  while (true) {
-    const action = yield take(DO_INIT_FORM);
-
-    // eslint-disable-next-line no-console
-    console.log('...do init form ...', action);
-  }
-}
-
 const whitelistData = data =>
   Object.keys(data)
     .filter(key => typeof data[key] !== 'undefined' && !blacklist.includes(key))
@@ -136,9 +127,4 @@ function* doDeleteFormFlow() {
   }
 }
 
-export default [
-  doFetchFormDataFlow,
-  doInitFormFlow,
-  doSaveFormFlow,
-  doDeleteFormFlow,
-];
+export default [doFetchFormDataFlow, doSaveFormFlow, doDeleteFormFlow];

@@ -8,7 +8,7 @@ import {
 } from '@newtash/core/Modal';
 import { TextInput } from '@newtash/core/Input';
 import FormErrorsBox from '@newtash/core/FormErrorsBox';
-import { useForm } from '@newtash/core/hooks';
+import useForm from '../../utils/useForm';
 import {
   RESPONSE_STATUS_UNPROCESSABLE_ENTITY,
   ART_GROUPS_CRUD_URL,
@@ -37,10 +37,13 @@ export default (props: Props) => {
 
   const [t] = useTranslation(['pages', 'common']);
 
-  const { formData, getPropValue, setPropValue, getPropHasErrors } = useForm(
-    data,
-    validationErrors,
-  );
+  const {
+    formData,
+    errors,
+    getPropValue,
+    setPropValue,
+    getPropHasErrors,
+  } = useForm(data, validationErrors, { t, tDomain: 'artGroups' });
 
   const doDismiss = () => {
     if (onDismiss) {
@@ -71,10 +74,7 @@ export default (props: Props) => {
     <>
       <ModalHeader title={t('artGroups.formTitle')} onDismiss={onDismiss} />
       <ModalBody>
-        <FormErrorsBox
-          errors={validationErrors}
-          onClear={clearValidationErrors}
-        />
+        <FormErrorsBox errors={errors} onClear={clearValidationErrors} />
         <TextInput
           label={t('artGroups.fields.grpSifra')}
           value={getPropValue('grpSifra')}

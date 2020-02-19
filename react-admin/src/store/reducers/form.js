@@ -21,7 +21,7 @@ const data = (state = {}, action) => {
 const dataFetching = (state = null, action) => {
   switch (action.type) {
     case DO_INIT_FORM:
-      return null;
+      return action.fetching || null;
     case SET_FORM_DATA_FETCHING:
       return action.payload;
     default:

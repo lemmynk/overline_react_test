@@ -13,19 +13,44 @@
     "formDescription": "Some description here",
     "deleteConfirmation": "This action is permanent.|You sure, sure?",
     "listPagination": "Showing {{currentItems}} of {{totalItems}} items for page {{currentPage}} of {{totalPages}} {{itemsPerPage}} items/page]",
+    "grpOptions": {
+      "roba": "All roba groups",
+      "usluga": "All usluga groups"
+    },
     "buttons": {
-      "add": "Add it"
+      "add": "Add new"
     },
     "fields": {
       "intSifra": "Code",
       "artNaziv": "Name",
       "grpNaziv": "Group Name",
       "mera": "Unit",
-      "pdvStopa": "PDV"
+      "pdvStopa": "PDV",
+      "grpId": "Article group",
+      "pdvId": "PDV"
     },
     "errors": {
-      "not-empty": "Not empty group cannot be deleted",
-      "required": "Required"
+      "delete-error": "Attempt to delete article failed",
+      "grpId": {
+        "invalid-format": "Artcle group is missing"
+      },
+      "pdvId": {
+        "required": "PDV is required"
+      },
+      "artNaziv": {
+        "required": "Article name is required"
+      },
+      "intSifra": {
+        "required": "Article code is required",
+        "length": "Article code must be 1 to 30 characters long"
+      },
+      "mera": {
+        "required": "Article unit is required"
+      }
+    },
+    "placeholder": {
+      "grpId": "Select article group",
+      "pdvId": "Select PDV"
     }
   },
   "artGroups": {
@@ -35,15 +60,20 @@
     "formDescription": "Some description here",
     "deleteConfirmation": "This action is permanent.|You sure, sure?",
     "buttons": {
-      "add": "Add it"
+      "add": "Add new"
     },
     "fields": {
       "grpSifra": "Sifra",
       "grpNaziv": "Name"
     },
     "errors": {
-      "not-empty": "Not empty group cannot be deleted",
-      "required": "Required"
+      "delete-error": "Not empty group cannot be deleted",
+      "grpSifra": {
+        "required": "Group code is required"
+      },
+      "grpNaziv": {
+        "required": "Group name is required"
+      }
     }
   },
   "settings": {

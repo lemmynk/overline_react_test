@@ -1,0 +1,28 @@
+.row {
+  border-top: 1px solid var(--border);
+  padding-top: var(--gutter);
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-end;
+}
+
+.deleteArea {
+  flex: 1;
+}
+
+.crudArea {
+  flex: 0 0 auto;
+
+  > button {
+    margin-left: var(--gutter);
+  }
+}
+
+.savedArea {
+  display: inline-block;
+  color: var(--success);
+}
+
+.confirmBody {
+  font-weight: normal;
+}
