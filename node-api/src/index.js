@@ -38,6 +38,7 @@ app.use((req, res, next) => {
 app.use(cors());
 
 app.use('/', require('./routes/index'));
+app.use(`${apiUrl}/debug`, require('./routes/api/debug'));
 
 // API ROUTES
 app.use(apiUrl, middleware.user);
