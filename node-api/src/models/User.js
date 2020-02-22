@@ -48,7 +48,6 @@ class User extends Model {
     const refreshToken = decoder.encryptSync(token);
 
     this.refreshToken = token;
-    console.log(this);
 
     return this.save()
       .then(() => tokenizer.generateToken(claims, expiresIn))

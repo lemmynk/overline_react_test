@@ -167,7 +167,6 @@ class Model {
    */
   save() {
     const idValue = this.primaryKeyValue();
-    console.log('Model.save:', idValue);
     if (this.beforeSave) {
       const beforeSaved = this.beforeSave();
       if (beforeSaved === false) {
