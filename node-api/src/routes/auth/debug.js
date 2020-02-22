@@ -4,6 +4,9 @@ const { decoder } = require('../../utils');
 
 const router = express.Router();
 
+const expiresAt = (expiresIn = 0) =>
+  parseInt(new Date().getTime() / 1000, 0) + expiresIn;
+
 const buildChallenge = verifierCode => {
   const verifier = verifierCode || decoder.uuid();
   const hash = verifier.toUpperCase();
@@ -28,6 +31,10 @@ router.post('/token', (req, res, next) => {
 
   User.find({ userName })
     .then(user => user.generateTokenPayload(expiresIn))
+    .then(response => ({
+      ...response,
+      exiresAt: expiresAt(response.expiresIn),
+    }))
     .then(response => res.json(response))
     .catch(err => next(err));
 });
