@@ -1,9 +1,11 @@
 import { DbInsertError, DbUpdateError } from '../../errors';
 
+const timestamps = ['deletedAt', 'updatedAt', 'createdAt'];
+
 const doSave = model => {
   const { tableName } = model;
   const db = model.db();
-  const data = model.attributes();
+  const data = model.attributes(timestamps);
 
   if (model.has('createdAt')) {
     data.createdAt = db.raw('NOW()');
@@ -28,7 +30,7 @@ const doUpdate = model => {
   const { tableName, primaryKey } = model;
   const primaryKeyValue = model.primaryKeyValue();
   const db = model.db();
-  const data = model.attributes([primaryKey, 'updatedAt', 'createdAt']);
+  const data = model.attributes([primaryKey, ...timestamps]);
 
   if (model.has('updatedAt')) data.updatedAt = db.fn.now();
 

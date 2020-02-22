@@ -72,11 +72,12 @@ class Model {
    * @return {Object}
    */
   attributes(exclude = [], withUndefined = false) {
-    const thisExclude = this.excludeAlways ? this.excludeAlways() : [];
-    const excludeThis = [...exclude, ...thisExclude];
+    // const thisExclude = this.excludeAlways ? this.excludeAlways() : [];
+    // const excludeThis = [...exclude, ...thisExclude];
     const output = {};
 
-    const intersection = this.keys.filter(item => !excludeThis.includes(item));
+    // const intersection = this.keys.filter(item => !excludeThis.includes(item));
+    const intersection = this.keys.filter(item => !exclude.includes(item));
 
     intersection.forEach(key => {
       // Skip undefined values if not forced
@@ -166,6 +167,7 @@ class Model {
    */
   save() {
     const idValue = this.primaryKeyValue();
+    console.log('Model.save:', idValue);
     if (this.beforeSave) {
       const beforeSaved = this.beforeSave();
       if (beforeSaved === false) {
