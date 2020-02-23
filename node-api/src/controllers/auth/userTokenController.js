@@ -12,6 +12,9 @@ const { ValidationError } = require('../../errors');
 const AuthFlow = require('../../models/AuthFlow');
 const User = require('../../models/User');
 
+const expiresAt = (expiresIn = 0) =>
+  parseInt(new Date().getTime() / 1000, 0) + expiresIn;
+
 const self = {
   middleware: (req, res, next) => {
     const { code, verifier } = req.body;
@@ -55,6 +58,26 @@ const self = {
       })
       .then(user => user.generateTokenPayload())
       .then(payload => res.json(payload))
+      .catch(err => next(err));
+  },
+
+  devToken: (req, res, next) => {
+    const { body } = req;
+    const { username: userName, expiresIn } = body;
+
+    User.find({ userName })
+      .then(user => {
+        const newRefreshToken = decoder.uuid();
+        user.refreshToken = newRefreshToken;
+        return user.save().then(() => user);
+      })
+      .then(user => user.generateTokenPayload(expiresIn))
+      .then(response => ({
+        ...response,
+        exiresAt: expiresAt(response.expiresIn),
+        now: parseInt(new Date().getTime() / 1000, 0),
+      }))
+      .then(response => res.json(response))
       .catch(err => next(err));
   },
 };

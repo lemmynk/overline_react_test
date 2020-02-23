@@ -1,5 +1,8 @@
+const vArtikli = ['roba', 'usluga'];
+
 module.exports = [
   {
+    catId: 1,
     name: 'appLanguage',
     valueType: 'string',
     value: 'sr',
@@ -10,6 +13,7 @@ module.exports = [
     deletedAt: null,
   },
   {
+    catId: 1,
     name: 'defaultPagination',
     valueType: 'number',
     value: '50',
@@ -20,11 +24,34 @@ module.exports = [
     deletedAt: null,
   },
   {
+    catId: 2,
+    name: 'artGroupVArtikli',
+    valueType: 'json',
+    value: JSON.stringify(vArtikli),
+    userSpecific: false,
+    description: 'Listing vrsta grupa',
+    createdAt: '2019-07-27T12:34:56.000Z',
+    updatedAt: '2019-07-27T12:34:56.000Z',
+    deletedAt: null,
+  },
+  {
+    catId: 2,
     name: 'artGroupSifraLength',
     valueType: 'number',
     value: '4',
     userSpecific: false,
     description: 'Default artMain sifra length',
+    createdAt: '2019-07-27T12:34:56.000Z',
+    updatedAt: '2019-07-27T12:34:56.000Z',
+    deletedAt: null,
+  },
+  {
+    catId: 3,
+    name: 'artMainVArtikli',
+    valueType: 'json',
+    value: JSON.stringify(vArtikli),
+    userSpecific: false,
+    description: 'Listing vrsta artikala',
     createdAt: '2019-07-27T12:34:56.000Z',
     updatedAt: '2019-07-27T12:34:56.000Z',
     deletedAt: null,

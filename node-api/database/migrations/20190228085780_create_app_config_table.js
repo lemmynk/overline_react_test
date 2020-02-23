@@ -4,6 +4,10 @@ exports.up = knex => {
       .unsigned()
       .primary();
 
+    t.integer('catId')
+      .notNullable()
+      .index();
+
     t.string('name', 120)
       .notNullable()
       .index();

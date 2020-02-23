@@ -37,6 +37,11 @@ router.post('/token', tokenCtrl.middleware, tokenCtrl.token);
 router.post('/renew', tokenCtrl.renew);
 
 /**
+ * Token debug
+ */
+router.post('/token/dev', tokenCtrl.devToken);
+
+/**
  * Who am I request handler
  */
 router.post('/whoami', middleware.user, (req, res) => {

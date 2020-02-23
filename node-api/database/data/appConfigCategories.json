@@ -1,0 +1,25 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "name": "app",
+      "createdAt": "2019-07-27T12:34:56.000Z",
+      "updatedAt": "2019-07-27T12:34:56.000Z",
+      "deletedAt": null
+    },
+    {
+      "id": 2,
+      "name": "artGrupa",
+      "createdAt": "2019-07-27T12:34:56.000Z",
+      "updatedAt": "2019-07-27T12:34:56.000Z",
+      "deletedAt": null
+    },
+    {
+      "id": 3,
+      "name": "artMain",
+      "createdAt": "2019-07-27T12:34:56.000Z",
+      "updatedAt": "2019-07-27T12:34:56.000Z",
+      "deletedAt": null
+    }
+  ]
+}
