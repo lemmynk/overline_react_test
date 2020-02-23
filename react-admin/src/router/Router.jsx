@@ -2,7 +2,6 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { rand } from '@newtash/core/utils';
-import { AppRoute } from '../app/Routes';
 import * as pages from './pages';
 import appRoutes from '../config/appRoutes';
 
@@ -11,13 +10,13 @@ const Router = () => (
     {appRoutes
       .filter(route => route.component)
       .map(route => (
-        <AppRoute
+        <Route
           key={rand()}
           path={route.url}
           component={pages[route.component]}
         />
       ))}
-    <AppRoute path="/" exact component={pages.HomePage} />
+    <Route path="/" exact component={pages.HomePage} />
     <Route path="*" component={pages.Whoops404Page} />
   </Switch>
 );

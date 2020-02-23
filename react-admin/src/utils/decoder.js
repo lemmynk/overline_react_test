@@ -31,3 +31,10 @@ export const verifyChallenge = (verifierCode, challengeCode) => {
     return false;
   }
 };
+
+export default {
+  encryptSync,
+  decryptSync,
+  buildChallenge,
+  verifyChallenge,
+};
