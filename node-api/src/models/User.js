@@ -60,6 +60,7 @@ class User extends Model {
    */
   toWhoAmI() {
     return this.attributes([
+      'id',
       'uuid',
       'password',
       'refreshToken',
