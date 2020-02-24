@@ -9,6 +9,7 @@ const api = (req, res, next) => {
   const version = query.version || 0;
   const queryParams = {
     userId: auth.id,
+    ...params,
   };
 
   // Combine allConfig with userSpecific config

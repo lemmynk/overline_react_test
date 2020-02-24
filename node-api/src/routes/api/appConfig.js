@@ -6,7 +6,7 @@ const ctrl = require('../../controllers/api/appConfigController');
 const router = express.Router();
 
 router.get('/api', ctrl.api);
-router.get('/api/:catId', ctrl.api);
+router.get('/api/:catName', ctrl.api);
 
 const appConfigCrudCtrl = crudController(AppConfig);
 router.get('/', appConfigCrudCtrl.allByVersion);

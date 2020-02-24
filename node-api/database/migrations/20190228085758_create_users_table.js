@@ -7,7 +7,7 @@ exports.up = knex => {
     t.uuid('uuid')
       .notNull()
       .index();
-    t.string('username', 120).notNull();
+    t.string('userName', 120).notNull();
     t.string('firstName', 120).nullable();
     t.string('lastName', 120).nullable();
     t.string('email', 120).nullable();

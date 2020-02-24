@@ -4,6 +4,8 @@ SELECT
   app_config_user.id,
   app_config_user.userId,
   app_config_user.appConfigId,
+  app_config.catId,
+  app_config_categories.name AS catName,
 	app_config.name,
   app_config.valueType,
   app_config_user.value,
@@ -11,10 +13,13 @@ SELECT
   app_config.description,
 	CAST(GREATEST(
 		IFNULL(app_config_user.updatedAt, '2000-01-01'),
-		IFNULL(app_config.updatedAt, '2000-01-01')
+		IFNULL(app_config.updatedAt, '2000-01-01'),
+    IFNULL(app_config_categories.updatedAt, '2000-01-01')
   ) AS DATETIME) AS updatedAt,
   NOT ISNULL(app_config_user.deletedAt) AS isDeleted
-FROM app_config_user INNER JOIN app_config ON app_config_user.appConfigId = app_config.id
+FROM app_config_user
+INNER JOIN app_config ON app_config_user.appConfigId = app_config.id
+INNER JOIN app_config_categories ON app_config.catId = app_config_categories.id
 `;
 
 exports.up = knex => {

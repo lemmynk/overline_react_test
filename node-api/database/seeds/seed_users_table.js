@@ -7,7 +7,7 @@ exports.seed = knex => {
     .then(() => {
       const dataPera = {
         uuid: decoder.uuid(),
-        username: 'pera',
+        userName: 'pera',
         firstName: 'Pera',
         lastName: 'Zdera',
         email: 'pera@zdera.com',
@@ -16,7 +16,7 @@ exports.seed = knex => {
       };
       const dataAdmin = {
         uuid: decoder.uuid(),
-        username: 'admin',
+        userName: 'admin',
         firstName: 'Admin',
         lastName: '',
         email: 'admin@admin.com',
@@ -25,7 +25,7 @@ exports.seed = knex => {
       };
       const dataDemo = {
         uuid: decoder.uuid(),
-        username: 'demo',
+        userName: 'demo',
         firstName: 'Demo',
         lastName: '',
         email: 'demo@demo.com',

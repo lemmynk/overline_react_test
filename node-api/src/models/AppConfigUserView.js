@@ -6,6 +6,8 @@ const modelConfig = {
     'id',
     'userId',
     'appConfigId',
+    'catId',
+    'catName',
     'name',
     'valueType',
     'value',

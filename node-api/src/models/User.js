@@ -8,7 +8,7 @@ const modelConfig = {
   keys: [
     'id',
     'uuid',
-    'username',
+    'userName',
     'password',
     'firstName',
     'lastName',
@@ -59,7 +59,13 @@ class User extends Model {
    * @return {Object}
    */
   toWhoAmI() {
-    return this.attributes(['uuid', 'refreshToken', 'createdAt', 'updatedAt']);
+    return this.attributes([
+      'uuid',
+      'password',
+      'refreshToken',
+      'createdAt',
+      'updatedAt',
+    ]);
   }
 
   /**

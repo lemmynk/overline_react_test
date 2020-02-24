@@ -1,5 +1,4 @@
 const express = require('express');
-const middleware = require('../middleware');
 const loginCtrl = require('../../controllers/auth/userLoginController');
 const authCtrl = require('../../controllers/auth/userAuthorizeController');
 const tokenCtrl = require('../../controllers/auth/userTokenController');
@@ -40,12 +39,5 @@ router.post('/renew', tokenCtrl.renew);
  * Token debug
  */
 router.post('/token/dev', tokenCtrl.devToken);
-
-/**
- * Who am I request handler
- */
-router.post('/whoami', middleware.user, (req, res) => {
-  res.json(req.auth);
-});
 
 module.exports = router;
