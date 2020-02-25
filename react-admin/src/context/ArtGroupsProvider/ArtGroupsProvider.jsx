@@ -7,36 +7,36 @@ type Props = {
   children: Node,
 };
 
-const AppConfigContext = React.createContext<any>();
+const ArtGroupsContext = React.createContext<any>();
 
-export const AppConfigProvider = ({ children }: Props) => {
+export const ArtGroupsProvider = ({ children }: Props) => {
   const [state, dispatch] = React.useReducer(reducer, initialState);
 
   // eslint-disable-next-line no-console
-  console.log('AppConfigProvider render');
+  console.log('ArtGroupsProvider render');
 
   const context = { state, dispatch };
 
   return (
-    <AppConfigContext.Provider value={context}>
+    <ArtGroupsContext.Provider value={context}>
       {children}
-    </AppConfigContext.Provider>
+    </ArtGroupsContext.Provider>
   );
 };
 
-export const useAppConfig = () => {
-  const context = React.useContext(AppConfigContext);
+export const useArtGroups = () => {
+  const context = React.useContext(ArtGroupsContext);
 
   if (context === undefined) {
-    throw new Error('useAppConfig must be used within AppConfigProvider');
+    throw new Error('useArtGroups must be used within ArtGroupsProvider');
   }
 
   const { state, dispatch } = context;
-  const { data: config, version, isReady } = state;
+  const { vArtikl, data, isReady } = state;
   const { api } = useApi();
   const { addAppError } = useAppErrors();
 
-  const fetchConfig = React.useCallback(async () => {
+  const fetchData = React.useCallback(async () => {
     try {
       const response = await api.get(`/app-config/api?v=${version}`);
       const responseData = await response.data;
@@ -54,7 +54,7 @@ export const useAppConfig = () => {
 
   useEffect(() => {
     if (!isReady) {
-      fetchConfig();
+      // fetchConfig();
     }
   }, [isReady, fetchConfig]);
 
