@@ -3,10 +3,10 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { AppProvider } from '@newtash/core';
-// import AppLayout from '@newtash/core/AppLayout';
 import AppLayout from './AppLayout';
-// import Router from '../router/Router';
+import Router from '../router/Router';
 import { renderSidebar, renderHeader, renderFooter } from './Template';
+import { AppDataProvider } from '../context/AppDataProvider';
 import decoder from '../utils/decoder';
 
 import '@csstools/normalize.css';
@@ -20,7 +20,9 @@ const App = () => (
         renderHeader={renderHeader}
         renderFooter={renderFooter}
       >
-        <div>...</div>
+        <AppDataProvider>
+          <Router />
+        </AppDataProvider>
       </AppLayout>
     </AppProvider>
   </BrowserRouter>

@@ -1,6 +1,6 @@
 // @flow
 import React, { useState } from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import classNames from 'classnames';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -11,15 +11,13 @@ import styles from './Navigation.module.scss';
 
 type Props = {
   item: AppLinkProps,
-  history: ReactRouterHistory,
 };
 
 const NavLink = (props: Props) => {
-  const { item, history } = props;
+  const { item } = props;
   const { url, title, icon, links } = item;
-  const {
-    location: { pathname: activeUrl },
-  } = history;
+  const location = useLocation();
+  const { pathname: activeUrl } = location;
 
   const [t] = useTranslation('nav');
 
@@ -93,4 +91,4 @@ const NavLink = (props: Props) => {
   );
 };
 
-export default withRouter(NavLink);
+export default NavLink;

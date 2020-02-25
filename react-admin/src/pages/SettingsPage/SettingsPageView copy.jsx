@@ -2,12 +2,18 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Page, PageHeader, PageContent } from '@newtash/core/Page';
-import { useAppConfig } from '../../context/AppConfigProvider';
 
-export default () => {
-  const { isReady, config, version, fetchConfig } = useAppConfig();
+type Props = {
+  data: Object,
+  appConfig: (string, any) => any,
+};
+
+export default (props: Props) => {
+  const { data, appConfig } = props;
 
   const [t] = useTranslation('pages');
+
+  const lang = appConfig('appLanguage', 'bbb');
 
   return (
     <Page>
@@ -16,10 +22,7 @@ export default () => {
         description={t('settings.description')}
       />
       <PageContent>
-        <button type="button" onClick={fetchConfig}>
-          FETCH
-        </button>
-        <pre>{JSON.stringify({ isReady, config, version }, null, 2)}</pre>
+        <pre>{JSON.stringify({ data, lang }, null, 2)}</pre>
       </PageContent>
     </Page>
   );
