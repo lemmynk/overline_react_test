@@ -1,21 +1,16 @@
 // @flow
 import { useReducer, useState, useEffect, useMemo, useCallback } from 'react';
-import { useApi } from '@newtash/core';
+import { useApi, useAppData } from '@newtash/core';
 import { sortByKey } from '@newtash/core/utils';
-import { useApp } from '../../../app';
 import { reducer, initialState, SET_ALL } from './reducer';
 
 export default (url: string) => {
   const { api } = useApi();
-  const { config, isReady: isAppReady } = useApp();
+  const { config, isReady: isAppReady } = useAppData();
   const { artGroupDefaultVArtikl, artGroupVArtikli } = config;
 
   const [state, dispatch] = useReducer(reducer, initialState);
-  console.log('### useArtGroups hook render', state);
   const [isInitialised, setInitialised] = useState<boolean>(false);
-  // const [data, setData] = useState<Array<any>>([]);
-  // const [dataVersion, setDataVersion] = useState<number>(0);
-  // const [isDataReady, setIsDataReady] = useState<boolean>(false);
   const [vArtikl, setVArtikl] = useState<string>('');
   const [search, setSearch] = useState<string>('');
   const [sortedKey, setSortedKey] = useState<string>('grpNaziv');
@@ -56,7 +51,6 @@ export default (url: string) => {
 
   useEffect(() => {
     if (!isInitialised) {
-      console.log('hook initialised');
       fetchData();
     }
   }, [isInitialised, fetchData]);

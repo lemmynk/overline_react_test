@@ -6,7 +6,6 @@ import { AppProvider } from '@newtash/core';
 import AppLayout from './AppLayout';
 import Router from '../router/Router';
 import { renderSidebar, renderHeader, renderFooter } from './Template';
-import AppDataProvider from './AppDataProvider';
 import decoder from '../utils/decoder';
 
 import '@csstools/normalize.css';
@@ -20,9 +19,7 @@ const App = () => (
         renderHeader={renderHeader}
         renderFooter={renderFooter}
       >
-        <AppDataProvider>
-          <Router />
-        </AppDataProvider>
+        <Router />
       </AppLayout>
     </AppProvider>
   </BrowserRouter>
