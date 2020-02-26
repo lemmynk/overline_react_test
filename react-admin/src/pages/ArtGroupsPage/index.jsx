@@ -14,7 +14,11 @@ import Form from '../../forms/ArtGroupForm';
 import { ART_GROUPS_CRUD_URL } from '../../config';
 
 export default () => {
-  const hook = useArtGroupsHook(ART_GROUPS_CRUD_URL);
+  const [t] = useTranslation(['pages', 'common']);
+  const hook = useArtGroupsHook(
+    ART_GROUPS_CRUD_URL,
+    t('artGroups.errors.delete-error'),
+  );
   const {
     filteredGroups,
     vArtikli,
@@ -28,9 +32,9 @@ export default () => {
     setSortedKey,
     setSortAscending,
     setFormId,
+    fetchData,
+    deleteItem,
   } = hook;
-
-  const [t] = useTranslation(['pages', 'common']);
 
   const [isFormOpen, setFormOpen] = useState(false);
   const [isConfirmOpen, setConfirmOpen] = useState(false);
@@ -122,16 +126,17 @@ export default () => {
    |---------------------------------------------------------------
    */
   const handleDeleteConfirmationClick = () => {
-    // const payload = {
-    //   url: ART_GROUPS_CRUD_URL,
-    //   id: deleteId,
-    //   errorMsg: t('artGroups.errors.delete-error'),
-    // };
-    console.log('...do delete...', formId);
     setConfirmOpen(false);
-    // if (deleteForm) {
-    //   deleteForm(payload, deleteCallback);
-    // }
+    deleteItem(formId).then(success => {
+      if (success) {
+        fetchData();
+      }
+    });
+  };
+
+  const handleGroupSaved = () => {
+    fetchData();
+    setFormOpen(false);
   };
 
   /*
@@ -184,6 +189,7 @@ export default () => {
         itemId={formId}
         vArtikl={vArtikl}
         onDismiss={() => setFormOpen(false)}
+        onSuccess={handleGroupSaved}
       />
       <Confirm
         isOpen={isConfirmOpen}

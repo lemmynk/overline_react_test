@@ -1,3 +1,5 @@
+import { combineByKey } from '../../../utils';
+
 export const SET_ALL = 'SET_ALL';
 export const SET_VERSION = 'SET_VERSION';
 export const SET_DATA = 'SET_DATA';
@@ -9,15 +11,19 @@ export const initialState = {
   isReady: false,
 };
 
-// const combineData = (prevState, nextState) => {
+const combineData = (prevState, nextState) => {
+  const { data: prevData } = prevState;
+  const { data: nextData } = nextState;
+  const data = combineByKey(prevData, nextData, 'id');
 
-// }
+  return { ...prevState, ...nextState, data };
+};
 
 export const reducer = (state, action) => {
   // console.log('dispatch:', action);
   switch (action.type) {
     case SET_ALL:
-      return action.payload;
+      return combineData(state, action.payload);
     case SET_VERSION:
       return { ...state, version: action.payload };
     case SET_DATA:

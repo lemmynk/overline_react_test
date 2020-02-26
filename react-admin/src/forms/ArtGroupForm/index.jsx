@@ -9,19 +9,19 @@ import {
 } from '@newtash/core/Modal';
 import { TextInput } from '@newtash/core/Input';
 import FormErrorsBox from '@newtash/core/FormErrorsBox';
-import useForm from '../useForm';
+import { useForm } from '../../utils';
 import { ART_GROUPS_CRUD_URL } from '../../config';
-// import useForm from '../../utils/useForm';
 
 type Props = {
   isOpen: boolean,
   itemId: number,
   vArtikl: string,
   onDismiss: () => void,
+  onSuccess: () => void,
 };
 
 export default (props: Props) => {
-  const { isOpen, itemId, vArtikl, onDismiss } = props;
+  const { isOpen, itemId, vArtikl, onDismiss, onSuccess } = props;
 
   const codeEl = useRef(null);
   const nameEl = useRef(null);
@@ -33,12 +33,13 @@ export default (props: Props) => {
   const fields = ['id', 'vArtikl', 'grpSifra', 'grpNaziv'];
 
   const {
-    formData,
     validationErrors,
     getPropValue,
     setPropValue,
     getPropHasErrors,
+    isSaving,
     setFormData,
+    clearValidationErrors,
     fetchFormData,
     saveFormData,
   } = useForm({ url: ART_GROUPS_CRUD_URL, fields, t, tDomain: 'artGroups' });
@@ -68,13 +69,12 @@ export default (props: Props) => {
     }
   };
 
-  const handleClearValidationErrors = () => {
-    console.log('handleClearValidationErrors');
-  };
-
   const handleSaveClick = () => {
-    console.log('handleSaveClick');
-    saveFormData().then(success => console.log('success:', success));
+    saveFormData().then(success => {
+      if (success && onSuccess) {
+        onSuccess();
+      }
+    });
   };
 
   return (
@@ -83,7 +83,7 @@ export default (props: Props) => {
       <ModalBody>
         <FormErrorsBox
           errors={validationErrors}
-          onClear={handleClearValidationErrors}
+          onClear={clearValidationErrors}
         />
         <TextInput
           ref={codeEl}
@@ -99,10 +99,9 @@ export default (props: Props) => {
           onChange={setPropValue('grpNaziv')}
           hasErrors={getPropHasErrors('grpNaziv')}
         />
-        <pre>{JSON.stringify({ formData }, null, 2)}</pre>
       </ModalBody>
       <FormSaveCancelFooter
-        // fetching={fetching}
+        fetching={isSaving}
         textSave={t('common:Save')}
         textCancel={t('common:Cancel')}
         onSave={handleSaveClick}

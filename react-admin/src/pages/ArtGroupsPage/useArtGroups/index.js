@@ -1,12 +1,15 @@
 // @flow
 import { useReducer, useState, useEffect, useMemo, useCallback } from 'react';
-import { useApi, useAppData } from '@newtash/core';
+import { useApi, useAppData, useAppErrors } from '@newtash/core';
 import { sortByKey } from '@newtash/core/utils';
 import { reducer, initialState, SET_ALL } from './reducer';
+import { useEnv } from '../../../utils';
 
-export default (url: string) => {
+export default (url: string, deleteErrorMsg: string = '') => {
   const { api } = useApi();
   const { config, isReady: isAppReady } = useAppData();
+  const { addAppError } = useAppErrors();
+  const { error422 } = useEnv();
   const { artGroupDefaultVArtikl, artGroupVArtikli } = config;
 
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -36,8 +39,11 @@ export default (url: string) => {
     [data, search, sortedKey, sortedAsc, vArtikl],
   );
 
+  /**
+   * Do fetch versioned data from api
+   * @todo: Handle deleted objects
+   */
   const fetchData = useCallback(async () => {
-    setInitialised(true);
     try {
       const response = await api.get(`${url}?v=${dataVersion}`);
       const payload = await response.data;
@@ -45,12 +51,35 @@ export default (url: string) => {
       await dispatch({ type: SET_ALL, payload });
       return true;
     } catch (err) {
+      addAppError(err);
       return false;
     }
-  }, [api, dataVersion, url, dispatch]);
+  }, [api, dataVersion, url, dispatch, addAppError]);
+
+  /**
+   * Delete group
+   */
+  const deleteItem = useCallback(
+    async (id: number) => {
+      try {
+        const response = await api.delete(`${url}/${id}`);
+        const status = await response.status;
+        const isDeleted = status !== error422;
+        if (!isDeleted) {
+          await addAppError(deleteErrorMsg);
+        }
+        return isDeleted;
+      } catch (err) {
+        addAppError(err);
+        return false;
+      }
+    },
+    [api, url, addAppError, error422, deleteErrorMsg],
+  );
 
   useEffect(() => {
     if (!isInitialised) {
+      setInitialised(true);
       fetchData();
     }
   }, [isInitialised, fetchData]);
@@ -79,5 +108,6 @@ export default (url: string) => {
     setFormId,
 
     fetchData,
+    deleteItem,
   };
 };
