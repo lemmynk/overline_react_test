@@ -2,6 +2,7 @@
 import React, { type Node, useEffect } from 'react';
 import { useApi, useAppErrors } from '@newtash/core';
 import { reducer, initialState, SET_ALL } from './reducer';
+import { useAppConfig } from '../../../app/AppConfigProvider';
 
 type Props = {
   children: Node,
@@ -32,13 +33,15 @@ export const useArtGroups = () => {
   }
 
   const { state, dispatch } = context;
-  const { vArtikl, data, isReady } = state;
+  const { version, data, isReady } = state;
   const { api } = useApi();
   const { addAppError } = useAppErrors();
+  const { isReady: isConfigReady, config } = useAppConfig();
+  const { artGroupDefaultVArtikl, artGroupVArtikli } = config;
 
   const fetchData = React.useCallback(async () => {
     try {
-      const response = await api.get(`/app-config/api?v=${version}`);
+      const response = await api.get(`/art-grupa?v=${version}`);
       const responseData = await response.data;
       const payload = {
         ...responseData,
@@ -54,14 +57,16 @@ export const useArtGroups = () => {
 
   useEffect(() => {
     if (!isReady) {
-      // fetchConfig();
+      fetchData();
     }
-  }, [isReady, fetchConfig]);
+  }, [isReady, fetchData]);
 
   return {
-    isReady,
-    config,
+    isReady: isConfigReady && isReady,
+    data,
     version,
-    fetchConfig,
+    fetchData,
+    defaultVArtikl: artGroupDefaultVArtikl,
+    vArtikli: artGroupVArtikli || [],
   };
 };

@@ -56,4 +56,15 @@ module.exports = [
     updatedAt: '2019-07-27T12:34:56.000Z',
     deletedAt: null,
   },
+  {
+    catId: 2,
+    name: 'artGroupDefaultVArtikl',
+    valueType: 'string',
+    value: 'roba',
+    userSpecific: false,
+    description: 'Podrazumevana vrsta artikala u listingu grupa',
+    createdAt: '2019-07-27T12:34:56.000Z',
+    updatedAt: '2019-07-27T12:34:56.000Z',
+    deletedAt: null,
+  },
 ];

@@ -5,5 +5,9 @@
   "Cancel": "Cancel",
   "Delete": "Delete",
   "areYouSure": "Are you sure?",
-  "Back": "Back"
+  "Back": "Back",
+  "vArtikl": {
+    "roba": "Roba",
+    "usluga": "Usluga"
+  }
 }

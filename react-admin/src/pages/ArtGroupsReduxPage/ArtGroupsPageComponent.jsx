@@ -10,7 +10,7 @@ import { Modal } from '@newtash/core/Modal';
 import Confirm from '@newtash/core/Confirm';
 import { Table, TableButton } from '@newtash/core/Table';
 import { sortByKey, rand } from '@newtash/core/utils';
-import Form from '../../forms/ArtGroupsForm';
+import Form from '../../forms/ArtGroupsReduxForm';
 import styles from './ArtGroupsPage.module.scss';
 import {
   vArtikliTabs,
