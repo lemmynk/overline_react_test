@@ -13,7 +13,7 @@ export default (url: string, deleteErrorMsg: string = '') => {
   const { artGroupDefaultVArtikl, artGroupVArtikli } = config;
 
   const [state, dispatch] = useReducer(reducer, initialState);
-  const [isInitialised, setInitialised] = useState<boolean>(false);
+  const [doFetchData, setDoFetch] = useState<boolean>(false);
   const [vArtikl, setVArtikl] = useState<string>('');
   const [search, setSearch] = useState<string>('');
   const [sortedKey, setSortedKey] = useState<string>('grpNaziv');
@@ -32,6 +32,7 @@ export default (url: string, deleteErrorMsg: string = '') => {
     () =>
       data
         .filter(item => item.vArtikl === vArtikl)
+        .filter(item => item.deletedAt === null)
         .filter(item =>
           item.grpNaziv.toUpperCase().includes(search.toUpperCase()),
         )
@@ -78,11 +79,15 @@ export default (url: string, deleteErrorMsg: string = '') => {
   );
 
   useEffect(() => {
-    if (!isInitialised) {
-      setInitialised(true);
+    if (doFetchData) {
+      setDoFetch(false);
       fetchData();
     }
-  }, [isInitialised, fetchData]);
+  }, [doFetchData, setDoFetch, fetchData]);
+
+  const doFetch = useCallback(() => {
+    setDoFetch(true);
+  }, [setDoFetch]);
 
   useEffect(() => {
     if (artGroupDefaultVArtikl) {
@@ -107,6 +112,7 @@ export default (url: string, deleteErrorMsg: string = '') => {
     setSortAscending,
     setFormId,
 
+    doFetch,
     fetchData,
     deleteItem,
   };

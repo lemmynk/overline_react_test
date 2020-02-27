@@ -1,5 +1,5 @@
 // @flow
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   Modal,
@@ -26,42 +26,42 @@ export default (props: Props) => {
   const codeEl = useRef(null);
   const nameEl = useRef(null);
 
-  const [isFetched, setFetched] = useState(false);
-
   const [t] = useTranslation(['pages', 'common']);
 
   const fields = ['id', 'vArtikl', 'grpSifra', 'grpNaziv'];
 
   const {
+    formData,
     validationErrors,
     getPropValue,
     setPropValue,
     getPropHasErrors,
     isSaving,
-    setFormData,
+    clearFormData,
     clearValidationErrors,
-    fetchFormData,
+    doFetchUrl,
     saveFormData,
   } = useForm({ url: ART_GROUPS_CRUD_URL, fields, t, tDomain: 'artGroups' });
 
-  const setFocus = (ref: any) => {
+  const setFocus = useCallback((ref: any) => {
     if (ref && ref.current) {
       ref.current.focus();
     }
-  };
+  }, []);
 
+  /**
+   * Form Mount/unMount events handler
+   * - trigger data fetching and focus, or
+   * - clear form data
+   */
   useEffect(() => {
-    if (!isFetched && isOpen) {
-      setFetched(true);
-      setFormData({ vArtikl });
-      if (itemId > 0) {
-        fetchFormData(itemId);
-      }
+    if (isOpen) {
+      doFetchUrl(`/${itemId > 0 ? itemId : 'init'}?vArtikl=${vArtikl}`);
       setFocus(codeEl);
-    } else if (!isOpen) {
-      setFetched(false);
+    } else {
+      clearFormData();
     }
-  }, [isFetched, isOpen, itemId, vArtikl, fetchFormData, setFormData]);
+  }, [isOpen, clearFormData, doFetchUrl, itemId, vArtikl, setFocus]);
 
   const doDismiss = () => {
     if (onDismiss) {
@@ -99,6 +99,7 @@ export default (props: Props) => {
           onChange={setPropValue('grpNaziv')}
           hasErrors={getPropHasErrors('grpNaziv')}
         />
+        <pre>{JSON.stringify(formData, null, 2)}</pre>
       </ModalBody>
       <FormSaveCancelFooter
         fetching={isSaving}

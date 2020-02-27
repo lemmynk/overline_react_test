@@ -1,5 +1,5 @@
 // @flow
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Page, PageHeader, PageContent } from '@newtash/core/Page';
 import Card from '@newtash/core/Card';
@@ -32,12 +32,16 @@ export default () => {
     setSortedKey,
     setSortAscending,
     setFormId,
-    fetchData,
+    doFetch,
     deleteItem,
   } = hook;
 
   const [isFormOpen, setFormOpen] = useState(false);
   const [isConfirmOpen, setConfirmOpen] = useState(false);
+
+  useEffect(() => {
+    doFetch();
+  }, [doFetch]);
 
   const handleAddArtGroup = () => {
     setFormId(0);
@@ -129,25 +133,15 @@ export default () => {
     setConfirmOpen(false);
     deleteItem(formId).then(success => {
       if (success) {
-        fetchData();
+        doFetch();
       }
     });
   };
 
   const handleGroupSaved = () => {
-    fetchData();
+    doFetch();
     setFormOpen(false);
   };
-
-  /*
-   |---------------------------------------------------------------
-   | CALCULATED VALUES
-   |---------------------------------------------------------------
-   */
-  // const filteredGroups = data
-  //   .filter(item => item.vArtikl === vArtikl)
-  //   .filter(item => item.grpNaziv.toUpperCase().includes(search.toUpperCase()))
-  //   .sort(sortByKey(sortedKey, sortedAsc));
 
   return (
     <Page>

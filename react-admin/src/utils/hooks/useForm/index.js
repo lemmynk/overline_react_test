@@ -15,15 +15,25 @@ type Props = {
 
 let saveTimeout;
 
+/**
+ *  isFetching:
+ *    - flag fetching in progress
+ *  isSaving:
+ *    - flag saving in progress -> set Save button to disable/fetching
+ *  isSaved:
+ *    - flag saved for specified time -> set Success mark on/off
+ */
 export default (props: Props) => {
   const { url, fields, t, tDomain, saveTimeoutSecs, deleteErrorMsg } = props;
   const { api } = useApi();
   const { addAppError } = useAppErrors();
   const { error422 } = useEnv();
 
+  const [fetchUrl, setFetchUrl] = useState<string>('');
   const [formData, setFormData] = useState<Object>({});
   const [formChanges, setFormChanges] = useState<Array<string>>([]);
   const [formErrors, setFormErrors] = useState<Object>({});
+  const [isFetching, setFetching] = useState<boolean>(false);
   const [isSaving, setSaving] = useState<boolean>(false);
   const [isSaved, setSaved] = useState<boolean>(false);
 
@@ -33,12 +43,31 @@ export default (props: Props) => {
    |---------------------------------------------------------------------
    */
 
+  /**
+   * Clear formData
+   */
+  const clearFormData = useCallback(() => setFormData({}), [setFormData]);
+
+  /**
+   * Get formData prop value
+   *
+   * @param   {String}  propName
+   * @param   {Any}     defaultsTo
+   * @return  {Any}
+   */
   const getPropValue = useCallback(
     (propName: string, defaultsTo: any = null) =>
       formData[propName] || defaultsTo,
     [formData],
   );
 
+  /**
+   * Set formData prop Value action
+   *
+   * @param   {String}  propName
+   * @param   {Any}     newValue
+   * @return  {Void}
+   */
   const setPropValueAction = useCallback(
     (propName: string, newValue: any) => {
       setFormData({ ...formData, [propName]: newValue });
@@ -49,14 +78,38 @@ export default (props: Props) => {
     [formData, setFormData, formChanges, setFormChanges],
   );
 
+  /**
+   * Set formData prop Value function to be used by form controls
+   *
+   * @param   {String}  propName
+   * @param   {Any}     newValue
+   * @return  {Void}
+   */
   const setPropValue = (propName: string) => (newValue: string) =>
     setPropValueAction(propName, newValue);
 
+  /**
+   * Will return does prop has validation errors
+   *
+   * @param   {String}  propName
+   * @return  {Boolean}
+   */
   const getPropHasErrors = (propName: string) =>
     formErrors && formErrors[propName] && formErrors[propName].length > 0;
 
-  const clearValidationErrors = () => setFormErrors({});
+  /**
+   * Will clear all validation errors
+   */
+  const clearValidationErrors = useCallback(() => setFormErrors({}), [
+    setFormErrors,
+  ]);
 
+  /**
+   * Will return is formData prop has changed
+   *
+   * @param   {String}  propName
+   * @return  {Boolean}
+   */
   const getPropHasChanged = useCallback(
     (propName: string) => formChanges.includes(propName),
     [formChanges],
@@ -140,35 +193,74 @@ export default (props: Props) => {
    */
 
   /**
-   * Load default form data from api
-   * @todo: Missing in api
+   * Fetch/Init form data before showing the form
+   *
+   * @param {String} withUrl
+   * @return {Boolean}
    */
-  const initForm = () => {
-    // eslint-disable-next-line no-console
-    console.log('...do init form...', url);
-  };
+  const fetchFormData = useCallback(
+    async (withUrl: string) => {
+      await setFetchUrl('');
+      await setFetching(true);
+      try {
+        const response = await api.get([url, withUrl].join(''));
+        const data = await response.data;
+        const fData = only(data);
+        await setFormData(fData);
+        await setFetching(false);
+        return true;
+      } catch (err) {
+        await addAppError(err);
+        await setFetching(false);
+        return false;
+      }
+    },
+    [api, url, only, addAppError, setFetchUrl, setFetching],
+  );
 
   /**
-   * Fetch form data before showing the form
+   * DoFetch trigger function
+   *  - set the fetchUrl to trigger fetchUrl effect,
+   *  - fetchUrl effect will fire formData fetching
+   *
+   * @param {String} withUrl
+   * @return {Void}
    */
-  const fetchFormData = async (id: number) => {
-    try {
-      const response = await api.get(`${url}/${id}`);
-      const data = await response.data;
-      const fData = only(data);
-      await setFormData(fData);
-      return true;
-    } catch (err) {
-      await addAppError(err);
-      return false;
-    }
-  };
+  const doFetchUrl = useCallback(
+    (withUrl: string) => {
+      setFetchUrl(withUrl);
+    },
+    [setFetchUrl],
+  );
 
+  /**
+   * FetchUrl effect scans fetchUrl string changes
+   * - fire formData fetching function
+   * Done this way in order to escape cirular loops
+   * with so many dependencies
+   */
+  useEffect(() => {
+    if (fetchUrl && fetchUrl.length > 0) {
+      fetchFormData(fetchUrl);
+    }
+  }, [fetchUrl, fetchFormData]);
+
+  /**
+   * Resolve request type [post|put]
+   * according the formData
+   *
+   * @return {Promise}
+   */
   const saveRequest = (data: Object) => {
     const { id } = formData;
     return id ? api.put(`${url}/${id}`, data) : api.post(url, data);
   };
 
+  /**
+   * Do send request to save formData
+   *
+   * @return {Boolean}
+   */
   const saveFormData = async () => {
     const body = stripId(formData);
 
@@ -193,6 +285,11 @@ export default (props: Props) => {
     }
   };
 
+  /**
+   * Do send request to delete formData
+   *
+   * @return {Boolean}
+   */
   const deleteFormData = async () => {
     const { id } = formData;
     try {
@@ -214,7 +311,7 @@ export default (props: Props) => {
     setFormData,
     formChanges,
     validationErrors,
-    clearValidationErrors,
+    isFetching,
     isSaving,
     isSaved,
 
@@ -222,9 +319,10 @@ export default (props: Props) => {
     getPropValue,
     getPropHasChanged,
     getPropHasErrors,
+    clearFormData,
+    clearValidationErrors,
 
-    initForm,
-    fetchFormData,
+    doFetchUrl,
     saveFormData,
     deleteFormData,
   };
