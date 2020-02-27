@@ -64,6 +64,20 @@ const self = (Model, parentKey = null, defaultParams = {}) => ({
       .catch(err => next(err));
   },
 
+  /**
+   * Used by functions to create new record
+   * provide field's default values
+   */
+  init: (req, res, next) => {
+    const { query } = req;
+    if (Model.init) {
+      return Model.init(query)
+        .then(response => res.json(response))
+        .catch(err => next(err));
+    }
+    return res.json(query);
+  },
+
   create: (req, res, next) => {
     const { body, params } = req;
     // Finds the validation errors in this request and wraps them in an object with handy functions

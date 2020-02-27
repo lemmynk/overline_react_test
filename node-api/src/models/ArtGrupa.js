@@ -22,6 +22,15 @@ class ArtGrupa extends Model {
   }
 
   /**
+   * Default values for new model
+   *
+   * @return {Promise}
+   */
+  static init(reqQuery) {
+    return Promise.resolve({ vArtikl: process.env.ARTIKL_ROBA, ...reqQuery });
+  }
+
+  /**
    * Validate params provided using express-validator
    *
    * @return {Array}

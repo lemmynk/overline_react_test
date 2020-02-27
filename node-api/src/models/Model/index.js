@@ -323,6 +323,6 @@ class Model {
   }
 }
 
-Model.timestamps = ['createdAt', 'updatedAt', 'deletedAt'];
+Model.timestamps = ['createdAt', 'updatedAt'];
 
 module.exports = Model;
