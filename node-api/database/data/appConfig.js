@@ -1,4 +1,16 @@
 const vArtikli = ['roba', 'usluga'];
+const artMainInitForm = {
+  roba: {
+    vArtikl: 'roba',
+    mera: 'kom',
+    pdvId: 1,
+  },
+  usluga: {
+    vArtikl: 'usluga',
+    mera: 'kom',
+    pdvId: 1,
+  },
+};
 
 module.exports = [
   {
@@ -46,6 +58,17 @@ module.exports = [
     deletedAt: null,
   },
   {
+    catId: 2,
+    name: 'artGroupDefaultVArtikl',
+    valueType: 'string',
+    value: 'roba',
+    userSpecific: false,
+    description: 'Podrazumevana vrsta artikala u listingu grupa',
+    createdAt: '2019-07-27T12:34:56.000Z',
+    updatedAt: '2019-07-27T12:34:56.000Z',
+    deletedAt: null,
+  },
+  {
     catId: 3,
     name: 'artMainVArtikli',
     valueType: 'json',
@@ -57,12 +80,12 @@ module.exports = [
     deletedAt: null,
   },
   {
-    catId: 2,
-    name: 'artGroupDefaultVArtikl',
-    valueType: 'string',
-    value: 'roba',
+    catId: 3,
+    name: 'artMainInitForm',
+    valueType: 'json',
+    value: JSON.stringify(artMainInitForm),
     userSpecific: false,
-    description: 'Podrazumevana vrsta artikala u listingu grupa',
+    description: 'Podrazumevane vrednosti novog artikla',
     createdAt: '2019-07-27T12:34:56.000Z',
     updatedAt: '2019-07-27T12:34:56.000Z',
     deletedAt: null,

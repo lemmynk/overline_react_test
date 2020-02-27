@@ -7,6 +7,7 @@ const router = express.Router();
 
 const viewCtrl = crudController(ArtMainView);
 const crudCtrl = crudController(ArtMain);
+router.get('/init', crudCtrl.init);
 router.get('/', viewCtrl.allPaginated);
 router.post('/', ArtMain.validate(), crudCtrl.create);
 router.get('/:id', crudCtrl.find);
