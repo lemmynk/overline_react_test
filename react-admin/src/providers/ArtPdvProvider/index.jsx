@@ -1,5 +1,6 @@
 // @flow
-import React, { type Node, useState } from 'react';
+import React, { type Node, useState, useEffect, useCallback } from 'react';
+import { useApi, useAppErrors } from '@newtash/core';
 
 type ProviderProps = {
   children: Node,
@@ -8,12 +9,32 @@ type ProviderProps = {
 const ArtPdvContext = React.createContext<any>();
 
 export const ArtPdvProvider = ({ children }: ProviderProps) => {
+  const [doFetch, setDoFetch] = useState(false);
   const [pdvs, setPdvs] = useState([]);
+
+  const { api } = useApi();
+  const { addAppError } = useAppErrors();
 
   const context = { pdvs, setPdvs };
 
   // eslint-disable-next-line no-console
   console.log('### ArtPdvProvider render');
+
+  useEffect(() => {
+    if (doFetch) {
+      setDoFetch(false);
+      api
+        .get('/art-pdv')
+        .then(response => response.data)
+        .then(response => response.filter(item => item.deletedAt === null))
+        .then(response => setPdvs(response))
+        .catch(err => addAppError(err));
+    }
+  }, [doFetch, api, addAppError, setPdvs]);
+
+  useEffect(() => {
+    setDoFetch(true);
+  }, [setDoFetch]);
 
   return (
     <ArtPdvContext.Provider value={context}>{children}</ArtPdvContext.Provider>
@@ -27,5 +48,19 @@ export const useArtPdv = () => {
     throw new Error('useArtPdv must be used within ArtPdvProvider');
   }
 
-  return context;
+  const { pdvs } = context;
+
+  const selectOptions = useCallback(
+    () =>
+      pdvs.map(pdv => ({
+        key: pdv.id,
+        text: `${pdv.pdvOpis} - ${pdv.pdvStopa / 100}%`,
+      })),
+    [pdvs],
+  );
+
+  return {
+    pdvs,
+    selectOptions,
+  };
 };

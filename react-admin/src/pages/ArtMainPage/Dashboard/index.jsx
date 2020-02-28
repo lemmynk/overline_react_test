@@ -7,6 +7,7 @@ import Card from '@newtash/core/Card';
 import Tab from '@newtash/core/Tab';
 import SearchBox from '@newtash/core/SearchBox';
 import Button from '@newtash/core/Button';
+import Select from '@newtash/core/Select';
 import useArtMain from './useArtMain';
 import { ART_MAIN_CRUD_URL } from '../../../config';
 import styles from '../ArtMainPage.module.scss';
@@ -14,7 +15,17 @@ import styles from '../ArtMainPage.module.scss';
 export default () => {
   const { t } = useTranslation('pages');
   const hook = useArtMain(ART_MAIN_CRUD_URL);
-  const { isFetching, vArtikli, vArtikl, search, setVArtikl, setSearch } = hook;
+  const {
+    isFetching,
+    vArtikli,
+    vArtikl,
+    artGroupsSelectOptions,
+    filterGroup,
+    search,
+    setVArtikl,
+    setFilterGroup,
+    setSearch,
+  } = hook;
 
   const handleAddButtonClick = () => {
     console.log('...add...');
@@ -35,6 +46,20 @@ export default () => {
       setVArtikl(key);
     }
   };
+
+  /*
+   |---------------------------------------------------------------
+   | CALCULATED VALUES
+   |---------------------------------------------------------------
+   */
+
+  /**
+   * Add Select All element
+   */
+  const groupsOptions = [
+    { key: '', text: t(`artMain.grpOptions.${vArtikl}`) },
+    ...artGroupsSelectOptions,
+  ];
 
   return (
     <Page>
@@ -60,11 +85,11 @@ export default () => {
           />
           <div className={styles.searchRow}>
             <div className={styles.column}>
-              {/* <Select
-                value={grpId}
-                options={translatedGrpOptions}
-                onChange={val => setGrpId(val)}
-              /> */}
+              <Select
+                value={filterGroup}
+                options={groupsOptions}
+                onChange={setFilterGroup}
+              />
             </div>
             <div className={styles.column}>
               <SearchBox

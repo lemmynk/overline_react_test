@@ -1,5 +1,7 @@
 // @flow
-import React, { type Node, useState } from 'react';
+import React, { type Node, useState, useEffect, useCallback } from 'react';
+import { useApi, useAppErrors } from '@newtash/core';
+import { sortByKey } from '@newtash/core/utils';
 
 type ProviderProps = {
   children: Node,
@@ -9,11 +11,28 @@ const ArtGroupsContext = React.createContext<any>();
 
 export const ArtGroupsProvider = ({ children }: ProviderProps) => {
   const [groups, setGroups] = useState([]);
+  const [doFetch, setDoFetch] = useState(false);
+
+  const { api } = useApi();
+  const { addAppError } = useAppErrors();
 
   const context = { groups, setGroups };
 
-  // eslint-disable-next-line no-console
-  console.log('### ArtGroupsProvider render');
+  useEffect(() => {
+    if (doFetch) {
+      setDoFetch(false);
+      api
+        .get('/art-grupa')
+        .then(response => response.data)
+        .then(response => response.data.filter(item => item.deletedAt === null))
+        .then(response => setGroups(response))
+        .catch(err => addAppError(err));
+    }
+  }, [doFetch, api, addAppError, setGroups]);
+
+  useEffect(() => {
+    setDoFetch(true);
+  }, [setDoFetch]);
 
   return (
     <ArtGroupsContext.Provider value={context}>
@@ -29,5 +48,22 @@ export const useArtGroups = () => {
     throw new Error('useArtGroups must be used within ArtGroupsProvider');
   }
 
-  return context;
+  const { groups } = context;
+
+  const selectOptions = useCallback(
+    (vArtikl: string) =>
+      groups
+        .filter(item => item.vArtikl === vArtikl)
+        .map(item => ({
+          key: item.id,
+          text: item.grpNaziv,
+        }))
+        .sort(sortByKey('text')),
+    [groups],
+  );
+
+  return {
+    groups,
+    selectOptions,
+  };
 };
