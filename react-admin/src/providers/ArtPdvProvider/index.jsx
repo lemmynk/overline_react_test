@@ -17,9 +17,6 @@ export const ArtPdvProvider = ({ children }: ProviderProps) => {
 
   const context = { pdvs, setPdvs };
 
-  // eslint-disable-next-line no-console
-  console.log('### ArtPdvProvider render');
-
   useEffect(() => {
     if (doFetch) {
       setDoFetch(false);

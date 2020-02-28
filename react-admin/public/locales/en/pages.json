@@ -12,7 +12,7 @@
     "formTitleEdit": "Edit Article",
     "formDescription": "Some description here",
     "deleteConfirmation": "This action is permanent.|You sure, sure?",
-    "listPagination": "Showing {{currentItems}} of {{totalItems}} items for page {{currentPage}} of {{totalPages}} {{itemsPerPage}} items/page]",
+    "listPagination": "Showing {{currentItems}} of {{totalItems}} items for page {{currentPage}} of {{totalPages}} [{{itemsPerPage}} items/page]",
     "grpOptions": {
       "roba": "All roba groups",
       "usluga": "All usluga groups"

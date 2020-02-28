@@ -8,6 +8,8 @@ import Tab from '@newtash/core/Tab';
 import SearchBox from '@newtash/core/SearchBox';
 import Button from '@newtash/core/Button';
 import Select from '@newtash/core/Select';
+import { Table } from '@newtash/core/Table';
+import Pagination from '@newtash/core/Pagination';
 import useArtMain from './useArtMain';
 import { ART_MAIN_CRUD_URL } from '../../../config';
 import styles from '../ArtMainPage.module.scss';
@@ -16,15 +18,22 @@ export default () => {
   const { t } = useTranslation('pages');
   const hook = useArtMain(ART_MAIN_CRUD_URL);
   const {
+    data,
+    pagination,
     isFetching,
     vArtikli,
     vArtikl,
     artGroupsSelectOptions,
     filterGroup,
     search,
+    sortedKey,
+    sortedAsc,
     setVArtikl,
     setFilterGroup,
     setSearch,
+    setSortedKey,
+    setSortAscending,
+    fetchArtMains,
   } = hook;
 
   const handleAddButtonClick = () => {
@@ -41,10 +50,79 @@ export default () => {
     title: t(`common:vArtikl.${item}`),
   }));
 
-  const handleTabChange = (key: string) => {
-    if (setVArtikl) {
-      setVArtikl(key);
+  /*
+   |---------------------------------------------------------------
+   | TABLE
+   |---------------------------------------------------------------
+   */
+
+  const columns = () => [
+    {
+      key: 'intSifra',
+      text: t('artMain.fields.intSifra'),
+      field: 'intSifra',
+      sortable: true,
+    },
+    {
+      key: 'artNaziv',
+      text: t('artMain.fields.artNaziv'),
+      field: 'artNaziv',
+      sortable: true,
+    },
+    {
+      key: 'grpNaziv',
+      text: t('artMain.fields.grpNaziv'),
+      field: 'grpNaziv',
+      sortable: false,
+    },
+    {
+      key: 'mera',
+      text: t('artMain.fields.mera'),
+      field: 'mera',
+      sortable: false,
+    },
+    {
+      key: 'pdvStopa',
+      text: t('artMain.fields.pdvStopa'),
+      field: 'pdvStopa',
+      sortable: false,
+      align: 'center',
+      onRenderItem: item => item.pdvStopa / 100,
+    },
+  ];
+
+  const handleColumnClick = (column: TableColumnProps) => {
+    const { key } = column;
+    if (key !== sortedKey) {
+      setSortedKey(key);
+      setSortAscending(true);
+    } else {
+      setSortAscending(!sortedAsc);
     }
+  };
+
+  const handleTableRowClick = (row: Data) => {
+    // const { id } = row;
+    console.log('handleTableRowClick:', row);
+    // This is important to early set fetch status to fetching
+    // if (initForm) {
+    //   initForm(row);
+    // }
+    // history.push(`${match.url}/edit/${id}`);
+  };
+
+  /*
+   |---------------------------------------------------------------
+   | PAGINATION
+   |---------------------------------------------------------------
+   */
+
+  const handlePagingClick = (page: number) => {
+    fetchArtMains(page);
+  };
+
+  const renderDescription = (desc: PaginationDescriptionProps) => {
+    return <div>{t('artMain.listPagination', desc)}</div>;
   };
 
   /*
@@ -77,12 +155,7 @@ export default () => {
       />
       <PageContent>
         <Card>
-          <Tab
-            bottom
-            tabs={tabs}
-            selectedTab={vArtikl}
-            onChange={handleTabChange}
-          />
+          <Tab bottom tabs={tabs} selectedTab={vArtikl} onChange={setVArtikl} />
           <div className={styles.searchRow}>
             <div className={styles.column}>
               <Select
@@ -100,6 +173,22 @@ export default () => {
               />
             </div>
           </div>
+          <Table
+            striped
+            hoverable
+            columns={columns()}
+            data={data}
+            sortedKey={sortedKey}
+            sortedAsc={sortedAsc}
+            onRowClick={handleTableRowClick}
+            onColumnClick={handleColumnClick}
+          />
+          <Pagination
+            fetching={isFetching}
+            paging={pagination}
+            onClick={handlePagingClick}
+            renderDescription={renderDescription}
+          />
         </Card>
       </PageContent>
     </Page>
