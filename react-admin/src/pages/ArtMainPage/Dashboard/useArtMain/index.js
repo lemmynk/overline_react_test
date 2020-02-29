@@ -3,8 +3,9 @@ import { useState, useMemo, useEffect, useCallback } from 'react';
 import qs from 'qs';
 import { useApi, useAppData, useAppErrors } from '@newtash/core';
 import { useArtGroups } from '../../../../providers';
+import { ART_MAIN_CRUD_URL } from '../../../../config';
 
-export default (url: string) => {
+export default () => {
   const { api } = useApi();
   const { config } = useAppData();
   const { artGroupDefaultVArtikl, artGroupVArtikli } = config;
@@ -23,14 +24,9 @@ export default (url: string) => {
   const vArtikli = useMemo(() => artGroupVArtikli || [], [artGroupVArtikli]);
   const artGroupsSelectOptions = selectOptions(vArtikl);
   const data = useMemo(() => artMains.data || [], [artMains.data]);
-  const pagination = useMemo(() => {
-    const paging = artMains.pagination || null;
-    if (paging === null) {
-      return {};
-    }
-    const { perPage, totalItems } = paging;
-    return { ...paging, dataLength: Math.min(perPage, totalItems) };
-  }, [artMains.pagination]);
+  const pagination = useMemo(() => artMains.pagination || {}, [
+    artMains.pagination,
+  ]);
 
   /**
    * Initial load of default vArtikl
@@ -67,9 +63,9 @@ export default (url: string) => {
       const query = Object.keys(parts)
         .filter(key => parts[key] && parts[key].toString().length > 0)
         .reduce((acc, key: string) => ({ ...acc, [key]: parts[key] }), {});
-      return [url, qs.stringify(query)].join('?');
+      return [ART_MAIN_CRUD_URL, qs.stringify(query)].join('?');
     },
-    [url, vArtikl, filterGroup, search, sortedKey, sortedAsc],
+    [vArtikl, filterGroup, search, sortedKey, sortedAsc],
   );
 
   /**

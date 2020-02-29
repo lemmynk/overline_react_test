@@ -11,12 +11,11 @@ import Select from '@newtash/core/Select';
 import { Table } from '@newtash/core/Table';
 import Pagination from '@newtash/core/Pagination';
 import useArtMain from './useArtMain';
-import { ART_MAIN_CRUD_URL } from '../../../config';
 import styles from '../ArtMainPage.module.scss';
 
 export default () => {
   const { t } = useTranslation('pages');
-  const hook = useArtMain(ART_MAIN_CRUD_URL);
+  const hook = useArtMain();
   const {
     data,
     pagination,
