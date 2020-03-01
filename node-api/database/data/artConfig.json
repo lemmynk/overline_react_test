@@ -1,0 +1,28 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "vArtikl": "roba",
+      "isDefault": true,
+      "grpPattern": "00",
+      "artPattern": "R0000",
+      "defaultMera": "kom",
+      "defaultPdvId": 1,
+      "createdAt": "2019-07-31 20:41:47",
+      "updatedAt": "2019-07-31 20:41:47",
+      "deletedAt": null
+    },
+    {
+      "id": 2,
+      "vArtikl": "usluga",
+      "isDefault": false,
+      "grpPattern": "00",
+      "artPattern": "U0000",
+      "defaultMera": "kom",
+      "defaultPdvId": 1,
+      "createdAt": "2019-07-31 20:41:47",
+      "updatedAt": "2019-07-31 20:41:47",
+      "deletedAt": null
+    }
+  ]
+}

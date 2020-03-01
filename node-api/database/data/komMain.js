@@ -10,9 +10,10 @@ for (let index = 0; index < COUNT_KUPAC; index += 1) {
   const sifra = id.toString().padStart(5, '0');
   const kom = {
     id,
+    vKom: 3,
     pib,
-    komIme: `kom${komIme}`,
-    intSifra: `01${sifra}`,
+    intNaziv: `kom${komIme}`,
+    sifra: `01${sifra}`,
     naziv: `Kupac ${id}`,
     adresa: 'Nepoznata bb',
     mestoId: 1,
@@ -50,9 +51,10 @@ for (let index = 0; index < COUNT_DOBAVLJAC; index += 1) {
   const sifra = id.toString().padStart(5, '0');
   const kom = {
     id: id + COUNT_DOBAVLJAC,
+    vKom: 5,
     pib,
-    komIme: `kom${komIme}`,
-    intSifra: `02${sifra}`,
+    intNaziv: `kom${komIme}`,
+    sifra: `02${sifra}`,
     naziv: `Dobavljac ${id}`,
     adresa: 'Nepoznata bb',
     mestoId: 1,

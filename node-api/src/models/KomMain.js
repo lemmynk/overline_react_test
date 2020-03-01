@@ -6,9 +6,9 @@ const modelConfig = {
   tableName: 'mp_kom_main',
   keys: [
     'id',
-    'pib',
-    'komIme',
-    'intSifra',
+    'vKom',
+    'sifra',
+    'intNaziv',
     'naziv',
     'adresa',
     'mestoId',
@@ -19,6 +19,7 @@ const modelConfig = {
     'mobilni',
     'web',
     'email',
+    'pib',
     'pdvObveznik',
     'pdvBroj',
     'maticniBroj',
@@ -50,9 +51,10 @@ class KomMain extends Model {
    */
   static validate() {
     return [
-      validator.validateStringLength('pib', 12),
-      validator.validateStringLength('komime', 60),
-      validator.validateStringLength('intsifra', 12),
+      validator.validateInteger('vKom'),
+      validator.validateStringLength('sifra', 12),
+      validator.validateStringLength('sifra', 12),
+      validator.validateStringLength('intNaziv', 60),
       validator.validateStringLength('naziv', 120),
       validator.validateStringLength('adresa', 120),
       validator.validateStringLength('telefon', 120),
@@ -62,6 +64,7 @@ class KomMain extends Model {
       validator.validateOptionalStringLength('mobilni', 120),
       validator.validateOptionalStringLength('web', 120),
       validator.validateOptionalStringLength('email', 120),
+      validator.validateStringLength('pib', 12),
       validator.validateBoolean('pdvObveznik'),
       validator.validateOptionalStringLength('pdvBroj', 30),
       validator.validateOptionalStringLength('maticniBroj', 30),

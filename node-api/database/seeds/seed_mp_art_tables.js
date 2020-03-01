@@ -1,4 +1,5 @@
 const seeder = require('../config');
+const artConfig = require('../data/artConfig.json');
 const artPdv = require('../data/artPdv.json');
 const artGrupa = require('../data/artGrupa.json');
 const artMain = require('../data/artMain.json');
@@ -7,6 +8,7 @@ const artMain = require('../data/artMain.json');
 // console.log('ENVIRONMENT:', process.env.ENVIRONMENT);
 
 exports.seed = knex =>
-  seeder(knex, 'mp_art_pdv', artPdv.data)
+  seeder(knex, 'mp_art_config', artConfig.data)
+    .then(() => seeder(knex, 'mp_art_pdv', artPdv.data))
     .then(() => seeder(knex, 'mp_art_grupa', artGrupa.data))
     .then(() => seeder(knex, 'mp_art_main', artMain.data));

@@ -12,7 +12,6 @@ export default () => {
 
   const [doFetch, setFetch] = useState<boolean>(false);
   const [isFetching, setFetching] = useState<boolean>(false);
-  const [vArtikl, setVArtikl] = useState<string>('');
   const [filterMesto, setFilterMesto] = useState<string>('');
   const [search, setSearch] = useState<string>('');
   const [sortedKey, setSortedKey] = useState<string>('naziv');
@@ -45,7 +44,7 @@ export default () => {
         .reduce((acc, key: string) => ({ ...acc, [key]: parts[key] }), {});
       return [KOM_MAIN_CRUD_URL, qs.stringify(query)].join('?');
     },
-    [vArtikl, filterMesto, search, sortedKey, sortedAsc],
+    [filterMesto, search, sortedKey, sortedAsc],
   );
 
   /**
@@ -92,7 +91,6 @@ export default () => {
     sortedKey,
     sortedAsc,
 
-    setVArtikl,
     setFilterMesto,
     setSearch,
     setSortedKey,

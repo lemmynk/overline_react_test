@@ -1,4 +1,5 @@
 const seeder = require('../config');
+const komMestoConfig = require('../data/komConfig');
 const komMestoData = require('../data/komMesto');
 const komMainData = require('../data/komMain');
 
@@ -6,6 +7,7 @@ const komMainData = require('../data/komMain');
 // console.log('ENVIRONMENT:', process.env.ENVIRONMENT);
 
 exports.seed = knex =>
-  seeder(knex, 'mp_kom_mesto', komMestoData)
+  seeder(knex, 'mp_kom_config', komMestoConfig)
+    .then(() => seeder(knex, 'mp_kom_mesto', komMestoData))
     .then(() => seeder(knex, 'mp_kom_main', komMainData))
     .then(() => console.log('...and...'));

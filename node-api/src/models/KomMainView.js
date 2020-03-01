@@ -4,15 +4,16 @@ const modelConfig = {
   tableName: 'vw_kom_main',
   keys: [
     'id',
-    'pib',
-    'komIme',
-    'intSifra',
+    'vKom',
+    'sifra',
+    'intNaziv',
     'naziv',
     'adresa',
     'mestoId',
     'zip',
     'mesto',
     'telefon',
+    'pib',
     'pdvObveznik',
     'isKupac',
     'isDobavljac',
@@ -30,7 +31,7 @@ const modelConfig = {
 class KomView extends Model {
   constructor(props) {
     super(props, modelConfig);
-    this.searchFields = ['komIme', 'intSifra', 'naziv'];
+    this.searchFields = ['sifra', 'intNaziv', 'naziv'];
   }
 }
 

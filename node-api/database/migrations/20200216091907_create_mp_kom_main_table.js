@@ -3,9 +3,11 @@ exports.up = knex => {
     t.increments('id')
       .unsigned()
       .primary();
-    t.string('pib', 12).notNullable();
-    t.string('komIme', 60).notNullable();
-    t.string('intSifra', 12).notNullable();
+    t.integer('vKom')
+      .notNullable()
+      .defaultTo(1);
+    t.string('sifra', 12).notNullable();
+    t.string('intNaziv', 60).notNullable();
     t.string('naziv', 120).notNullable();
     t.string('adresa', 120).notNullable();
     t.integer('mestoId')
@@ -19,6 +21,7 @@ exports.up = knex => {
     t.string('web', 120).nullable();
     t.string('email', 120).nullable();
 
+    t.string('pib', 12).nullable();
     t.boolean('pdvObveznik')
       .notNullable()
       .defaultTo(false);
