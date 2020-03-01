@@ -46,6 +46,33 @@
       "required": "Required"
     }
   },
+  "komMesta": {
+    "pageTitle": "Cities",
+    "pageDescription": "Some description here",
+    "formTitle": "Article Groups",
+    "formDescription": "Some description here",
+    "deleteConfirmation": "This action is permanent.|You sure, sure?",
+    "buttons": {
+      "add": "Add new"
+    },
+    "fields": {
+      "zip": "Code",
+      "naziv": "Name",
+      "opstina": "County"
+    },
+    "errors": {
+      "delete-error": "Not empty city cannot be deleted",
+      "zip": {
+        "required": "Post code is required"
+      },
+      "naziv": {
+        "required": "City name is required"
+      },
+      "opstina": {
+        "required": "County is required"
+      }
+    }
+  },
   "settings": {
     "title": "Подешавања",
     "description": "Корисничка подешавања"

@@ -5,6 +5,7 @@ const KomMain = require('../../models/KomMain');
 const router = express.Router();
 
 const crudCtrl = crudController(KomMain);
+router.get('/init', crudCtrl.init);
 router.get('/', crudCtrl.allPaginated);
 router.post('/', KomMain.validate(), crudCtrl.create);
 router.get('/:id', crudCtrl.find);

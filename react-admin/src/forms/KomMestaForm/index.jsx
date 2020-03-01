@@ -10,27 +10,28 @@ import {
 import { TextInput } from '@newtash/core/Input';
 import FormErrorsBox from '@newtash/core/FormErrorsBox';
 import { useForm } from '../../utils';
-import { ART_GROUPS_CRUD_URL } from '../../config';
+import { KOM_MESTA_CRUD_URL } from '../../config';
 
 type Props = {
   isOpen: boolean,
   itemId: number,
-  vArtikl: string,
   onDismiss: () => void,
   onSuccess: () => void,
 };
 
-const fields = ['id', 'vArtikl', 'grpSifra', 'grpNaziv'];
+const fields = ['id', 'zip', 'naziv', 'opstina'];
 
 export default (props: Props) => {
-  const { isOpen, itemId, vArtikl, onDismiss, onSuccess } = props;
+  const { isOpen, itemId, onDismiss, onSuccess } = props;
 
-  const codeEl = useRef(null);
-  const nameEl = useRef(null);
+  const zipEl = useRef(null);
+  const nazivEl = useRef(null);
+  const opstinaEl = useRef(null);
 
   const [t] = useTranslation(['pages', 'common']);
 
   const {
+    formData,
     validationErrors,
     getPropValue,
     setPropValue,
@@ -40,7 +41,7 @@ export default (props: Props) => {
     clearValidationErrors,
     doFetchUrl,
     saveFormData,
-  } = useForm({ url: ART_GROUPS_CRUD_URL, fields, t, tDomain: 'artGroups' });
+  } = useForm({ url: KOM_MESTA_CRUD_URL, fields, t, tDomain: 'komMesta' });
 
   const setFocus = useCallback((ref: any) => {
     if (ref && ref.current) {
@@ -55,12 +56,12 @@ export default (props: Props) => {
    */
   useEffect(() => {
     if (isOpen) {
-      doFetchUrl(`/${itemId > 0 ? itemId : 'init'}?vArtikl=${vArtikl}`);
-      setFocus(codeEl);
+      doFetchUrl(`/${itemId > 0 ? itemId : 'init'}`);
+      setFocus(zipEl);
     } else {
       clearFormData();
     }
-  }, [isOpen, clearFormData, doFetchUrl, itemId, vArtikl, setFocus]);
+  }, [isOpen, clearFormData, doFetchUrl, itemId, setFocus]);
 
   const doDismiss = () => {
     if (onDismiss) {
@@ -78,26 +79,34 @@ export default (props: Props) => {
 
   return (
     <Modal isOpen={isOpen} onDismiss={doDismiss}>
-      <ModalHeader title={t('artGroups.formTitle')} onDismiss={doDismiss} />
+      <ModalHeader title={t('komMesta.formTitle')} onDismiss={doDismiss} />
       <ModalBody>
         <FormErrorsBox
           errors={validationErrors}
           onClear={clearValidationErrors}
         />
         <TextInput
-          ref={codeEl}
-          label={t('artGroups.fields.grpSifra')}
-          value={getPropValue('grpSifra')}
-          onChange={setPropValue('grpSifra')}
-          hasErrors={getPropHasErrors('grpSifra')}
+          ref={zipEl}
+          label={t('komMesta.fields.zip')}
+          value={getPropValue('zip')}
+          onChange={setPropValue('zip')}
+          hasErrors={getPropHasErrors('zip')}
         />
         <TextInput
-          ref={nameEl}
-          label={t('artGroups.fields.grpNaziv')}
-          value={getPropValue('grpNaziv')}
-          onChange={setPropValue('grpNaziv')}
-          hasErrors={getPropHasErrors('grpNaziv')}
+          ref={nazivEl}
+          label={t('komMesta.fields.naziv')}
+          value={getPropValue('naziv')}
+          onChange={setPropValue('naziv')}
+          hasErrors={getPropHasErrors('naziv')}
         />
+        <TextInput
+          ref={opstinaEl}
+          label={t('komMesta.fields.opstina')}
+          value={getPropValue('opstina')}
+          onChange={setPropValue('opstina')}
+          hasErrors={getPropHasErrors('opstina')}
+        />
+        <pre>{JSON.stringify(formData, null, 2)}</pre>
       </ModalBody>
       <FormSaveCancelFooter
         fetching={isSaving}
