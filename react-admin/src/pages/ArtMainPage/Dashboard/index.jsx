@@ -1,7 +1,8 @@
 // @flow
 import React from 'react';
-// import { useRouteMatch, useHistory } from 'react-router-dom';
+import { useRouteMatch, useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import qs from 'qs';
 import { Page, PageHeader, PageContent } from '@newtash/core/Page';
 import Card from '@newtash/core/Card';
 import Tab from '@newtash/core/Tab';
@@ -15,6 +16,8 @@ import styles from '../ArtMainPage.module.scss';
 
 export default () => {
   const { t } = useTranslation('pages');
+  const history = useHistory();
+  const match = useRouteMatch();
   const hook = useArtMain();
   const {
     data,
@@ -36,7 +39,12 @@ export default () => {
   } = hook;
 
   const handleAddButtonClick = () => {
-    console.log('...add...');
+    const q = { vArtikl, grpId: filterGroup, whatever: 'ever' };
+    const query = Object.keys(q)
+      .filter(key => q[key])
+      .reduce((acc, key: string) => ({ ...acc, [key]: q[key] }), {});
+    const queryStr = qs.stringify(query);
+    history.push(`${match.url}/create?${queryStr}`);
   };
 
   /*
@@ -101,13 +109,8 @@ export default () => {
   };
 
   const handleTableRowClick = (row: Data) => {
-    // const { id } = row;
-    console.log('handleTableRowClick:', row);
-    // This is important to early set fetch status to fetching
-    // if (initForm) {
-    //   initForm(row);
-    // }
-    // history.push(`${match.url}/edit/${id}`);
+    const { id } = row;
+    history.push(`${match.url}/edit/${id}`);
   };
 
   /*

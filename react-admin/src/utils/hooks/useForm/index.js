@@ -52,6 +52,17 @@ export default (props: Props) => {
    * Get formData prop value
    *
    * @param   {String}  propName
+   * @return  {Boolean}
+   */
+  const hasProp = useCallback(
+    (propName: string) => Object.keys(formData).includes(propName),
+    [formData],
+  );
+
+  /**
+   * Get formData prop value
+   *
+   * @param   {String}  propName
    * @param   {Any}     defaultsTo
    * @return  {Any}
    */
@@ -163,6 +174,18 @@ export default (props: Props) => {
       }, timeout);
     }
   }, [isSaved, setSaved, saveTimeoutSecs]);
+
+  /**
+   * Clean-up timeout
+   * in case it's still running when form is closed
+   */
+  useEffect(() => {
+    return () => {
+      if (saveTimeout) {
+        clearTimeout(saveTimeout);
+      }
+    };
+  }, []);
 
   /**
    * Translate errors before output
@@ -315,6 +338,7 @@ export default (props: Props) => {
     isSaving,
     isSaved,
 
+    hasProp,
     setPropValue,
     getPropValue,
     getPropHasChanged,

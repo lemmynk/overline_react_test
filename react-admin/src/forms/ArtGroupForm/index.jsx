@@ -20,6 +20,8 @@ type Props = {
   onSuccess: () => void,
 };
 
+const fields = ['id', 'vArtikl', 'grpSifra', 'grpNaziv'];
+
 export default (props: Props) => {
   const { isOpen, itemId, vArtikl, onDismiss, onSuccess } = props;
 
@@ -27,8 +29,6 @@ export default (props: Props) => {
   const nameEl = useRef(null);
 
   const [t] = useTranslation(['pages', 'common']);
-
-  const fields = ['id', 'vArtikl', 'grpSifra', 'grpNaziv'];
 
   const {
     formData,
