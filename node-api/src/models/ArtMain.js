@@ -34,7 +34,6 @@ const modelConfig = {
 class ArtMain extends Model {
   constructor(props) {
     super(props, modelConfig);
-    // this.searchFields = ['intSifra', 'artNaziv'];
   }
 
   /**

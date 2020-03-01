@@ -4,8 +4,8 @@ exports.up = knex => {
       .unsigned()
       .primary();
     t.string('pib', 12).notNullable();
-    t.string('komime', 60).notNullable();
-    t.string('intsifra', 12).notNullable();
+    t.string('komIme', 60).notNullable();
+    t.string('intSifra', 12).notNullable();
     t.string('naziv', 120).notNullable();
     t.string('adresa', 120).notNullable();
     t.integer('mestoId')

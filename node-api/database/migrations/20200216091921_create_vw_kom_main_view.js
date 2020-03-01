@@ -3,8 +3,8 @@ const sqlCreate = `CREATE VIEW vw_kom_main AS
 SELECT
 	mp_kom_main.id,
 	mp_kom_main.pib,
-	mp_kom_main.komime,
-	mp_kom_main.intsifra,
+	mp_kom_main.komIme,
+	mp_kom_main.intSifra,
 	mp_kom_main.naziv,
 	mp_kom_main.adresa,
 	mp_kom_main.mestoId,

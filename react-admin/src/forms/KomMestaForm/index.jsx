@@ -31,7 +31,6 @@ export default (props: Props) => {
   const [t] = useTranslation(['pages', 'common']);
 
   const {
-    formData,
     validationErrors,
     getPropValue,
     setPropValue,
@@ -106,7 +105,6 @@ export default (props: Props) => {
           onChange={setPropValue('opstina')}
           hasErrors={getPropHasErrors('opstina')}
         />
-        <pre>{JSON.stringify(formData, null, 2)}</pre>
       </ModalBody>
       <FormSaveCancelFooter
         fetching={isSaving}

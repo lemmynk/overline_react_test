@@ -7,8 +7,8 @@ const modelConfig = {
   keys: [
     'id',
     'pib',
-    'komime',
-    'intsifra',
+    'komIme',
+    'intSifra',
     'naziv',
     'adresa',
     'mestoId',

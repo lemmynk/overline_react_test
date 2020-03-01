@@ -11,8 +11,8 @@ for (let index = 0; index < COUNT_KUPAC; index += 1) {
   const kom = {
     id,
     pib,
-    komime: `kom${komIme}`,
-    intsifra: `01${sifra}`,
+    komIme: `kom${komIme}`,
+    intSifra: `01${sifra}`,
     naziv: `Kupac ${id}`,
     adresa: 'Nepoznata bb',
     mestoId: 1,
@@ -51,8 +51,8 @@ for (let index = 0; index < COUNT_DOBAVLJAC; index += 1) {
   const kom = {
     id: id + COUNT_DOBAVLJAC,
     pib,
-    komime: `kom${komIme}`,
-    intsifra: `02${sifra}`,
+    komIme: `kom${komIme}`,
+    intSifra: `02${sifra}`,
     naziv: `Dobavljac ${id}`,
     adresa: 'Nepoznata bb',
     mestoId: 1,

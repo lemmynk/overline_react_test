@@ -1,6 +1,7 @@
 // @flow
 import React, { type Node, useState, useEffect, useCallback } from 'react';
 import { useApi, useAppErrors } from '@newtash/core';
+import { ART_PDV_CRUD_URL } from '../../config';
 
 type ProviderProps = {
   children: Node,
@@ -21,7 +22,7 @@ export const ArtPdvProvider = ({ children }: ProviderProps) => {
     if (doFetch) {
       setDoFetch(false);
       api
-        .get('/art-pdv')
+        .get(ART_PDV_CRUD_URL)
         .then(response => response.data)
         .then(response => response.filter(item => item.deletedAt === null))
         .then(response => setPdvs(response))

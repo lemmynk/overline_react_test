@@ -2,99 +2,71 @@
 import React from 'react';
 import { useRouteMatch, useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import qs from 'qs';
+// import qs from 'qs';
 import { Page, PageHeader, PageContent } from '@newtash/core/Page';
 import Card from '@newtash/core/Card';
-import Tab from '@newtash/core/Tab';
 import SearchBox from '@newtash/core/SearchBox';
 import Button from '@newtash/core/Button';
 import Select from '@newtash/core/Select';
 import { Table } from '@newtash/core/Table';
 import Pagination from '@newtash/core/Pagination';
-import useArtMain from './useArtMain';
+import useKomMain from './useKomMain';
 import styles from '../../Page.module.scss';
 
 export default () => {
-  const { t } = useTranslation('pages');
+  const { t } = useTranslation(['pages', 'common']);
   const history = useHistory();
   const match = useRouteMatch();
-  const hook = useArtMain();
+  const hook = useKomMain();
   const {
     data,
     pagination,
     isFetching,
-    vArtikli,
-    vArtikl,
-    artGroupsSelectOptions,
-    filterGroup,
+    komMestaSelectOptions,
+    filterMesto,
     search,
     sortedKey,
     sortedAsc,
-    setVArtikl,
-    setFilterGroup,
+    setFilterMesto,
     setSearch,
     setSortedKey,
     setSortAscending,
-    fetchArtMains,
+    fetchKomMains,
   } = hook;
 
   const handleAddButtonClick = () => {
-    const q = { vArtikl, grpId: filterGroup, whatever: 'ever' };
-    const query = Object.keys(q)
-      .filter(key => q[key])
-      .reduce((acc, key: string) => ({ ...acc, [key]: q[key] }), {});
-    const queryStr = qs.stringify(query);
-    history.push(`${match.url}/create?${queryStr}`);
+    // const q = { vArtikl, grpId: filterMesto, whatever: 'ever' };
+    // const query = Object.keys(q)
+    //   .filter(key => q[key])
+    //   .reduce((acc, key: string) => ({ ...acc, [key]: q[key] }), {});
+    // const queryStr = qs.stringify(query);
+    // history.push(`${match.url}/create?${queryStr}`);
+    history.push(`${match.url}/create`);
   };
-
-  /*
-   |---------------------------------------------------------------
-   | TAB
-   |---------------------------------------------------------------
-   */
-  const tabs = vArtikli.map(item => ({
-    key: item,
-    title: t(`common:vArtikl.${item}`),
-  }));
 
   /*
    |---------------------------------------------------------------
    | TABLE
    |---------------------------------------------------------------
    */
-
   const columns = () => [
     {
+      key: 'komime',
+      text: t('komMain.fields.komime'),
+      field: 'komime',
+      sortable: true,
+    },
+    {
       key: 'intSifra',
-      text: t('artMain.fields.intSifra'),
+      text: t('komMain.fields.intSifra'),
       field: 'intSifra',
       sortable: true,
     },
     {
-      key: 'artNaziv',
-      text: t('artMain.fields.artNaziv'),
-      field: 'artNaziv',
+      key: 'naziv',
+      text: t('komMain.fields.naziv'),
+      field: 'naziv',
       sortable: true,
-    },
-    {
-      key: 'grpNaziv',
-      text: t('artMain.fields.grpNaziv'),
-      field: 'grpNaziv',
-      sortable: false,
-    },
-    {
-      key: 'mera',
-      text: t('artMain.fields.mera'),
-      field: 'mera',
-      sortable: false,
-    },
-    {
-      key: 'pdvStopa',
-      text: t('artMain.fields.pdvStopa'),
-      field: 'pdvStopa',
-      sortable: false,
-      align: 'center',
-      onRenderItem: item => item.pdvStopa / 100,
     },
   ];
 
@@ -120,7 +92,7 @@ export default () => {
    */
 
   const handlePagingClick = (page: number) => {
-    fetchArtMains(page);
+    fetchKomMains(page);
   };
 
   const renderDescription = (desc: PaginationDescriptionProps) => {
@@ -136,34 +108,33 @@ export default () => {
   /**
    * Add Select All element
    */
-  const groupsOptions = [
-    { key: '', text: t(`artMain.grpOptions.${vArtikl}`) },
-    ...artGroupsSelectOptions,
+  const mestaOptions = [
+    { key: '', text: t(`komMain.mestaOptions.placeholder`) },
+    ...komMestaSelectOptions,
   ];
 
   return (
     <Page>
       <PageHeader
-        title={t('artMain.pageTitle')}
-        description={t('artMain.pageDescription')}
+        title={t('komMain.pageTitle')}
+        description={t('komMain.pageDescription')}
         renderButtons={() => (
           <Button
             primary
             compact
-            text={t('artMain.buttons.add')}
+            text={t('komMain.buttons.add')}
             onClick={handleAddButtonClick}
           />
         )}
       />
       <PageContent>
         <Card>
-          <Tab bottom tabs={tabs} selectedTab={vArtikl} onChange={setVArtikl} />
           <div className={styles.searchRow}>
             <div className={styles.column}>
               <Select
-                value={filterGroup}
-                options={groupsOptions}
-                onChange={setFilterGroup}
+                value={filterMesto}
+                options={mestaOptions}
+                onChange={setFilterMesto}
               />
             </div>
             <div className={styles.column}>

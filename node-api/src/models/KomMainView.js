@@ -5,8 +5,8 @@ const modelConfig = {
   keys: [
     'id',
     'pib',
-    'komime',
-    'intsifra',
+    'komIme',
+    'intSifra',
     'naziv',
     'adresa',
     'mestoId',
@@ -30,6 +30,7 @@ const modelConfig = {
 class KomView extends Model {
   constructor(props) {
     super(props, modelConfig);
+    this.searchFields = ['komIme', 'intSifra', 'naziv'];
   }
 }
 
