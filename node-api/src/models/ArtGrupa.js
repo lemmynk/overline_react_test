@@ -1,4 +1,5 @@
 const Model = require('./Model');
+const ArtConfig = require('./ArtConfig');
 const ArtMainView = require('./ArtMainView');
 const { validator } = require('../utils');
 
@@ -50,6 +51,32 @@ class ArtGrupa extends Model {
    */
   static canDelete() {
     return [validator.validateNoChildren('id', ArtMainView, 'grpId')];
+  }
+
+  /**
+   * Will return next sifra by vArtikl
+   * @param   {String} vArtikl
+   * @return  {String}
+   */
+  static nextSifra(vArtikl) {
+    const model = new this();
+
+    const db = model.db();
+
+    const configQuery = ArtConfig.find({ vArtikl }).then(row => row.grpPattern);
+    const maxGrpQuery = model
+      .baseQuery()
+      .max({ last: db.raw('LPAD(??, 2, "0")', ['grpSifra']) })
+      .whereNull('deletedAt')
+      .where('vArtikl', vArtikl)
+      .then(rows => rows.shift())
+      .then(row => row.last);
+
+    return Promise.all([configQuery, maxGrpQuery]).then(([pattern, last]) => {
+      console.log('pattern:', pattern);
+      console.log('last:', last);
+      return last;
+    });
   }
 }
 
