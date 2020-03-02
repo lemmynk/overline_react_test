@@ -1,8 +1,8 @@
 const Model = require('./Model');
+const ArtConfig = require('./ArtConfig');
 const ArtGrupa = require('./ArtGrupa');
 const ArtPdv = require('./ArtPdv');
-const AppConfig = require('./AppConfig');
-const { validator } = require('../utils');
+const { validator, tools } = require('../utils');
 
 const modelConfig = {
   tableName: 'mp_art_main',
@@ -37,21 +37,6 @@ class ArtMain extends Model {
   }
 
   /**
-   * Default values for new model
-   *
-   * @return {Promise}
-   */
-  static init(reqQuery) {
-    const { vArtikl } = reqQuery;
-
-    return AppConfig.find({ name: 'artMainInitForm' })
-      .then(response => response.value)
-      .then(value => JSON.parse(value))
-      .then(value => value[vArtikl || process.env.ARTIKL_ROBA])
-      .then(data => ({ ...data, ...reqQuery }));
-  }
-
-  /**
    * Validate params provided using express-validator
    *
    * @return {Array}
@@ -65,6 +50,141 @@ class ArtMain extends Model {
       validator.validateStringLength('intSifra', 20),
       validator.validateStringLength('mera', 20),
     ];
+  }
+
+  /**
+   * Will return next sifra by vArtikl
+   * @param   {String} vArtikl
+   * @return  {String}
+   */
+  static nextSifraByVArtikl(vArtikl) {
+    const model = new this();
+    const db = model.db();
+    const configWhere = vArtikl ? { vArtikl } : { isDefault: true };
+
+    return ArtConfig.find(configWhere)
+      .then(config => {
+        const { artPattern, artSifraByVArtikl } = config;
+        const { length, prefix } = tools.patternMetrics(artPattern);
+
+        const maxQuery = model
+          .baseQuery()
+          .orderBy(
+            db.raw(`LPAD(??, ${prefix.length > 0 ? length : 6}, "0")`, [
+              'intSifra',
+            ]),
+            'desc',
+          )
+          .limit(1)
+          .whereNull('deletedAt');
+        if (artSifraByVArtikl) {
+          maxQuery.where('vArtikl', config.vArtikl);
+        }
+
+        return maxQuery
+          .then(rows => rows.shift())
+          .then(row => ({
+            prefix,
+            length,
+            last: row.intSifra || '0',
+          }));
+      })
+      .then(({ prefix, length, last }) => {
+        return tools.patternNext(prefix, length, last);
+      });
+  }
+
+  /**
+   * Will return next sifra by grpId
+   * @param   {String} grpId
+   * @return  {String}
+   */
+  static nextSifraByGrpId(grpId) {
+    const model = new this();
+    const db = model.db();
+
+    return ArtGrupa.find({ id: grpId })
+      .then(grupa =>
+        Promise.all([ArtConfig.find({ vArtikl: grupa.vArtikl }), grupa]),
+      )
+      .then(response => response.map(item => item.attrs()))
+      .then(([config, grupa]) => {
+        if (!config.artSifraByGroup || !grupa.artPattern) {
+          return ArtMain.nextSifraByVArtikl(grupa.vArtikl);
+        }
+        const { length, prefix } = tools.patternMetrics(grupa.artPattern);
+
+        return model
+          .baseQuery()
+          .orderBy(
+            db.raw(`LPAD(??, ${prefix.length > 0 ? length : 6}, "0")`, [
+              'intSifra',
+            ]),
+            'desc',
+          )
+          .limit(1)
+          .whereNull('deletedAt')
+          .where('grpId', grupa.id)
+          .then(rows => rows.shift())
+          .then(row => tools.patternNext(prefix, length, row.intSifra || '0'));
+      });
+  }
+
+  /**
+   * Will return next sifra by vArtikl or grpId
+   * @param   {String} vArtikl
+   * @param   {String} grpId
+   * @return  {String}
+   */
+  static nextSifra(vArtikl, grpId) {
+    if (grpId) {
+      return ArtMain.nextSifraByGrpId(grpId);
+    }
+    return ArtMain.nextSifraByVArtikl(vArtikl);
+  }
+
+  static initByVArtikl(vArtikl) {
+    const configWhere = vArtikl ? { vArtikl } : { isDefault: true };
+
+    return Promise.all([
+      ArtMain.nextSifraByVArtikl(vArtikl),
+      ArtConfig.find(configWhere),
+    ]).then(([intSifra, config]) => ({
+      intSifra,
+      vArtikl: config.vArtikl,
+      mera: config.defaultMera,
+      pdvId: config.defaultPdvId,
+    }));
+  }
+
+  static initByGrpId(grpId) {
+    return ArtGrupa.find({ id: grpId })
+      .then(grupa => {
+        return Promise.all([
+          ArtMain.nextSifraByGrpId(grpId),
+          ArtConfig.find({ vArtikl: grupa.vArtikl }),
+        ]);
+      })
+      .then(([intSifra, config]) => ({
+        intSifra,
+        vArtikl: config.vArtikl,
+        mera: config.defaultMera,
+        pdvId: config.defaultPdvId,
+      }));
+  }
+
+  /**
+   * Default values for new model
+   *
+   * @return {Promise}
+   */
+  static init(reqQuery) {
+    const { vArtikl, grpId } = reqQuery;
+
+    if (grpId) {
+      return ArtMain.initByGrpId(grpId);
+    }
+    return ArtMain.initByVArtikl(vArtikl);
   }
 }
 

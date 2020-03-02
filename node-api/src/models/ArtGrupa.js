@@ -1,7 +1,7 @@
 const Model = require('./Model');
 const ArtConfig = require('./ArtConfig');
 const ArtMainView = require('./ArtMainView');
-const { validator } = require('../utils');
+const { validator, tools } = require('../utils');
 
 const modelConfig = {
   tableName: 'mp_art_grupa',
@@ -10,7 +10,7 @@ const modelConfig = {
     'vArtikl',
     'grpNaziv',
     'grpSifra',
-    // 'redosled',
+    'artPattern',
     'createdAt',
     'updatedAt',
     'deletedAt',
@@ -23,15 +23,6 @@ class ArtGrupa extends Model {
   }
 
   /**
-   * Default values for new model
-   *
-   * @return {Promise}
-   */
-  static init(reqQuery) {
-    return Promise.resolve({ vArtikl: process.env.ARTIKL_ROBA, ...reqQuery });
-  }
-
-  /**
    * Validate params provided using express-validator
    *
    * @return {Array}
@@ -41,6 +32,7 @@ class ArtGrupa extends Model {
       validator.validateVArtikl(),
       validator.validateStringLength('grpNaziv', 120),
       validator.validateStringLength('grpSifra', 20),
+      validator.validateOptionalStringLength('artPattern', 12),
     ];
   }
 
@@ -60,23 +52,58 @@ class ArtGrupa extends Model {
    */
   static nextSifra(vArtikl) {
     const model = new this();
-
     const db = model.db();
+    const configWhere = vArtikl ? { vArtikl } : { isDefault: true };
 
-    const configQuery = ArtConfig.find({ vArtikl }).then(row => row.grpPattern);
-    const maxGrpQuery = model
-      .baseQuery()
-      .max({ last: db.raw('LPAD(??, 2, "0")', ['grpSifra']) })
-      .whereNull('deletedAt')
-      .where('vArtikl', vArtikl)
-      .then(rows => rows.shift())
-      .then(row => row.last);
+    return ArtConfig.find(configWhere)
+      .then(config => {
+        const { grpPattern, grpSifraByVArtikl } = config;
+        const { length, prefix } = tools.patternMetrics(grpPattern);
 
-    return Promise.all([configQuery, maxGrpQuery]).then(([pattern, last]) => {
-      console.log('pattern:', pattern);
-      console.log('last:', last);
-      return last;
-    });
+        const maxQuery = model
+          .baseQuery()
+          .orderBy(
+            db.raw(`LPAD(??, ${prefix.length > 0 ? length : 6}, "0")`, [
+              'grpSifra',
+            ]),
+            'desc',
+          )
+          .limit(1)
+          .whereNull('deletedAt');
+        if (grpSifraByVArtikl) {
+          maxQuery.where('vArtikl', config.vArtikl);
+        }
+
+        return maxQuery
+          .then(rows => rows.shift())
+          .then(row => ({
+            prefix,
+            length,
+            last: row.grpSifra || '0',
+          }));
+      })
+      .then(({ prefix, length, last }) =>
+        tools.patternNext(prefix, length, last),
+      );
+  }
+
+  /**
+   * Default values for new model
+   *
+   * @return {Promise}
+   */
+  static init(reqQuery) {
+    const { vArtikl } = reqQuery;
+    const configWhere = vArtikl ? { vArtikl } : { isDefault: true };
+
+    return Promise.all([
+      ArtGrupa.nextSifra(vArtikl),
+      ArtConfig.find(configWhere),
+    ]).then(([grpSifra, config]) => ({
+      grpSifra,
+      vArtikl: config.vArtikl,
+      grpPattern: config.artSifraByGroup ? config.grpPattern : undefined,
+    }));
   }
 }
 

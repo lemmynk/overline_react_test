@@ -50,6 +50,7 @@
       "vArtikl": "usluga",
       "grpNaziv": "USLUGE",
       "grpSifra": "21",
+      "artPattern": "U0000",
       "createdAt": "2019-07-31 20:41:47",
       "updatedAt": "2019-07-31 20:41:47",
       "deletedAt": null
@@ -104,6 +105,7 @@
       "vArtikl": "roba",
       "grpNaziv": "MERCEDES",
       "grpSifra": "11",
+      "artPattern": "M0000",
       "createdAt": "2019-07-31 20:41:47",
       "updatedAt": "2019-07-31 20:41:47",
       "deletedAt": null

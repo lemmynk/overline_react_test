@@ -12,7 +12,7 @@ exports.up = knex => {
       .index();
     t.string('grpNaziv', 120).notNullable();
     t.string('grpSifra', 20).notNullable();
-    // t.string('redosled', 20).nullable();
+    t.string('artPattern', 12).nullable();
 
     t.dateTime('createdAt').defaultTo(knex.fn.now());
     t.dateTime('updatedAt').defaultTo(knex.fn.now());
