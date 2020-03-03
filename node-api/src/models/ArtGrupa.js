@@ -63,9 +63,7 @@ class ArtGrupa extends Model {
         const maxQuery = model
           .baseQuery()
           .orderBy(
-            db.raw(`LPAD(??, ${prefix.length > 0 ? length : 6}, "0")`, [
-              'grpSifra',
-            ]),
+            db.raw(prefix.length ? '??' : 'LPAD(??, 6, "0")', ['grpSifra']),
             'desc',
           )
           .limit(1)

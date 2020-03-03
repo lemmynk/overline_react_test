@@ -1,6 +1,7 @@
 const Model = require('./Model');
+const KomConfig = require('./KomConfig');
 const KomMesto = require('./KomMesto');
-const { validator } = require('../utils');
+const { validator, tools } = require('../utils');
 
 const modelConfig = {
   tableName: 'mp_kom_main',
@@ -80,6 +81,63 @@ class KomMain extends Model {
       validator.validateOptionalInteger('nabDpo'),
       validator.validateParent('mestoId', KomMesto),
     ];
+  }
+
+  /**
+   * Will return next sifra by vKom
+   * @param   {Number} vKom
+   * @return  {String}
+   */
+  static nextSifra(vKom) {
+    const model = new this();
+    const db = model.db();
+    const configWhere = vKom ? { vKom } : { isDefault: true };
+
+    return KomConfig.find(configWhere)
+      .then(config => {
+        const { vKom: configKom, pattern } = config;
+        const { length, prefix } = tools.patternMetrics(pattern);
+
+        const maxQuery = model
+          .baseQuery()
+          .orderBy(
+            db.raw(prefix.length ? '??' : 'LPAD(??, 6, "0")', ['sifra']),
+            'desc',
+          )
+          .limit(1)
+          .whereNull('deletedAt')
+          .where(db.raw(`?? & ${configKom} = ${configKom}`, ['vKom']));
+
+        return maxQuery
+          .then(rows => rows.shift())
+          .then(row => ({
+            prefix,
+            length,
+            last: row && row.sifra ? row.sifra : '0',
+          }));
+      })
+      .then(({ prefix, length, last }) =>
+        tools.patternNext(prefix, length, last),
+      );
+  }
+
+  /**
+   * Default values for new model
+   *
+   * @return {Promise}
+   */
+  static init(reqQuery) {
+    const { vKom } = reqQuery;
+
+    const configWhere = vKom ? { vKom } : { isDefault: true };
+
+    return Promise.all([
+      KomMain.nextSifra(vKom),
+      KomConfig.find(configWhere),
+    ]).then(([sifra, config]) => ({
+      sifra,
+      vKom: config.vKom,
+    }));
   }
 }
 

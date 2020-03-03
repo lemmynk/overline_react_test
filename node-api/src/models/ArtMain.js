@@ -70,9 +70,7 @@ class ArtMain extends Model {
         const maxQuery = model
           .baseQuery()
           .orderBy(
-            db.raw(`LPAD(??, ${prefix.length > 0 ? length : 6}, "0")`, [
-              'intSifra',
-            ]),
+            db.raw(prefix.length ? '??' : 'LPAD(??, 6, "0")', ['intSifra']),
             'desc',
           )
           .limit(1)
@@ -117,9 +115,7 @@ class ArtMain extends Model {
         return model
           .baseQuery()
           .orderBy(
-            db.raw(`LPAD(??, ${prefix.length > 0 ? length : 6}, "0")`, [
-              'intSifra',
-            ]),
+            db.raw(prefix.length ? '??' : 'LPAD(??, 6, "0")', ['intSifra']),
             'desc',
           )
           .limit(1)

@@ -48,6 +48,7 @@ app.use(`${apiUrl}/art-config`, require('./routes/api/artConfig'));
 app.use(`${apiUrl}/art-pdv`, require('./routes/api/artPdv'));
 app.use(`${apiUrl}/art-grupa`, require('./routes/api/artGrupa'));
 app.use(`${apiUrl}/art-main`, require('./routes/api/artMain'));
+app.use(`${apiUrl}/kom-config`, require('./routes/api/komConfig'));
 app.use(`${apiUrl}/kom-mesto`, require('./routes/api/komMesto'));
 app.use(`${apiUrl}/kom-main`, require('./routes/api/komMain'));
 

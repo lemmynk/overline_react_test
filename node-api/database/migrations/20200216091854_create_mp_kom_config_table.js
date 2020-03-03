@@ -7,7 +7,9 @@ exports.up = knex => {
     t.integer('vKom')
       .notNullable()
       .index()
-      .comment('00x-vrsta [1-firma, 0-priv.], 0x0-kupac, x00-dobavljac');
+      .comment('000x-firma, 00x0-kupac, 0x00-dobavljac, x000-privatno lice');
+
+    t.boolean('isDefault').defaultTo(false);
 
     t.string('pattern', 12).notNullable();
 

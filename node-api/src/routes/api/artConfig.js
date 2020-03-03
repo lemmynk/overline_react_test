@@ -1,5 +1,4 @@
 const express = require('express');
-// const ArtConfig = require('../../models/ArtConfig');
 const ctrl = require('../../controllers/api/artConfigController');
 
 const router = express.Router();
