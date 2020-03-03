@@ -20,7 +20,7 @@ type Props = {
   onSuccess: () => void,
 };
 
-const fields = ['id', 'vArtikl', 'grpSifra', 'grpNaziv'];
+const fields = ['id', 'vArtikl', 'grpSifra', 'grpNaziv', 'artPattern'];
 
 export default (props: Props) => {
   const { isOpen, itemId, vArtikl, onDismiss, onSuccess } = props;
@@ -31,6 +31,7 @@ export default (props: Props) => {
   const [t] = useTranslation(['pages', 'common']);
 
   const {
+    formData,
     validationErrors,
     getPropValue,
     setPropValue,
@@ -98,6 +99,7 @@ export default (props: Props) => {
           onChange={setPropValue('grpNaziv')}
           hasErrors={getPropHasErrors('grpNaziv')}
         />
+        <pre>{JSON.stringify({ formData }, null, 2)}</pre>
       </ModalBody>
       <FormSaveCancelFooter
         fetching={isSaving}

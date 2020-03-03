@@ -12,7 +12,7 @@ import { TextInput } from '@newtash/core/Input';
 import { CrudActionsRow } from '../../../components';
 import { ART_MAIN_CRUD_URL } from '../../../config';
 import { useForm } from '../../../utils';
-import { useArtGroups, useArtPdv } from '../../../providers';
+import { useArtGroups, useArtPdv } from '../../../context';
 
 const fields = [
   'id',

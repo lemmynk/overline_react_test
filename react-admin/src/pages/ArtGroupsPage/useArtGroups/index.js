@@ -3,14 +3,15 @@ import { useReducer, useState, useEffect, useMemo, useCallback } from 'react';
 import { useApi, useAppData, useAppErrors } from '@newtash/core';
 import { sortByKey } from '@newtash/core/utils';
 import { reducer, initialState, SET_ALL } from './reducer';
+import { useArtConfig } from '../../../context';
 import { useEnv } from '../../../utils';
 
 export default (url: string, deleteErrorMsg: string = '') => {
   const { api } = useApi();
-  const { config, isReady: isAppReady } = useAppData();
+  const { isReady: isAppReady } = useAppData();
+  const { vArtikli, defaultVArtikl } = useArtConfig();
   const { addAppError } = useAppErrors();
   const { error422 } = useEnv();
-  const { artGroupDefaultVArtikl, artGroupVArtikli } = config;
 
   const [state, dispatch] = useReducer(reducer, initialState);
   const [doFetchData, setDoFetch] = useState<boolean>(false);
@@ -26,7 +27,6 @@ export default (url: string, deleteErrorMsg: string = '') => {
     state || initialState;
 
   const isReady = isAppReady && isDataReady;
-  const vArtikli = useMemo(() => artGroupVArtikli || [], [artGroupVArtikli]);
 
   const filteredGroups: Array<any> = useMemo(
     () =>
@@ -90,10 +90,10 @@ export default (url: string, deleteErrorMsg: string = '') => {
   }, [setDoFetch]);
 
   useEffect(() => {
-    if (artGroupDefaultVArtikl) {
-      setVArtikl(artGroupDefaultVArtikl);
+    if (defaultVArtikl) {
+      setVArtikl(defaultVArtikl);
     }
-  }, [artGroupDefaultVArtikl]);
+  }, [defaultVArtikl]);
 
   return {
     isReady,

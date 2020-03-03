@@ -2,7 +2,7 @@
 import { useState, useMemo, useEffect, useCallback } from 'react';
 import qs from 'qs';
 import { useApi, useAppErrors } from '@newtash/core';
-import { useKomMesta } from '../../../../providers';
+import { useKomMesta } from '../../../../context';
 import { KOM_MAIN_CRUD_URL } from '../../../../config';
 
 export default () => {

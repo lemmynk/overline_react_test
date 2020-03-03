@@ -3,7 +3,7 @@ import React from 'react';
 import { Switch, Route, useRouteMatch } from 'react-router-dom';
 import Dashboard from './Dashboard';
 import Form from './Form';
-import { KomMestaProvider } from '../../providers';
+import { KomMestaProvider } from '../../context';
 
 export default () => {
   const match = useRouteMatch();

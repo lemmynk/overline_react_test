@@ -1,14 +1,13 @@
 // @flow
 import { useState, useMemo, useEffect, useCallback } from 'react';
 import qs from 'qs';
-import { useApi, useAppData, useAppErrors } from '@newtash/core';
-import { useArtGroups } from '../../../../providers';
+import { useApi, useAppErrors } from '@newtash/core';
+import { useArtGroups, useArtConfig } from '../../../../context';
 import { ART_MAIN_CRUD_URL } from '../../../../config';
 
 export default () => {
   const { api } = useApi();
-  const { config } = useAppData();
-  const { artGroupDefaultVArtikl, artGroupVArtikli } = config;
+  const { defaultVArtikl, vArtikli } = useArtConfig();
   const { addAppError } = useAppErrors();
   const { selectOptions } = useArtGroups();
 
@@ -21,7 +20,6 @@ export default () => {
   const [sortedAsc, setSortAscending] = useState<boolean>(true);
   const [artMains, setData] = useState<Object>({});
 
-  const vArtikli = useMemo(() => artGroupVArtikli || [], [artGroupVArtikli]);
   const artGroupsSelectOptions = selectOptions(vArtikl);
   const data = useMemo(() => artMains.data || [], [artMains.data]);
   const pagination = useMemo(() => artMains.pagination || {}, [
@@ -32,10 +30,10 @@ export default () => {
    * Initial load of default vArtikl
    */
   useEffect(() => {
-    if (artGroupDefaultVArtikl) {
-      setVArtikl(artGroupDefaultVArtikl);
+    if (defaultVArtikl) {
+      setVArtikl(defaultVArtikl);
     }
-  }, [artGroupDefaultVArtikl]);
+  }, [defaultVArtikl]);
 
   useEffect(() => {
     if (vArtikl) {
