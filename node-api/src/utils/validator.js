@@ -13,7 +13,7 @@ const validateStringLength = (field, max) =>
 const validateOptionalStringLength = (field, max) =>
   body(field)
     .optional()
-    .isLength({ min: 1, max })
+    .isLength({ min: 0, max })
     .withMessage(`${field}.length`);
 
 const validateBoolean = field =>

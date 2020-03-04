@@ -162,6 +162,7 @@ class ArtMain extends Model {
         ]);
       })
       .then(([intSifra, config]) => ({
+        grpId,
         intSifra,
         vArtikl: config.vArtikl,
         mera: config.defaultMera,

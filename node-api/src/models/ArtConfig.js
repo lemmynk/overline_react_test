@@ -24,6 +24,21 @@ class ArtConfig extends Model {
     super(props, modelConfig);
   }
 
+  static artSifraByGroup() {
+    const model = new this();
+    return model
+      .baseQuery()
+      .select('vArtikl')
+      .select('artSifraByGroup')
+      .whereNull('deletedAt')
+      .then(rows =>
+        rows.reduce(
+          (acc, row) => ({ ...acc, [row.vArtikl]: !!row.artSifraByGroup }),
+          {},
+        ),
+      );
+  }
+
   static vArtikli() {
     const model = new this();
     return model
