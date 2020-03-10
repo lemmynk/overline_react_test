@@ -3,6 +3,23 @@ const KomConfig = require('./KomConfig');
 const KomMesto = require('./KomMesto');
 const { validator, tools } = require('../utils');
 
+const VKOM_FIRMA = 1;
+// const VKOM_KUPAC = 2;
+// const VKOM_DOBAVLJAC = 4;
+const VKOM_PRIVATNO = 8;
+
+/**
+ * vKom is a bit tricky one
+ * For a purpose on init and nextSifra
+ * we should resolve to 1|8
+ */
+const resolveVKom = vKom => {
+  if (!vKom || parseInt(vKom, 10) === VKOM_PRIVATNO) {
+    return vKom;
+  }
+  return VKOM_FIRMA;
+};
+
 const modelConfig = {
   tableName: 'mp_kom_main',
   keys: [
@@ -85,12 +102,14 @@ class KomMain extends Model {
 
   /**
    * Will return next sifra by vKom
-   * @param   {Number} vKom
+   * @param   {Number} reqVKom
    * @return  {String}
    */
-  static nextSifra(vKom) {
+  static nextSifra(reqVKom) {
     const model = new this();
     const db = model.db();
+
+    const vKom = resolveVKom(reqVKom);
     const configWhere = vKom ? { vKom } : { isDefault: true };
 
     return KomConfig.find(configWhere)
@@ -127,7 +146,9 @@ class KomMain extends Model {
    * @return {Promise}
    */
   static init(reqQuery) {
-    const { vKom } = reqQuery;
+    const { vKom: reqVKom } = reqQuery;
+
+    const vKom = resolveVKom(reqVKom);
 
     const configWhere = vKom ? { vKom } : { isDefault: true };
 
