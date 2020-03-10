@@ -11,9 +11,13 @@
     "usluga": "Usluga"
   },
   "vKom": {
-    "1": "Firme",
-    "2": "Kupci",
-    "4": "Dobavljaci",
-    "8": "Fiz.lica"
+    "1": "Firma",
+    "2": "Kupac",
+    "4": "Dobavljac",
+    "8": "Fiz.lice",
+    "p1": "Firme",
+    "p2": "Kupci",
+    "p4": "Dobavljaci",
+    "p8": "Fiz.lica"
   }
 }

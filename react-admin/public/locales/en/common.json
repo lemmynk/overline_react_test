@@ -11,9 +11,13 @@
     "usluga": "Usluga"
   },
   "vKom": {
-    "1": "Companies",
-    "2": "Buyers",
-    "4": "Sellers",
-    "8": "Private"
+    "1": "Company",
+    "2": "Buyer",
+    "4": "Seller",
+    "8": "Private",
+    "p1": "Companies",
+    "p2": "Buyers",
+    "p4": "Sellers",
+    "p8": "Privates"
   }
 }

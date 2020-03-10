@@ -340,6 +340,7 @@ export default (props: Props) => {
 
     hasProp,
     setPropValue,
+    setPropValueAction,
     getPropValue,
     getPropHasChanged,
     getPropHasErrors,
