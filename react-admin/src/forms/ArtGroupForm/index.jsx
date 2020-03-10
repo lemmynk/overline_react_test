@@ -31,7 +31,7 @@ export default (props: Props) => {
   const [t] = useTranslation(['pages', 'common']);
 
   const {
-    formData,
+    // formData,
     validationErrors,
     getPropValue,
     setPropValue,
@@ -99,7 +99,7 @@ export default (props: Props) => {
           onChange={setPropValue('grpNaziv')}
           hasErrors={getPropHasErrors('grpNaziv')}
         />
-        <pre>{JSON.stringify({ formData }, null, 2)}</pre>
+        {/* <pre>{JSON.stringify({ formData }, null, 2)}</pre> */}
       </ModalBody>
       <FormSaveCancelFooter
         fetching={isSaving}

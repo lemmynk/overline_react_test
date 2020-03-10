@@ -1,6 +1,6 @@
 // @flow
 import React from 'react';
-import { ArtConfigProvider } from '../../context';
+import { ArtConfigProvider } from '../../state';
 import ArtGroupsPage from './ArtGroupsPage';
 
 export default () => (

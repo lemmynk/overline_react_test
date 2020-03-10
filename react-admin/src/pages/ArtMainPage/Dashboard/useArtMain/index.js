@@ -2,7 +2,7 @@
 import { useState, useMemo, useEffect, useCallback } from 'react';
 import qs from 'qs';
 import { useApi, useAppErrors } from '@newtash/core';
-import { useArtGroups, useArtConfig } from '../../../../context';
+import { useArtGroups, useArtConfig } from '../../../../state';
 import { ART_MAIN_CRUD_URL } from '../../../../config';
 
 export default () => {

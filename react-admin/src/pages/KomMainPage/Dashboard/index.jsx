@@ -2,9 +2,10 @@
 import React from 'react';
 import { useRouteMatch, useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-// import qs from 'qs';
+import qs from 'qs';
 import { Page, PageHeader, PageContent } from '@newtash/core/Page';
 import Card from '@newtash/core/Card';
+import Tab from '@newtash/core/Tab';
 import SearchBox from '@newtash/core/SearchBox';
 import Button from '@newtash/core/Button';
 import Select from '@newtash/core/Select';
@@ -19,6 +20,9 @@ export default () => {
   const match = useRouteMatch();
   const hook = useKomMain();
   const {
+    vKoms,
+    vKom,
+    setVKom,
     data,
     pagination,
     isFetching,
@@ -35,13 +39,30 @@ export default () => {
   } = hook;
 
   const handleAddButtonClick = () => {
-    // const q = { vArtikl, grpId: filterMesto, whatever: 'ever' };
-    // const query = Object.keys(q)
-    //   .filter(key => q[key])
-    //   .reduce((acc, key: string) => ({ ...acc, [key]: q[key] }), {});
-    // const queryStr = qs.stringify(query);
-    // history.push(`${match.url}/create?${queryStr}`);
-    history.push(`${match.url}/create`);
+    const q = { vKom, mestoId: filterMesto };
+    const query = Object.keys(q)
+      .filter(key => q[key])
+      .reduce((acc, key: string) => ({ ...acc, [key]: q[key] }), {});
+    const queryStr = qs.stringify(query);
+    history.push(`${match.url}/create?${queryStr}`);
+  };
+
+  /*
+   |---------------------------------------------------------------
+   | TAB
+   |---------------------------------------------------------------
+   */
+  const tabs = () => {
+    const komTabs = [];
+    if (vKoms.includes(1)) {
+      komTabs.push({ key: 1, title: t(`common:vKom.1`) });
+      komTabs.push({ key: 2, title: t(`common:vKom.2`) });
+      komTabs.push({ key: 4, title: t(`common:vKom.4`) });
+    }
+    if (vKoms.includes(8)) {
+      komTabs.push({ key: 8, title: t(`common:vKom.8`) });
+    }
+    return komTabs;
   };
 
   /*
@@ -51,15 +72,15 @@ export default () => {
    */
   const columns = () => [
     {
-      key: 'komime',
-      text: t('komMain.fields.komime'),
-      field: 'komime',
+      key: 'sifra',
+      text: t('komMain.fields.sifra'),
+      field: 'sifra',
       sortable: true,
     },
     {
-      key: 'intSifra',
-      text: t('komMain.fields.intSifra'),
-      field: 'intSifra',
+      key: 'intNaziv',
+      text: t('komMain.fields.intNaziv'),
+      field: 'intNaziv',
       sortable: true,
     },
     {
@@ -129,6 +150,7 @@ export default () => {
       />
       <PageContent>
         <Card>
+          <Tab bottom tabs={tabs()} selectedTab={vKom} onChange={setVKom} />
           <div className={styles.searchRow}>
             <div className={styles.column}>
               <Select

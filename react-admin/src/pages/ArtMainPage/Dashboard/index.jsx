@@ -39,7 +39,7 @@ export default () => {
   } = hook;
 
   const handleAddButtonClick = () => {
-    const q = { vArtikl, grpId: filterGroup, whatever: 'ever' };
+    const q = { vArtikl, grpId: filterGroup };
     const query = Object.keys(q)
       .filter(key => q[key])
       .reduce((acc, key: string) => ({ ...acc, [key]: q[key] }), {});

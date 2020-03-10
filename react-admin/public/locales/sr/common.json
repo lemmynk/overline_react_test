@@ -5,5 +5,15 @@
   "Cancel": "Odustani",
   "Delete": "Obrisi",
   "areYouSure": "Da li ste sigurni?",
-  "Back": "Nazad"
+  "Back": "Nazad",
+  "vArtikl": {
+    "roba": "Roba",
+    "usluga": "Usluga"
+  },
+  "vKom": {
+    "1": "Firme",
+    "2": "Kupci",
+    "4": "Dobavljaci",
+    "8": "Fiz.lica"
+  }
 }

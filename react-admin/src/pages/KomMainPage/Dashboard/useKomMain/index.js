@@ -2,16 +2,18 @@
 import { useState, useMemo, useEffect, useCallback } from 'react';
 import qs from 'qs';
 import { useApi, useAppErrors } from '@newtash/core';
-import { useKomMesta } from '../../../../context';
+import { useKomConfig, useKomMesta } from '../../../../state';
 import { KOM_MAIN_CRUD_URL } from '../../../../config';
 
 export default () => {
   const { api } = useApi();
   const { addAppError } = useAppErrors();
+  const { vKoms } = useKomConfig();
   const { selectOptions } = useKomMesta();
 
   const [doFetch, setFetch] = useState<boolean>(false);
   const [isFetching, setFetching] = useState<boolean>(false);
+  const [vKom, setVKom] = useState<number>(1);
   const [filterMesto, setFilterMesto] = useState<string>('');
   const [search, setSearch] = useState<string>('');
   const [sortedKey, setSortedKey] = useState<string>('naziv');
@@ -25,7 +27,7 @@ export default () => {
 
   useEffect(() => {
     setFetch(true);
-  }, [search, filterMesto, sortedKey, sortedAsc]);
+  }, [vKom, search, filterMesto, sortedKey, sortedAsc]);
 
   /**
    * Resolve request url
@@ -34,6 +36,7 @@ export default () => {
     (page: number = 1) => {
       const orderBy = sortedAsc ? sortedKey : `${sortedKey} DESC`;
       const parts = {
+        vKom: `bit:${vKom}`,
         mestoId: filterMesto,
         s: search,
         orderBy,
@@ -44,7 +47,7 @@ export default () => {
         .reduce((acc, key: string) => ({ ...acc, [key]: parts[key] }), {});
       return [KOM_MAIN_CRUD_URL, qs.stringify(query)].join('?');
     },
-    [filterMesto, search, sortedKey, sortedAsc],
+    [vKom, filterMesto, search, sortedKey, sortedAsc],
   );
 
   /**
@@ -82,6 +85,9 @@ export default () => {
   }, [doFetch, fetchKomMains]);
 
   return {
+    vKoms,
+    vKom,
+    setVKom,
     data,
     pagination,
     isFetching,

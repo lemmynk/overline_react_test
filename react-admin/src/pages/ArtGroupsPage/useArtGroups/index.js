@@ -3,7 +3,7 @@ import { useReducer, useState, useEffect, useMemo, useCallback } from 'react';
 import { useApi, useAppData, useAppErrors } from '@newtash/core';
 import { sortByKey } from '@newtash/core/utils';
 import { reducer, initialState, SET_ALL } from './reducer';
-import { useArtConfig } from '../../../context';
+import { useArtConfig } from '../../../state';
 import { useEnv } from '../../../utils';
 
 export default (url: string, deleteErrorMsg: string = '') => {

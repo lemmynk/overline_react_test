@@ -9,5 +9,11 @@
   "vArtikl": {
     "roba": "Roba",
     "usluga": "Usluga"
+  },
+  "vKom": {
+    "1": "Companies",
+    "2": "Buyers",
+    "4": "Sellers",
+    "8": "Private"
   }
 }

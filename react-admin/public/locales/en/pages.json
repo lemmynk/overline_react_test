@@ -103,6 +103,24 @@
       }
     }
   },
+  "komMain": {
+    "pageTitle": "Clients",
+    "pageDescription": "Clients page description",
+    "buttons": {
+      "add": "Add new"
+    },
+    "fields": {
+      "sifra": "Code",
+      "intNaziv": "Name",
+      "naziv": "Full Name",
+      "mestoId": "City"
+    },
+    "mestaOptions": {
+      "placeholder": "All cities",
+      "roba": "All roba groups",
+      "usluga": "All usluga groups"
+    }
+  },
   "settings": {
     "title": "Settings",
     "description": "User configuration"
