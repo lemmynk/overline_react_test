@@ -29,6 +29,8 @@
   "komMain": {
     "pageTitle": "Clients",
     "pageDescription": "Clients page description",
+    "formTitleAdd": "Add Client",
+    "formDescription": "Client form description",
     "buttons": {
       "add": "Add new"
     },
@@ -36,7 +38,26 @@
       "sifra": "Code",
       "intNaziv": "Name",
       "naziv": "Full Name",
-      "mestoId": "City"
+      "mestoId": "City",
+      "pdvObveznik": "Pdv obveznik",
+      "pib": "PIB",
+      "pdvBroj": "PDV broj",
+      "maticniBroj": "Maticni broj",
+      "sifraDelatnosti": "Sifra Delatnosti",
+      "adresa": "Adresa",
+      "telefon": "Telefon",
+      "fax": "fax",
+      "vlasnik": "Vlasnik",
+      "kontakt": "Kontakt",
+      "mobilni": "Mobilni",
+      "web": "web",
+      "email": "E-mail",
+      "isSuspended": "Suspended",
+      "prodValuta": "Prodajna valuta",
+      "prodRabat": "Prodajni rabat",
+      "prodLimit": "Prodajni limit",
+      "nabDpo": "Nabavka Dpo",
+      "napomena": "Napomena"
     },
     "mestaOptions": {
       "placeholder": "All cities",

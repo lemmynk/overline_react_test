@@ -64,8 +64,11 @@ export default () => {
     fields,
     t,
     tDomain: 'komMain',
+    focusField: 'sifra',
   });
   const {
+    refs,
+    moveFocusTo,
     formData,
     validationErrors,
     hasProp,
@@ -157,22 +160,28 @@ export default () => {
         <div className={styles.grid}>
           <Card compact>
             <TextInput
+              ref={refs.sifra}
               label={t('komMain.fields.sifra')}
               value={getPropValue('sifra')}
               onChange={setPropValue('sifra')}
               hasErrors={getPropHasErrors('sifra')}
+              onEnterPress={() => moveFocusTo('intNaziv')}
             />
             <TextInput
+              ref={refs.intNaziv}
               label={t('komMain.fields.intNaziv')}
               value={getPropValue('intNaziv')}
               onChange={setPropValue('intNaziv')}
               hasErrors={getPropHasErrors('intNaziv')}
+              onEnterPress={() => moveFocusTo('naziv', 'intNaziv')}
             />
             <TextInput
+              ref={refs.naziv}
               label={t('komMain.fields.naziv')}
               value={getPropValue('naziv')}
               onChange={setPropValue('naziv')}
               hasErrors={getPropHasErrors('naziv')}
+              onEnterPress={() => moveFocusTo('pib')}
             />
             <Checkbox
               label={t('komMain.fields.pdvObveznik')}
@@ -181,32 +190,41 @@ export default () => {
               hasErrors={getPropHasErrors('pdvObveznik')}
             />
             <TextInput
+              ref={refs.pib}
               label={t('komMain.fields.pib')}
               value={getPropValue('pib')}
               onChange={setPropValue('pib')}
               hasErrors={getPropHasErrors('pib')}
+              onEnterPress={() => moveFocusTo('pdvBroj')}
             />
             <TextInput
+              ref={refs.pdvBroj}
               label={t('komMain.fields.pdvBroj')}
               value={getPropValue('pdvBroj')}
               onChange={setPropValue('pdvBroj')}
               hasErrors={getPropHasErrors('pdvBroj')}
+              onEnterPress={() => moveFocusTo('maticniBroj')}
             />
             <TextInput
+              ref={refs.maticniBroj}
               label={t('komMain.fields.maticniBroj')}
               value={getPropValue('maticniBroj')}
               onChange={setPropValue('maticniBroj')}
               hasErrors={getPropHasErrors('maticniBroj')}
+              onEnterPress={() => moveFocusTo('sifraDelatnosti')}
             />
             <TextInput
+              ref={refs.sifraDelatnosti}
               label={t('komMain.fields.sifraDelatnosti')}
               value={getPropValue('sifraDelatnosti')}
               onChange={setPropValue('sifraDelatnosti')}
               hasErrors={getPropHasErrors('sifraDelatnosti')}
+              onEnterPress={() => moveFocusTo('mestoId')}
             />
           </Card>
           <Card compact>
             <Select
+              ref={refs.mestoId}
               label={t('komMain.fields.mestoId')}
               placeholder={t('komMain.placeholder.mestoId')}
               options={selectOptions}
@@ -215,52 +233,68 @@ export default () => {
               hasErrors={getPropHasErrors('mestoId')}
             />
             <TextInput
+              ref={refs.adresa}
               label={t('komMain.fields.adresa')}
               value={getPropValue('adresa')}
               onChange={setPropValue('adresa')}
               hasErrors={getPropHasErrors('adresa')}
+              onEnterPress={() => moveFocusTo('telefon')}
             />
             <TextInput
+              ref={refs.telefon}
               label={t('komMain.fields.telefon')}
               value={getPropValue('telefon')}
               onChange={setPropValue('telefon')}
               hasErrors={getPropHasErrors('telefon')}
+              onEnterPress={() => moveFocusTo('fax')}
             />
             <TextInput
+              ref={refs.fax}
               label={t('komMain.fields.fax')}
               value={getPropValue('fax')}
               onChange={setPropValue('fax')}
               hasErrors={getPropHasErrors('fax')}
+              onEnterPress={() => moveFocusTo('vlasnik')}
             />
             <TextInput
+              ref={refs.vlasnik}
               label={t('komMain.fields.vlasnik')}
               value={getPropValue('vlasnik')}
               onChange={setPropValue('vlasnik')}
               hasErrors={getPropHasErrors('vlasnik')}
+              onEnterPress={() => moveFocusTo('kontakt')}
             />
             <TextInput
+              ref={refs.kontakt}
               label={t('komMain.fields.kontakt')}
               value={getPropValue('kontakt')}
               onChange={setPropValue('kontakt')}
               hasErrors={getPropHasErrors('kontakt')}
+              onEnterPress={() => moveFocusTo('mobilni')}
             />
             <TextInput
+              ref={refs.mobilni}
               label={t('komMain.fields.mobilni')}
               value={getPropValue('mobilni')}
               onChange={setPropValue('mobilni')}
               hasErrors={getPropHasErrors('mobilni')}
+              onEnterPress={() => moveFocusTo('web')}
             />
             <TextInput
+              ref={refs.web}
               label={t('komMain.fields.web')}
               value={getPropValue('web')}
               onChange={setPropValue('web')}
               hasErrors={getPropHasErrors('web')}
+              onEnterPress={() => moveFocusTo('email')}
             />
             <TextInput
+              ref={refs.email}
               label={t('komMain.fields.email')}
               value={getPropValue('email')}
               onChange={setPropValue('email')}
               hasErrors={getPropHasErrors('email')}
+              onEnterPress={() => moveFocusTo('prodValuta')}
             />
           </Card>
           <Card compact>
@@ -283,34 +317,43 @@ export default () => {
               hasErrors={getPropHasErrors('isSuspended')}
             />
             <NumberInput
+              ref={refs.prodValuta}
               label={t('komMain.fields.prodValuta')}
               value={getPropValue('prodValuta')}
               onChange={setPropValue('prodValuta')}
               hasErrors={getPropHasErrors('prodValuta')}
+              onEnterPress={() => moveFocusTo('prodRabat')}
             />
             <NumberInput
+              ref={refs.prodRabat}
               label={t('komMain.fields.prodRabat')}
               value={getPropValue('prodRabat')}
               onChange={setPropValue('prodRabat')}
               hasErrors={getPropHasErrors('prodRabat')}
+              onEnterPress={() => moveFocusTo('prodLimit')}
             />
             <NumberInput
+              ref={refs.prodLimit}
               label={t('komMain.fields.prodLimit')}
               value={getPropValue('prodLimit')}
               onChange={setPropValue('prodLimit')}
               hasErrors={getPropHasErrors('prodLimit')}
+              onEnterPress={() => moveFocusTo('nabDpo')}
             />
             <NumberInput
+              ref={refs.nabDpo}
               label={t('komMain.fields.nabDpo')}
               value={getPropValue('nabDpo')}
               onChange={setPropValue('nabDpo')}
               hasErrors={getPropHasErrors('nabDpo')}
+              onEnterPress={() => moveFocusTo('napomena')}
             />
           </Card>
           <Card compact>
             <TextArea
               compact
               rows={8}
+              ref={refs.napomena}
               placeholder={t('komMain.placeholder.napomena')}
               label={t('komMain.fields.napomena')}
               value={getPropValue('napomena')}

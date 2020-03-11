@@ -1,5 +1,5 @@
 // @flow
-import { useState, useCallback, useMemo, useEffect } from 'react';
+import { useState, useCallback, useMemo, useEffect, useRef } from 'react';
 import { useApi, useAppErrors } from '@newtash/core';
 import useEnv from '../useEnv';
 import { USE_FORM_DEFAULT_TIMEOUT_SECS } from '../../../config';
@@ -11,6 +11,7 @@ type Props = {
   tDomain?: string,
   saveTimeoutSecs?: number,
   deleteErrorMsg?: string,
+  focusField?: string,
 };
 
 let saveTimeout;
@@ -24,11 +25,20 @@ let saveTimeout;
  *    - flag saved for specified time -> set Success mark on/off
  */
 export default (props: Props) => {
-  const { url, fields, t, tDomain, saveTimeoutSecs, deleteErrorMsg } = props;
+  const {
+    url,
+    fields,
+    focusField,
+    t,
+    tDomain,
+    saveTimeoutSecs,
+    deleteErrorMsg,
+  } = props;
   const { api } = useApi();
   const { addAppError } = useAppErrors();
   const { error422 } = useEnv();
 
+  const [initialized, setInitialized] = useState(false);
   const [fetchUrl, setFetchUrl] = useState<string>('');
   const [formData, setFormData] = useState<Object>({});
   const [formChanges, setFormChanges] = useState<Array<string>>([]);
@@ -36,6 +46,11 @@ export default (props: Props) => {
   const [isFetching, setFetching] = useState<boolean>(false);
   const [isSaving, setSaving] = useState<boolean>(false);
   const [isSaved, setSaved] = useState<boolean>(false);
+
+  const refs: Object = fields.reduce(
+    (acc, field: string) => ({ ...acc, [field]: useRef(null) }),
+    {},
+  );
 
   /*
    |---------------------------------------------------------------------
@@ -329,7 +344,34 @@ export default (props: Props) => {
     }
   };
 
+  /*
+   |---------------------------------------------------------------------
+   | REFERENCES
+   |---------------------------------------------------------------------
+   */
+  const moveFocusTo = useCallback(
+    (propName: string, from: string = '') => {
+      if (from && getPropValue(propName, '').length === 0) {
+        setPropValueAction(propName, getPropValue(from));
+      }
+      if (refs[propName] && refs[propName].current) {
+        refs[propName].current.focus();
+      }
+    },
+    [refs, getPropValue, setPropValueAction],
+  );
+
+  useEffect(() => {
+    if (!initialized && focusField) {
+      setInitialized(true);
+      moveFocusTo(focusField);
+    }
+  }, [moveFocusTo, initialized, focusField]);
+
   return {
+    refs,
+    moveFocusTo,
+
     formData,
     setFormData,
     formChanges,

@@ -44,8 +44,11 @@ export default () => {
     fields,
     t,
     tDomain: 'artMain',
+    focusField: 'grpId',
   });
   const {
+    refs,
+    moveFocusTo,
     validationErrors,
     hasProp,
     getPropValue,
@@ -121,6 +124,7 @@ export default () => {
             onClear={clearValidationErrors}
           />
           <Select
+            ref={refs.grpId}
             label={t('artMain.fields.grpId')}
             placeholder={t('artMain.placeholder.grpId')}
             options={grpOptions}
@@ -129,24 +133,31 @@ export default () => {
             hasErrors={getPropHasErrors('grpId')}
           />
           <TextInput
+            ref={refs.intSifra}
             label={t('artMain.fields.intSifra')}
             value={getPropValue('intSifra')}
             onChange={setPropValue('intSifra')}
             hasErrors={getPropHasErrors('intSifra')}
+            onEnterPress={() => moveFocusTo('artNaziv')}
           />
           <TextInput
+            ref={refs.artNaziv}
             label={t('artMain.fields.artNaziv')}
             value={getPropValue('artNaziv')}
             onChange={setPropValue('artNaziv')}
             hasErrors={getPropHasErrors('artNaziv')}
+            onEnterPress={() => moveFocusTo('mera')}
           />
           <TextInput
+            ref={refs.mera}
             label={t('artMain.fields.mera')}
             value={getPropValue('mera')}
             onChange={setPropValue('mera')}
             hasErrors={getPropHasErrors('mera')}
+            onEnterPress={() => moveFocusTo('pdvId')}
           />
           <Select
+            ref={refs.pdvId}
             label={t('artMain.fields.pdvId')}
             placeholder={t('artMain.placeholder.pdvId')}
             options={pdvOptions()}
