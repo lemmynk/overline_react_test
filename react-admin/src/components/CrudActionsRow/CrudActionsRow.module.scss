@@ -6,6 +6,11 @@
   justify-content: flex-end;
 }
 
+.borderless {
+  border-top: none;
+  padding-top: 0;
+}
+
 .deleteArea {
   flex: 1;
 }

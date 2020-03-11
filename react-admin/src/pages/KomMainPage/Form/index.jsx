@@ -15,6 +15,7 @@ import { CrudActionsRow } from '../../../components';
 import { KOM_MAIN_CRUD_URL } from '../../../config';
 import { useForm } from '../../../utils';
 import { useKomMesta } from '../../../state';
+import styles from './KomMainForm.module.scss';
 
 const fields = [
   'id',
@@ -45,7 +46,7 @@ const fields = [
 ];
 
 export default () => {
-  const { t } = useTranslation(['pages', 'common']);
+  const { t } = useTranslation(['komPages', 'common']);
   const history = useHistory();
   const { action, id } = useParams();
   const { selectOptions } = useKomMesta();
@@ -62,7 +63,7 @@ export default () => {
     url: KOM_MAIN_CRUD_URL,
     fields,
     t,
-    tDomain: 'artMain',
+    tDomain: 'komMain',
   });
   const {
     formData,
@@ -72,6 +73,7 @@ export default () => {
     setPropValue,
     setPropValueAction,
     getPropHasErrors,
+    isFetching,
     isSaving,
     isSaved,
     clearValidationErrors,
@@ -148,167 +150,179 @@ export default () => {
         )}
       />
       <PageContent>
+        <FormErrorsBox
+          errors={validationErrors}
+          onClear={clearValidationErrors}
+        />
+        <div className={styles.grid}>
+          <Card compact>
+            <TextInput
+              label={t('komMain.fields.sifra')}
+              value={getPropValue('sifra')}
+              onChange={setPropValue('sifra')}
+              hasErrors={getPropHasErrors('sifra')}
+            />
+            <TextInput
+              label={t('komMain.fields.intNaziv')}
+              value={getPropValue('intNaziv')}
+              onChange={setPropValue('intNaziv')}
+              hasErrors={getPropHasErrors('intNaziv')}
+            />
+            <TextInput
+              label={t('komMain.fields.naziv')}
+              value={getPropValue('naziv')}
+              onChange={setPropValue('naziv')}
+              hasErrors={getPropHasErrors('naziv')}
+            />
+            <Checkbox
+              label={t('komMain.fields.pdvObveznik')}
+              isChecked={!!getPropValue('pdvObveznik')}
+              onChange={setPropValue('pdvObveznik')}
+              hasErrors={getPropHasErrors('pdvObveznik')}
+            />
+            <TextInput
+              label={t('komMain.fields.pib')}
+              value={getPropValue('pib')}
+              onChange={setPropValue('pib')}
+              hasErrors={getPropHasErrors('pib')}
+            />
+            <TextInput
+              label={t('komMain.fields.pdvBroj')}
+              value={getPropValue('pdvBroj')}
+              onChange={setPropValue('pdvBroj')}
+              hasErrors={getPropHasErrors('pdvBroj')}
+            />
+            <TextInput
+              label={t('komMain.fields.maticniBroj')}
+              value={getPropValue('maticniBroj')}
+              onChange={setPropValue('maticniBroj')}
+              hasErrors={getPropHasErrors('maticniBroj')}
+            />
+            <TextInput
+              label={t('komMain.fields.sifraDelatnosti')}
+              value={getPropValue('sifraDelatnosti')}
+              onChange={setPropValue('sifraDelatnosti')}
+              hasErrors={getPropHasErrors('sifraDelatnosti')}
+            />
+          </Card>
+          <Card compact>
+            <Select
+              label={t('komMain.fields.mestoId')}
+              placeholder={t('komMain.placeholder.mestoId')}
+              options={selectOptions}
+              value={getPropValue('mestoId', '')}
+              onChange={setPropValue('mestoId')}
+              hasErrors={getPropHasErrors('mestoId')}
+            />
+            <TextInput
+              label={t('komMain.fields.adresa')}
+              value={getPropValue('adresa')}
+              onChange={setPropValue('adresa')}
+              hasErrors={getPropHasErrors('adresa')}
+            />
+            <TextInput
+              label={t('komMain.fields.telefon')}
+              value={getPropValue('telefon')}
+              onChange={setPropValue('telefon')}
+              hasErrors={getPropHasErrors('telefon')}
+            />
+            <TextInput
+              label={t('komMain.fields.fax')}
+              value={getPropValue('fax')}
+              onChange={setPropValue('fax')}
+              hasErrors={getPropHasErrors('fax')}
+            />
+            <TextInput
+              label={t('komMain.fields.vlasnik')}
+              value={getPropValue('vlasnik')}
+              onChange={setPropValue('vlasnik')}
+              hasErrors={getPropHasErrors('vlasnik')}
+            />
+            <TextInput
+              label={t('komMain.fields.kontakt')}
+              value={getPropValue('kontakt')}
+              onChange={setPropValue('kontakt')}
+              hasErrors={getPropHasErrors('kontakt')}
+            />
+            <TextInput
+              label={t('komMain.fields.mobilni')}
+              value={getPropValue('mobilni')}
+              onChange={setPropValue('mobilni')}
+              hasErrors={getPropHasErrors('mobilni')}
+            />
+            <TextInput
+              label={t('komMain.fields.web')}
+              value={getPropValue('web')}
+              onChange={setPropValue('web')}
+              hasErrors={getPropHasErrors('web')}
+            />
+            <TextInput
+              label={t('komMain.fields.email')}
+              value={getPropValue('email')}
+              onChange={setPropValue('email')}
+              hasErrors={getPropHasErrors('email')}
+            />
+          </Card>
+          <Card compact>
+            <Checkbox
+              label={t('common:vKom.2')}
+              isChecked={isKupac}
+              onChange={handleIsKupacChange}
+              hasErrors={getPropHasErrors('vKom')}
+            />
+            <Checkbox
+              label={t('common:vKom.4')}
+              isChecked={isDobavljac}
+              onChange={handleIsDobavljacChange}
+              hasErrors={getPropHasErrors('vKom')}
+            />
+            <Checkbox
+              label={t('komMain.fields.isSuspended')}
+              isChecked={!!getPropValue('isSuspended')}
+              onChange={setPropValue('isSuspended')}
+              hasErrors={getPropHasErrors('isSuspended')}
+            />
+            <NumberInput
+              label={t('komMain.fields.prodValuta')}
+              value={getPropValue('prodValuta')}
+              onChange={setPropValue('prodValuta')}
+              hasErrors={getPropHasErrors('prodValuta')}
+            />
+            <NumberInput
+              label={t('komMain.fields.prodRabat')}
+              value={getPropValue('prodRabat')}
+              onChange={setPropValue('prodRabat')}
+              hasErrors={getPropHasErrors('prodRabat')}
+            />
+            <NumberInput
+              label={t('komMain.fields.prodLimit')}
+              value={getPropValue('prodLimit')}
+              onChange={setPropValue('prodLimit')}
+              hasErrors={getPropHasErrors('prodLimit')}
+            />
+            <NumberInput
+              label={t('komMain.fields.nabDpo')}
+              value={getPropValue('nabDpo')}
+              onChange={setPropValue('nabDpo')}
+              hasErrors={getPropHasErrors('nabDpo')}
+            />
+          </Card>
+          <Card compact>
+            <TextArea
+              compact
+              rows={8}
+              placeholder={t('komMain.placeholder.napomena')}
+              label={t('komMain.fields.napomena')}
+              value={getPropValue('napomena')}
+              onChange={setPropValue('napomena')}
+              hasErrors={getPropHasErrors('napomena')}
+            />
+          </Card>
+        </div>
         <Card>
-          <FormErrorsBox
-            errors={validationErrors}
-            onClear={clearValidationErrors}
-          />
-          <Checkbox
-            label={t('common:vKom.2')}
-            isChecked={isKupac}
-            onChange={handleIsKupacChange}
-            hasErrors={getPropHasErrors('vKom')}
-          />
-          <Checkbox
-            label={t('common:vKom.4')}
-            isChecked={isDobavljac}
-            onChange={handleIsDobavljacChange}
-            hasErrors={getPropHasErrors('vKom')}
-          />
-          <TextInput
-            label={t('komMain.fields.sifra')}
-            value={getPropValue('sifra')}
-            onChange={setPropValue('sifra')}
-            hasErrors={getPropHasErrors('sifra')}
-          />
-          <TextInput
-            label={t('komMain.fields.intNaziv')}
-            value={getPropValue('intNaziv')}
-            onChange={setPropValue('intNaziv')}
-            hasErrors={getPropHasErrors('intNaziv')}
-          />
-          <TextInput
-            label={t('komMain.fields.naziv')}
-            value={getPropValue('naziv')}
-            onChange={setPropValue('naziv')}
-            hasErrors={getPropHasErrors('naziv')}
-          />
-          <Select
-            label={t('komMain.fields.mestoId')}
-            placeholder={t('komMain.placeholder.mestoId')}
-            options={selectOptions}
-            value={getPropValue('mestoId', '')}
-            onChange={setPropValue('mestoId')}
-            hasErrors={getPropHasErrors('mestoId')}
-          />
-          <TextInput
-            label={t('komMain.fields.adresa')}
-            value={getPropValue('adresa')}
-            onChange={setPropValue('adresa')}
-            hasErrors={getPropHasErrors('adresa')}
-          />
-          <TextInput
-            label={t('komMain.fields.telefon')}
-            value={getPropValue('telefon')}
-            onChange={setPropValue('telefon')}
-            hasErrors={getPropHasErrors('telefon')}
-          />
-          <TextInput
-            label={t('komMain.fields.fax')}
-            value={getPropValue('fax')}
-            onChange={setPropValue('fax')}
-            hasErrors={getPropHasErrors('fax')}
-          />
-          <TextInput
-            label={t('komMain.fields.vlasnik')}
-            value={getPropValue('vlasnik')}
-            onChange={setPropValue('vlasnik')}
-            hasErrors={getPropHasErrors('vlasnik')}
-          />
-          <TextInput
-            label={t('komMain.fields.kontakt')}
-            value={getPropValue('kontakt')}
-            onChange={setPropValue('kontakt')}
-            hasErrors={getPropHasErrors('kontakt')}
-          />
-          <TextInput
-            label={t('komMain.fields.mobilni')}
-            value={getPropValue('mobilni')}
-            onChange={setPropValue('mobilni')}
-            hasErrors={getPropHasErrors('mobilni')}
-          />
-          <TextInput
-            label={t('komMain.fields.web')}
-            value={getPropValue('web')}
-            onChange={setPropValue('web')}
-            hasErrors={getPropHasErrors('web')}
-          />
-          <TextInput
-            label={t('komMain.fields.email')}
-            value={getPropValue('email')}
-            onChange={setPropValue('email')}
-            hasErrors={getPropHasErrors('email')}
-          />
-          <Checkbox
-            label={t('komMain.fields.pdvObveznik')}
-            isChecked={!!getPropValue('pdvObveznik')}
-            onChange={setPropValue('pdvObveznik')}
-            hasErrors={getPropHasErrors('pdvObveznik')}
-          />
-          <TextInput
-            label={t('komMain.fields.pib')}
-            value={getPropValue('pib')}
-            onChange={setPropValue('pib')}
-            hasErrors={getPropHasErrors('pib')}
-          />
-          <TextInput
-            label={t('komMain.fields.pdvBroj')}
-            value={getPropValue('pdvBroj')}
-            onChange={setPropValue('pdvBroj')}
-            hasErrors={getPropHasErrors('pdvBroj')}
-          />
-          <TextInput
-            label={t('komMain.fields.maticniBroj')}
-            value={getPropValue('maticniBroj')}
-            onChange={setPropValue('maticniBroj')}
-            hasErrors={getPropHasErrors('maticniBroj')}
-          />
-          <TextInput
-            label={t('komMain.fields.sifraDelatnosti')}
-            value={getPropValue('sifraDelatnosti')}
-            onChange={setPropValue('sifraDelatnosti')}
-            hasErrors={getPropHasErrors('sifraDelatnosti')}
-          />
-          <Checkbox
-            label={t('komMain.fields.isSuspended')}
-            isChecked={!!getPropValue('isSuspended')}
-            onChange={setPropValue('isSuspended')}
-            hasErrors={getPropHasErrors('isSuspended')}
-          />
-          <NumberInput
-            label={t('komMain.fields.prodValuta')}
-            value={getPropValue('prodValuta')}
-            onChange={setPropValue('prodValuta')}
-            hasErrors={getPropHasErrors('prodValuta')}
-          />
-          <NumberInput
-            label={t('komMain.fields.prodRabat')}
-            value={getPropValue('prodRabat')}
-            onChange={setPropValue('prodRabat')}
-            hasErrors={getPropHasErrors('prodRabat')}
-          />
-          <NumberInput
-            label={t('komMain.fields.prodLimit')}
-            value={getPropValue('prodLimit')}
-            onChange={setPropValue('prodLimit')}
-            hasErrors={getPropHasErrors('prodLimit')}
-          />
-          <NumberInput
-            label={t('komMain.fields.nabDpo')}
-            value={getPropValue('nabDpo')}
-            onChange={setPropValue('nabDpo')}
-            hasErrors={getPropHasErrors('nabDpo')}
-          />
-          <TextArea
-            rows={3}
-            placeholder={t('komMain.placeholder.napomena')}
-            label={t('komMain.fields.napomena')}
-            value={getPropValue('napomena')}
-            onChange={setPropValue('napomena')}
-            hasErrors={getPropHasErrors('napomena')}
-          />
           <CrudActionsRow
             compact
+            borderless
             fetching={isSaving}
             isSaved={isSaved}
             withDelete={hasProp('id')}
@@ -327,7 +341,7 @@ export default () => {
         <Card>
           <pre>
             {JSON.stringify(
-              { isFirma, isKupac, isDobavljac, formData },
+              { isFetching, isFirma, isKupac, isDobavljac, formData },
               null,
               2,
             )}

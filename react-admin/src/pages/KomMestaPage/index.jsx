@@ -13,7 +13,7 @@ import Form from '../../forms/KomMestaForm';
 import { KOM_MESTA_CRUD_URL } from '../../config';
 
 export default () => {
-  const [t] = useTranslation(['pages', 'common']);
+  const [t] = useTranslation(['komPages', 'common']);
   const hook = useKomMestaHook(
     KOM_MESTA_CRUD_URL,
     t('komMesta.errors.delete-error'),

@@ -28,7 +28,7 @@ export default (props: Props) => {
   const nazivEl = useRef(null);
   const opstinaEl = useRef(null);
 
-  const [t] = useTranslation(['pages', 'common']);
+  const [t] = useTranslation(['komPages', 'common']);
 
   const {
     validationErrors,

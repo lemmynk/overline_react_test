@@ -1,0 +1,10 @@
+.grid {
+  display: grid;
+  grid-template-rows: repeat(3, auto);
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: calc(0.5 * var(--gutter));
+}
+
+.napomenaTile {
+  grid-column: span 2;
+}

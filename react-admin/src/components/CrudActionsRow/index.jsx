@@ -1,6 +1,7 @@
 // @flow
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import classNames from 'classnames';
 import Button from '@newtash/core/Button';
 import SpinningIcon from '@newtash/core/SpinningIcon';
 import Confirm from '@newtash/core/Confirm';
@@ -17,6 +18,7 @@ type Props = {
   textDismiss: string,
   withDelete?: boolean,
   compact?: boolean,
+  borderless?: boolean,
   isSaved?: boolean,
   fetching?: boolean,
   onDelete: any => void,
@@ -35,6 +37,7 @@ const Row = (props: Props) => {
     textDismiss,
     withDelete,
     compact,
+    borderless,
     isSaved,
     fetching,
     onDelete,
@@ -57,7 +60,12 @@ const Row = (props: Props) => {
 
   return (
     <>
-      <div className={styles.row}>
+      <div
+        className={classNames({
+          [styles.row]: true,
+          [styles.borderless]: !!borderless,
+        })}
+      >
         <div className={styles.deleteArea}>
           {!!withDelete && (
             <Button
@@ -118,6 +126,7 @@ const Row = (props: Props) => {
 
 Row.defaultProps = {
   withDelete: false,
+  borderless: false,
   compact: false,
   isSaved: false,
   fetching: false,

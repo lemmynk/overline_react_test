@@ -15,7 +15,7 @@ import useKomMain from './useKomMain';
 import styles from '../../Page.module.scss';
 
 export default () => {
-  const { t } = useTranslation(['pages', 'common']);
+  const { t } = useTranslation(['komPages', 'common']);
   const history = useHistory();
   const match = useRouteMatch();
   const hook = useKomMain();
