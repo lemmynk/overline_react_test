@@ -9,7 +9,7 @@ import Button from '@newtash/core/Button';
 import { TextInput } from '@newtash/core/Input';
 import Select from '@newtash/core/Select';
 import { CrudActionsRow, FetchWrapper } from '../../components';
-import useForm from '../../utils/useForm';
+import { useForm } from '../../utils';
 import {
   ART_MAIN_CRUD_URL,
   RESPONSE_STATUS_UNPROCESSABLE_ENTITY,
