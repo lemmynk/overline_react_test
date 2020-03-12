@@ -1,5 +1,5 @@
 // @flow
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import {
   useKomConfig,
   useKomMesta,
@@ -52,6 +52,22 @@ export default () => {
     },
     [doFetch, fetchQuery],
   );
+
+  /**
+   * Fetch new data on dashboard fields change
+   * TBC: it's fired on initial load as well (?!)
+   */
+  useEffect(() => {
+    fetchKomMains();
+    console.log(
+      '### doFetch on change:',
+      vKom,
+      filterMesto,
+      search,
+      sortedAsc,
+      sortedKey,
+    );
+  }, [fetchKomMains, vKom, filterMesto, search, sortedAsc, sortedKey]);
 
   return {
     vKoms,
