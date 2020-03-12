@@ -1,5 +1,5 @@
 // @flow
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useRouteMatch, useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import qs from 'qs';
@@ -18,6 +18,7 @@ export default () => {
   const { t } = useTranslation(['komPages', 'common']);
   const history = useHistory();
   const match = useRouteMatch();
+  const hook = useKomMain();
   const {
     vKoms,
     vKom,
@@ -35,17 +36,7 @@ export default () => {
     setSortedKey,
     setSortAscending,
     fetchKomMains,
-  } = useKomMain();
-
-  const [isReady, setReady] = useState(false);
-
-  useEffect(() => {
-    if (!isReady) {
-      setReady(true);
-      console.log('=== do mount ===');
-      fetchKomMains();
-    }
-  }, [isReady, fetchKomMains]);
+  } = hook;
 
   const handleAddButtonClick = () => {
     const q = { vKom, mestoId: filterMesto };

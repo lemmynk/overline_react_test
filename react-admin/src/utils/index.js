@@ -3,6 +3,7 @@ export * from './maths';
 export * from './date';
 export * from './url';
 export * from './arrays';
+export * from './objects';
 export * from './links';
 export { default as FormValidator } from './FormValidator';
 
