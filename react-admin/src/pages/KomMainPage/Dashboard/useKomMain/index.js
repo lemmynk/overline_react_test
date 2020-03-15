@@ -59,14 +59,6 @@ export default () => {
    */
   useEffect(() => {
     fetchKomMains();
-    console.log(
-      '### doFetch on change:',
-      vKom,
-      filterMesto,
-      search,
-      sortedAsc,
-      sortedKey,
-    );
   }, [fetchKomMains, vKom, filterMesto, search, sortedAsc, sortedKey]);
 
   return {

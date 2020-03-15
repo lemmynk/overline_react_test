@@ -69,7 +69,7 @@ export const useDataFetch = () => {
     (query: Object) => {
       if (Object.keys(query).length > 0) {
         const fetchUrl = [baseUrl, qs.stringify(query)].join('?');
-        console.log(fetchUrl);
+        // console.log(fetchUrl);
         return fetchUrl;
       }
       return baseUrl;

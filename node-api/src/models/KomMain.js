@@ -76,7 +76,7 @@ class KomMain extends Model {
       validator.validateStringLength('naziv', 120),
       validator.validateStringLength('adresa', 120),
       validator.validateStringLength('telefon', 120),
-      validator.validateStringLength('fax', 120),
+      validator.validateOptionalStringLength('fax', 120),
       validator.validateOptionalStringLength('vlasnik', 120),
       validator.validateOptionalStringLength('kontakt', 120),
       validator.validateOptionalStringLength('mobilni', 120),
