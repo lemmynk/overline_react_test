@@ -30,6 +30,7 @@ export default () => {
     setSortAscending,
     setFormId,
     fetchArtGroups,
+    deleteItem,
   } = hook;
 
   const [isFormOpen, setFormOpen] = useState(false);
@@ -91,8 +92,7 @@ export default () => {
           danger
           icon="minus-square"
           onClick={() => {
-            setFormId(item.id);
-            // setConfirmOpen(true);
+            deleteItem(item.id);
           }}
         />
       ),
@@ -134,7 +134,7 @@ export default () => {
    |---------------------------------------------------------------
    */
   const handleGroupSaved = () => {
-    // fetchArtGroups();
+    fetchArtGroups();
     setFormOpen(false);
   };
 

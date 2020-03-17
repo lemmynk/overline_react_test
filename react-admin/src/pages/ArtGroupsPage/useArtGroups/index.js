@@ -22,7 +22,7 @@ export default () => {
     doFetch,
   } = useDataFetch();
 
-  const { formId, setFormId, setIsOpen } = useDataDelete();
+  const { formId, setFormId, setIsOpen, setFetchQuery } = useDataDelete();
 
   const [vArtikl, setVArtikl] = useState<string>('');
 
@@ -56,6 +56,7 @@ export default () => {
    Open Delete Confirmation modal
    */
   const deleteItem = (id: number) => {
+    setFetchQuery({ vArtikl, page: 1 });
     setFormId(id);
     setIsOpen(true);
   };
