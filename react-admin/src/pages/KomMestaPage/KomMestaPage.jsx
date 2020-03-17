@@ -110,7 +110,7 @@ export default () => {
   };
 
   const handleMestoSaved = () => {
-    // doFetch();
+    fetchKomMesta();
     setFormOpen(false);
   };
 

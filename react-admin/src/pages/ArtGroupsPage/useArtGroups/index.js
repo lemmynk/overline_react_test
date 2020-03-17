@@ -1,93 +1,72 @@
 // @flow
-import { useReducer, useState, useEffect, useMemo, useCallback } from 'react';
-import { useApi, useAppData, useAppErrors } from '@newtash/core';
-import { sortByKey } from '@newtash/core/utils';
-import { reducer, initialState, SET_ALL } from './reducer';
-import { useArtConfig } from '../../../state';
-import { useEnv } from '../../../utils';
+import { useState, useEffect, useCallback } from 'react';
+import {
+  useArtConfig,
+  useSearch,
+  useDataFetch,
+  useDataDelete,
+} from '../../../state';
+import { cleanEmpty } from '../../../utils';
 
-export default (url: string, deleteErrorMsg: string = '') => {
-  const { api } = useApi();
-  const { isReady: isAppReady } = useAppData();
+export default () => {
   const { vArtikli, defaultVArtikl } = useArtConfig();
-  const { addAppError } = useAppErrors();
-  const { error422 } = useEnv();
+  const { search, setSearch } = useSearch();
+  const {
+    isFetching,
+    data,
+    pagination,
+    sortedKey,
+    setSortedKey,
+    sortedAsc,
+    setSortAscending,
+    doFetch,
+  } = useDataFetch();
 
-  const [state, dispatch] = useReducer(reducer, initialState);
-  const [doFetchData, setDoFetch] = useState<boolean>(false);
+  const { formId, setFormId, setIsOpen } = useDataDelete();
+
   const [vArtikl, setVArtikl] = useState<string>('');
-  const [search, setSearch] = useState<string>('');
-  const [sortedKey, setSortedKey] = useState<string>('grpNaziv');
-  const [sortedAsc, setSortAscending] = useState<boolean>(true);
-  const [formId, setFormId] = useState<number>(0);
-
-  // const data = useMemo(() => state ? state.data || [], [state]);
-  // const dataVersion = useMemo(() => state ? state.version : 0, [state]);
-  const { data, version: dataVersion, isReady: isDataReady } =
-    state || initialState;
-
-  const isReady = isAppReady && isDataReady;
-
-  const filteredGroups: Array<any> = useMemo(
-    () =>
-      data
-        .filter(item => item.vArtikl === vArtikl)
-        .filter(item => item.deletedAt === null)
-        .filter(item =>
-          item.grpNaziv.toUpperCase().includes(search.toUpperCase()),
-        )
-        .sort(sortByKey(sortedKey, sortedAsc)),
-    [data, search, sortedKey, sortedAsc, vArtikl],
-  );
 
   /**
-   * Do fetch versioned data from api
-   * @todo: Handle deleted objects
+   * Build request query
    */
-  const fetchData = useCallback(async () => {
-    try {
-      const response = await api.get(`${url}?v=${dataVersion}`);
-      const payload = await response.data;
-      // console.log(response);
-      await dispatch({ type: SET_ALL, payload });
-      return true;
-    } catch (err) {
-      addAppError(err);
-      return false;
-    }
-  }, [api, dataVersion, url, dispatch, addAppError]);
-
-  /**
-   * Delete group
-   */
-  const deleteItem = useCallback(
-    async (id: number) => {
-      try {
-        const response = await api.delete(`${url}/${id}`);
-        const status = await response.status;
-        const isDeleted = status !== error422;
-        if (!isDeleted) {
-          await addAppError(deleteErrorMsg);
-        }
-        return isDeleted;
-      } catch (err) {
-        addAppError(err);
-        return false;
-      }
+  const fetchQuery = useCallback(
+    (page: number) => {
+      const orderBy = sortedAsc ? sortedKey : `${sortedKey} DESC`;
+      return cleanEmpty({
+        vArtikl,
+        s: search,
+        orderBy,
+        page,
+      });
     },
-    [api, url, addAppError, error422, deleteErrorMsg],
+    [vArtikl, search, sortedAsc, sortedKey],
   );
 
-  useEffect(() => {
-    if (doFetchData) {
-      setDoFetch(false);
-      fetchData();
-    }
-  }, [doFetchData, setDoFetch, fetchData]);
+  /**
+   * Do fetch data
+   */
+  const fetchArtGroups = useCallback(
+    (page: number = 1) => {
+      doFetch(fetchQuery(page));
+    },
+    [doFetch, fetchQuery],
+  );
 
-  const doFetch = useCallback(() => {
-    setDoFetch(true);
-  }, [setDoFetch]);
+  /**
+   Open Delete Confirmation modal
+   */
+  const deleteItem = (id: number) => {
+    setFormId(id);
+    setIsOpen(true);
+  };
+
+  /**
+   * Fetch new data on dashboard fields change
+   * TBC: it's fired on initial load as well (?!)
+   */
+  useEffect(() => {
+    fetchArtGroups();
+  }, [fetchArtGroups, vArtikl, search, sortedAsc, sortedKey]);
 
   useEffect(() => {
     if (defaultVArtikl) {
@@ -96,7 +75,7 @@ export default (url: string, deleteErrorMsg: string = '') => {
   }, [defaultVArtikl]);
 
   return {
-    isReady,
+    isFetching,
     vArtikli,
     vArtikl,
     search,
@@ -104,7 +83,7 @@ export default (url: string, deleteErrorMsg: string = '') => {
     sortedAsc,
     formId,
     data,
-    filteredGroups,
+    pagination,
 
     setVArtikl,
     setSearch,
@@ -112,8 +91,7 @@ export default (url: string, deleteErrorMsg: string = '') => {
     setSortAscending,
     setFormId,
 
-    doFetch,
-    fetchData,
+    fetchArtGroups,
     deleteItem,
   };
 };

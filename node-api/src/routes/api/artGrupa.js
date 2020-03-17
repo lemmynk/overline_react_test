@@ -8,7 +8,7 @@ const router = express.Router();
 const crudCtrl = crudController(ArtGrupa);
 router.get('/next', ctrl.nextSifra);
 router.get('/init', crudCtrl.init);
-router.get('/', crudCtrl.allByVersion);
+router.get('/', crudCtrl.allPaginated);
 router.post('/', ArtGrupa.validate(), crudCtrl.create);
 router.get('/:id', crudCtrl.find);
 router.put('/:id', ArtGrupa.validate(), crudCtrl.update);

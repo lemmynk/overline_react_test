@@ -18,7 +18,7 @@ export default () => {
   const deleteErrorMsg = t('komMesta.errors.delete-error');
   return (
     <SearchProvider>
-      <DataFetchProvider baseUrl={KOM_MESTA_CRUD_URL}>
+      <DataFetchProvider baseUrl={KOM_MESTA_CRUD_URL} sortBy="naziv">
         <DataDeleteProvider
           baseUrl={KOM_MESTA_CRUD_URL}
           deleteConfirmProps={deleteConfirmProps}

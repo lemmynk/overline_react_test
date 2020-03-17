@@ -18,6 +18,7 @@ const modelConfig = {
 class KomMesto extends Model {
   constructor(props) {
     super(props, modelConfig);
+    this.searchFields = ['zip', 'naziv', 'opstina'];
   }
 
   /**

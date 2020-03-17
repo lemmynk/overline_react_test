@@ -1,104 +1,67 @@
 // @flow
-import { useState, useMemo, useEffect, useCallback } from 'react';
-import qs from 'qs';
-import { useApi, useAppErrors } from '@newtash/core';
-import { useArtGroups, useArtConfig } from '../../../../state';
-import { ART_MAIN_CRUD_URL } from '../../../../config';
+import { useState, useEffect, useCallback } from 'react';
+import {
+  useArtGroups,
+  useArtConfig,
+  useSearch,
+  useDataFetch,
+} from '../../../../state';
+import { cleanEmpty } from '../../../../utils';
 
 export default () => {
-  const { api } = useApi();
   const { defaultVArtikl, vArtikli } = useArtConfig();
-  const { addAppError } = useAppErrors();
   const { selectOptions } = useArtGroups();
+  const { search, setSearch } = useSearch();
+  const {
+    isFetching,
+    data,
+    pagination,
+    sortedKey,
+    setSortedKey,
+    sortedAsc,
+    setSortAscending,
+    doFetch,
+  } = useDataFetch();
 
-  const [doFetch, setFetch] = useState<boolean>(false);
-  const [isFetching, setFetching] = useState<boolean>(false);
-  const [vArtikl, setVArtikl] = useState<string>('');
+  const [vArtikl, setVArtikl] = useState<string>(defaultVArtikl);
   const [filterGroup, setFilterGroup] = useState<string>('');
-  const [search, setSearch] = useState<string>('');
-  const [sortedKey, setSortedKey] = useState<string>('artNaziv');
-  const [sortedAsc, setSortAscending] = useState<boolean>(true);
-  const [artMains, setData] = useState<Object>({});
 
   const artGroupsSelectOptions = selectOptions(vArtikl);
-  const data = useMemo(() => artMains.data || [], [artMains.data]);
-  const pagination = useMemo(() => artMains.pagination || {}, [
-    artMains.pagination,
-  ]);
 
   /**
-   * Initial load of default vArtikl
+   * Build request query
    */
-  useEffect(() => {
-    if (defaultVArtikl) {
-      setVArtikl(defaultVArtikl);
-    }
-  }, [defaultVArtikl]);
-
-  useEffect(() => {
-    if (vArtikl) {
-      setFetch(true);
-    }
-  }, [vArtikl, search, filterGroup, sortedKey, sortedAsc]);
-
-  useEffect(() => {
-    setFilterGroup('');
-  }, [vArtikl]);
-
-  /**
-   * Resolve request url
-   */
-  const buildFetchUrl = useCallback(
-    (page: number = 1) => {
+  const fetchQuery = useCallback(
+    (page: number) => {
       const orderBy = sortedAsc ? sortedKey : `${sortedKey} DESC`;
-      const parts = {
+      return cleanEmpty({
         vArtikl,
         grpId: filterGroup,
         s: search,
         orderBy,
         page,
-      };
-      const query = Object.keys(parts)
-        .filter(key => parts[key] && parts[key].toString().length > 0)
-        .reduce((acc, key: string) => ({ ...acc, [key]: parts[key] }), {});
-      return [ART_MAIN_CRUD_URL, qs.stringify(query)].join('?');
+      });
     },
-    [vArtikl, filterGroup, search, sortedKey, sortedAsc],
+    [vArtikl, filterGroup, search, sortedAsc, sortedKey],
   );
 
   /**
-   * Make request
+   * Do fetch data
    */
   const fetchArtMains = useCallback(
-    async (page: number = 1) => {
-      setFetch(false);
-      await setFetching(true);
-      try {
-        const fetchUrl = buildFetchUrl(page);
-        // console.log('url:', fetchUrl);
-        const response = await api.get(fetchUrl);
-        const newData = await response.data;
-        // console.log('response:', newData);
-        await setData(newData);
-        await setFetching(false);
-        return true;
-      } catch (err) {
-        await addAppError(err);
-        await setFetching(false);
-        return false;
-      }
+    (page: number = 1) => {
+      doFetch(fetchQuery(page));
     },
-    [buildFetchUrl, api, setFetch, setFetching, setData, addAppError],
+    [doFetch, fetchQuery],
   );
 
   /**
-   * Trigger fetching
+   * Fetch new data on dashboard fields change
+   * TBC: it's fired on initial load as well (?!)
    */
   useEffect(() => {
-    if (doFetch) {
-      fetchArtMains();
-    }
-  }, [doFetch, fetchArtMains]);
+    fetchArtMains();
+  }, [fetchArtMains, vArtikl, filterGroup, search, sortedAsc, sortedKey]);
 
   return {
     data,

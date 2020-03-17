@@ -1,7 +1,7 @@
 // @flow
 import { useCallback, useEffect } from 'react';
-import { cleanEmpty } from '../../../utils';
 import { useSearch, useDataFetch, useDataDelete } from '../../../state';
+import { cleanEmpty } from '../../../utils';
 
 export default () => {
   const { search, setSearch } = useSearch();
