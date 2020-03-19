@@ -1,5 +1,7 @@
 // @flow
 import { useState, useCallback, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+import qs from 'qs';
 import {
   useKomConfig,
   useKomMesta,
@@ -12,6 +14,7 @@ export default () => {
   const { vKoms } = useKomConfig();
   const { selectOptions } = useKomMesta();
   const { search, setSearch } = useSearch();
+  const { search: locationSearch } = useLocation();
   const {
     isFetching,
     data,
@@ -23,8 +26,12 @@ export default () => {
     doFetch,
   } = useDataFetch();
 
-  const [vKom, setVKom] = useState<number>(1);
-  const [filterMesto, setFilterMesto] = useState<string>('');
+  const { vKom: qVKom, mestoId } = qs.parse(locationSearch, {
+    ignoreQueryPrefix: true,
+  });
+
+  const [vKom, setVKom] = useState<number>(qVKom || '1');
+  const [filterMesto, setFilterMesto] = useState<string>(mestoId || '');
 
   /**
    * Build request query

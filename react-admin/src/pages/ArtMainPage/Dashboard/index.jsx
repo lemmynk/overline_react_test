@@ -17,7 +17,7 @@ import styles from '../../Page.module.scss';
 export default () => {
   const { t } = useTranslation('pages');
   const history = useHistory();
-  const match = useRouteMatch();
+  const { url: baseUrl } = useRouteMatch();
   const hook = useArtMain();
   const {
     data,
@@ -44,7 +44,7 @@ export default () => {
       .filter(key => q[key])
       .reduce((acc, key: string) => ({ ...acc, [key]: q[key] }), {});
     const queryStr = qs.stringify(query);
-    history.push(`${match.url}/create?${queryStr}`);
+    history.push(`${baseUrl}/create?${queryStr}`);
   };
 
   /*
@@ -56,6 +56,11 @@ export default () => {
     key: item,
     title: t(`common:vArtikl.${item}`),
   }));
+
+  const handleTabChange = (newValue: string) => {
+    setFilterGroup('');
+    setVArtikl(newValue);
+  };
 
   /*
    |---------------------------------------------------------------
@@ -110,7 +115,7 @@ export default () => {
 
   const handleTableRowClick = (row: Data) => {
     const { id } = row;
-    history.push(`${match.url}/edit/${id}`);
+    history.push(`${baseUrl}/edit/${id}`);
   };
 
   /*
@@ -157,7 +162,12 @@ export default () => {
       />
       <PageContent>
         <Card>
-          <Tab bottom tabs={tabs} selectedTab={vArtikl} onChange={setVArtikl} />
+          <Tab
+            bottom
+            tabs={tabs}
+            selectedTab={vArtikl}
+            onChange={handleTabChange}
+          />
           <div className={styles.searchRow}>
             <div className={styles.column}>
               <Select

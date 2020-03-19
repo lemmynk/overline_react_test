@@ -1,5 +1,7 @@
 // @flow
 import { useState, useEffect, useCallback } from 'react';
+import { useLocation } from 'react-router-dom';
+import qs from 'qs';
 import {
   useArtGroups,
   useArtConfig,
@@ -12,6 +14,7 @@ export default () => {
   const { defaultVArtikl, vArtikli } = useArtConfig();
   const { selectOptions } = useArtGroups();
   const { search, setSearch } = useSearch();
+  const { search: locationSearch } = useLocation();
   const {
     isFetching,
     data,
@@ -23,8 +26,12 @@ export default () => {
     doFetch,
   } = useDataFetch();
 
-  const [vArtikl, setVArtikl] = useState<string>(defaultVArtikl);
-  const [filterGroup, setFilterGroup] = useState<string>('');
+  const { vArtikl: qVArtikl, grpId } = qs.parse(locationSearch, {
+    ignoreQueryPrefix: true,
+  });
+
+  const [vArtikl, setVArtikl] = useState<string>(qVArtikl || defaultVArtikl);
+  const [filterGroup, setFilterGroup] = useState<string>(grpId || '');
 
   const artGroupsSelectOptions = selectOptions(vArtikl);
 

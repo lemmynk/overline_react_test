@@ -54,12 +54,12 @@ export default () => {
   const tabs = () => {
     const komTabs = [];
     if (vKoms.includes(1)) {
-      komTabs.push({ key: 1, title: t(`common:vKom.p1`) });
-      komTabs.push({ key: 2, title: t(`common:vKom.p2`) });
-      komTabs.push({ key: 4, title: t(`common:vKom.p4`) });
+      komTabs.push({ key: '1', title: t(`common:vKom.p1`) });
+      komTabs.push({ key: '2', title: t(`common:vKom.p2`) });
+      komTabs.push({ key: '4', title: t(`common:vKom.p4`) });
     }
     if (vKoms.includes(8)) {
-      komTabs.push({ key: 8, title: t(`common:vKom.p8`) });
+      komTabs.push({ key: '8', title: t(`common:vKom.p8`) });
     }
     return komTabs;
   };
