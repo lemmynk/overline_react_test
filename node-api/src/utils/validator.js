@@ -1,7 +1,16 @@
+/**
+ * Validator.js
+ * https://github.com/validatorjs/validator.js#validators
+ */
 const { body, param } = require('express-validator');
 
 const vArtiklEnum = ['roba', 'repro', 'gp', 'os', 'usluga'];
 
+/*
+ |---------------------------------------------------------------
+ | STRING
+ |---------------------------------------------------------------
+ */
 const validateStringLength = (field, max) =>
   body(field)
     .exists()
@@ -16,11 +25,26 @@ const validateOptionalStringLength = (field, max) =>
     .isLength({ min: 0, max })
     .withMessage(`${field}.length`);
 
+const validateOptionalText = field =>
+  body(field)
+    .optional()
+    .escape();
+
+/*
+ |---------------------------------------------------------------
+ | BOOLEAN
+ |---------------------------------------------------------------
+ */
 const validateBoolean = field =>
   body(field)
     .optional()
     .toBoolean();
 
+/*
+ |---------------------------------------------------------------
+ | INTEGER
+ |---------------------------------------------------------------
+ */
 const validateInteger = field =>
   body(field)
     .exists()
@@ -34,11 +58,32 @@ const validateOptionalInteger = field =>
     .optional()
     .toInt();
 
-const validateOptionalText = field =>
+/*
+ |---------------------------------------------------------------
+ | DATE
+ |---------------------------------------------------------------
+ */
+const validateDate = field =>
+  body(field)
+    .exists()
+    .withMessage(`${field}.required`)
+    .bail()
+    .isLength({ min: 10, max: 10 })
+    .withMessage(`${field}.length`)
+    .toDate();
+
+const validateOptionalDate = field =>
   body(field)
     .optional()
-    .escape();
+    .isLength({ min: 0, max: 10 })
+    .withMessage(`${field}.length`)
+    .toDate();
 
+/*
+ |---------------------------------------------------------------
+ | RELATIONS
+ |---------------------------------------------------------------
+ */
 const validateParent = (field, ParentModel, forignKey = 'id') =>
   body(field)
     .exists()
@@ -74,6 +119,11 @@ const validateNoChildren = (paramName, ChildModel, foreignKey) =>
       ),
     );
 
+/*
+ |---------------------------------------------------------------
+ | DB SPECIFIC
+ |---------------------------------------------------------------
+ */
 const validateVArtikl = () =>
   body('vArtikl')
     .exists()
@@ -85,10 +135,12 @@ const validateVArtikl = () =>
 module.exports = {
   validateStringLength,
   validateOptionalStringLength,
+  validateOptionalText,
   validateBoolean,
   validateInteger,
   validateOptionalInteger,
-  validateOptionalText,
+  validateDate,
+  validateOptionalDate,
   validateParent,
   validateNoChildren,
   validateVArtikl,

@@ -9,5 +9,4 @@ const komMainData = require('../data/komMain');
 exports.seed = knex =>
   seeder(knex, 'mp_kom_config', komMestoConfig)
     .then(() => seeder(knex, 'mp_kom_mesto', komMestoData))
-    .then(() => seeder(knex, 'mp_kom_main', komMainData))
-    .then(() => console.log('...and...'));
+    .then(() => seeder(knex, 'mp_kom_main', komMainData));

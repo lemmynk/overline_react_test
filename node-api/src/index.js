@@ -51,6 +51,7 @@ app.use(`${apiUrl}/art-main`, require('./routes/api/artMain'));
 app.use(`${apiUrl}/kom-config`, require('./routes/api/komConfig'));
 app.use(`${apiUrl}/kom-mesto`, require('./routes/api/komMesto'));
 app.use(`${apiUrl}/kom-main`, require('./routes/api/komMain'));
+app.use(`${apiUrl}/periods`, require('./routes/api/periods'));
 
 // AUTH ROUTES
 app.use(authUrl, require('./routes/auth/index'));
