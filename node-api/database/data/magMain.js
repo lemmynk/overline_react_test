@@ -1,0 +1,26 @@
+module.exports = [
+  {
+    id: 1,
+    vPromet: 'vp',
+    sifra: 'vp',
+    magNaziv: 'veleprodaja',
+    kepuNaziv: 'veleprodaja',
+    kepuMesto: 'Novi Knezevac',
+    opis: 'Opis magacina veleprodaje',
+    createdAt: '2019-07-27T12:34:56.000Z',
+    updatedAt: '2019-07-27T12:34:56.000Z',
+    deletedAt: null,
+  },
+  {
+    id: 2,
+    vPromet: 'mp',
+    sifra: 'mp',
+    magNaziv: 'maloprodaja',
+    kepuNaziv: 'maloprodaja',
+    kepuMesto: 'Novi Knezevac',
+    opis: 'Opis magacina maloprodaje',
+    createdAt: '2019-07-27T12:34:56.000Z',
+    updatedAt: '2019-07-27T12:34:56.000Z',
+    deletedAt: null,
+  },
+];

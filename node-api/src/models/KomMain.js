@@ -71,7 +71,6 @@ class KomMain extends Model {
     return [
       validator.validateInteger('vKom'),
       validator.validateStringLength('sifra', 12),
-      validator.validateStringLength('sifra', 12),
       validator.validateStringLength('intNaziv', 60),
       validator.validateStringLength('naziv', 120),
       validator.validateStringLength('adresa', 120),

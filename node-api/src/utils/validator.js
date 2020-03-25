@@ -5,6 +5,7 @@
 const { body, param } = require('express-validator');
 
 const vArtiklEnum = ['roba', 'repro', 'gp', 'os', 'usluga'];
+const vPrometEnum = ['vp', 'mp', 'repro', 'os', 'gp', 'usluga'];
 
 /*
  |---------------------------------------------------------------
@@ -132,6 +133,14 @@ const validateVArtikl = () =>
     .isIn(vArtiklEnum)
     .withMessage('vArtikl.enum');
 
+const validateVPromet = () =>
+  body('vPromet')
+    .exists()
+    .withMessage('vPromet.required')
+    .bail()
+    .isIn(vPrometEnum)
+    .withMessage('vPromet.enum');
+
 module.exports = {
   validateStringLength,
   validateOptionalStringLength,
@@ -144,4 +153,5 @@ module.exports = {
   validateParent,
   validateNoChildren,
   validateVArtikl,
+  validateVPromet,
 };
