@@ -16,8 +16,6 @@ exports.up = knex => {
       .defaultTo('user')
       .notNullable();
 
-    t.uuid('refreshToken').nullable();
-
     t.integer('loginAttempts').defaultTo(0);
     t.dateTime('loginAttemptAt').nullable();
 

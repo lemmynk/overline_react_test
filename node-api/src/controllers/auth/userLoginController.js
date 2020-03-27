@@ -16,18 +16,19 @@ const { UnauthorizedUserError } = require('../../errors');
  * Render Login form
  */
 const renderLoginForm = (req, res, withErrors) => {
+  const { redirectUrl } = req.query;
   const { authUrl } = req.urls;
   const action = `${authUrl}/login`;
   const creds = env.devCredentials();
   const errors = tools.isArray(withErrors) ? withErrors : undefined;
-  res.render('signin', { action, errors, ...creds });
+  res.render('signin', { action, errors, ...creds, redirectUrl });
 };
 
 /**
  * Handle Login form submition
  */
 const handleLoginFormSubmit = (req, res, next) => {
-  const { username, password } = req.body;
+  const { username, password, redirectUrl: callbackUrl } = req.body;
 
   User.authenticate(username, password)
     .then(user => {
@@ -37,9 +38,8 @@ const handleLoginFormSubmit = (req, res, next) => {
       return AuthFlow.create({ authCode, handshakeCode, userUuid });
     })
     .then(flow => decoder.encrypt(flow.handshakeCode))
-    // .then(code => res.json({ code }))
     .then(code => {
-      const redirectUrl = process.env.REDIRECT_URL;
+      const redirectUrl = callbackUrl || process.env.REDIRECT_URL;
       const query = queryString.stringify({ code });
 
       const url = `${redirectUrl}#${query}`;

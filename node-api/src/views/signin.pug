@@ -48,7 +48,14 @@ block content
           id="inputToken"
           type="hidden"
           name="_token"
-          value= csrfToken
+          value=csrfToken
+        )
+
+        input(
+          id="redirectUrl"
+          type="hidden"
+          name="redirectUrl"
+          value=redirectUrl || ''
         )
 
         button(

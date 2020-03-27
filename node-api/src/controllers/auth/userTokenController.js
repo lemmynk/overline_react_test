@@ -11,6 +11,7 @@ const { decoder } = require('../../utils');
 const { ValidationError } = require('../../errors');
 const AuthFlow = require('../../models/AuthFlow');
 const User = require('../../models/User');
+const UserToken = require('../../models/UserToken');
 
 const expiresAt = (expiresIn = 0) =>
   parseInt(new Date().getTime() / 1000, 0) + expiresIn;
@@ -28,6 +29,9 @@ const self = {
     next();
   },
 
+  /**
+   * Generate new UserToken and return Auth payload
+   */
   token: (req, res, next) => {
     const { verifier, code } = req.body;
 
@@ -35,12 +39,14 @@ const self = {
       .decrypt(code)
       .then(authCode => AuthFlow.find({ authCode }))
       .then(flow => flow.verifyChallenge(verifier))
-      .then(flow => User.find({ uuid: flow.userUuid }))
-      .then(user => user.generateTokenPayload())
+      .then(flow => UserToken.generateTokenPayload(flow.userUuid))
       .then(payload => res.json(payload))
       .catch(err => next(err));
   },
 
+  /**
+   * Renew existing RefreshToken
+   */
   renew: (req, res, next) => {
     const { refreshToken } = req.body;
 
@@ -48,36 +54,26 @@ const self = {
       throw new ValidationError(['Invalid request']);
     }
 
-    decoder
-      .decrypt(refreshToken)
-      .then(token => User.find({ refreshToken: token }))
-      .then(user => {
-        const newRefreshToken = decoder.uuid();
-        user.refreshToken = newRefreshToken;
-        return user.save().then(() => user);
-      })
-      .then(user => user.generateTokenPayload())
+    UserToken.renewToken(refreshToken)
       .then(payload => res.json(payload))
       .catch(err => next(err));
   },
 
+  /**
+   * Create new Auth payload for dev
+   */
   devToken: (req, res, next) => {
     const { body } = req;
     const { username: userName, expiresIn } = body;
 
     User.find({ userName })
-      .then(user => {
-        const newRefreshToken = decoder.uuid();
-        user.refreshToken = newRefreshToken;
-        return user.save().then(() => user);
-      })
-      .then(user => user.generateTokenPayload(expiresIn))
+      .then(user => UserToken.generateTokenPayload(user.uuid, expiresIn))
       .then(response => ({
         ...response,
         exiresAt: expiresAt(response.expiresIn),
         now: parseInt(new Date().getTime() / 1000, 0),
       }))
-      .then(response => res.json(response))
+      .then(payload => res.json(payload))
       .catch(err => next(err));
   },
 };
