@@ -19,5 +19,9 @@
     "p2": "Kupci",
     "p4": "Dobavljaci",
     "p8": "Fiz.lica"
+  },
+  "vPromet": {
+    "vp": "Veleprodaja",
+    "mp": "Maloprodaja"
   }
 }

@@ -6,6 +6,7 @@ const modelConfig = {
     'id',
     'vPromet',
     'defaultMagId',
+    'isDefault',
     'createdAt',
     'updatedAt',
     'deletedAt',
@@ -15,6 +16,17 @@ const modelConfig = {
 class MagConfig extends Model {
   constructor(props) {
     super(props, modelConfig);
+  }
+
+  static defaultVPromet() {
+    const model = new this();
+    return model
+      .baseQuery()
+      .select('vPromet')
+      .whereNull('deletedAt')
+      .where('isDefault', true)
+      .then(rows => rows.shift())
+      .then(row => (row && row.vPromet ? row.vPromet : 'mp'));
   }
 
   static vPromets() {

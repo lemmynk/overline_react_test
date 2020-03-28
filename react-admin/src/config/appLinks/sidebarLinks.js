@@ -1,4 +1,11 @@
-import { HOME, ART_GROUPS, ART_MAIN, KOM_MESTA, KOM_MAIN } from '../appRoutes';
+import {
+  HOME,
+  ART_GROUPS,
+  ART_MAIN,
+  KOM_MESTA,
+  KOM_MAIN,
+  MAG_MAIN,
+} from '../appRoutes';
 
 const mpArts = {
   title: 'MPArts',
@@ -12,7 +19,13 @@ const mpKoms = {
   links: [KOM_MESTA, KOM_MAIN],
 };
 
-const links = [HOME, mpArts, mpKoms];
+const mpMags = {
+  title: 'MPMags',
+  icon: 'coffee',
+  links: [MAG_MAIN],
+};
+
+const links = [HOME, mpArts, mpKoms, mpMags];
 
 export const sidebarWebLinks = links;
 export const sidebarAppLinks = links;

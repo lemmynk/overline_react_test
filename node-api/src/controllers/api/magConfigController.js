@@ -6,6 +6,13 @@ const vPromets = (req, res, next) => {
     .catch(err => next(err));
 };
 
+const defaultVPromet = (req, res, next) => {
+  MagConfig.defaultVPromet()
+    .then(data => res.json({ data }))
+    .catch(err => next(err));
+};
+
 module.exports = {
+  defaultVPromet,
   vPromets,
 };

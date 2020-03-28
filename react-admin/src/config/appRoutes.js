@@ -46,6 +46,15 @@ export const KOM_MAIN = {
   component: 'KomMainPage',
 };
 
+export const MAG_MAIN = {
+  key: 'magMain',
+  title: 'magMain',
+  url: '/mag-main',
+  icon: 'cog',
+  // role: USER_ROLE_ALL,
+  component: 'MagMainPage',
+};
+
 export const SETTINGS = {
   key: 'settings',
   title: 'Settings',
@@ -65,4 +74,4 @@ export const LOGOUT = {
 };
 
 // List of routes to load by router
-export default [ART_GROUPS, ART_MAIN, KOM_MESTA, KOM_MAIN, SETTINGS];
+export default [ART_GROUPS, ART_MAIN, KOM_MESTA, KOM_MAIN, MAG_MAIN, SETTINGS];

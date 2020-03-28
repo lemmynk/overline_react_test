@@ -19,5 +19,9 @@
     "p2": "Buyers",
     "p4": "Sellers",
     "p8": "Privates"
+  },
+  "vPromet": {
+    "vp": "Veleprodaja",
+    "mp": "Maloprodaja"
   }
 }

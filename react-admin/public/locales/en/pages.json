@@ -76,6 +76,32 @@
       }
     }
   },
+  "magMains": {
+    "pageTitle": "Magacini",
+    "pageDescription": "Some description here",
+    "formTitle": "Magacin",
+    "formDescription": "Some description here",
+    "deleteConfirmation": "This action is permanent.|You sure, sure?",
+    "buttons": {
+      "add": "Add new"
+    },
+    "fields": {
+      "sifra": "Sifra",
+      "magNaziv": "Name",
+      "kepuNaziv": "Kepu naziv",
+      "kepuMesto": "Kepu mesto",
+      "opis": "Opis"
+    },
+    "errors": {
+      "delete-error": "Not empty group cannot be deleted",
+      "ifra": {
+        "required": "Magacin code is required"
+      },
+      "magNaziv": {
+        "required": "Kaepu name is required"
+      }
+    }
+  },
   "settings": {
     "title": "Settings",
     "description": "User configuration"

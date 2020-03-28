@@ -4,4 +4,5 @@ export { default as ArtGroupsPage } from '../pages/ArtGroupsPage';
 export { default as ArtMainPage } from '../pages/ArtMainPage';
 export { default as KomMestaPage } from '../pages/KomMestaPage';
 export { default as KomMainPage } from '../pages/KomMainPage';
+export { default as MagMainPage } from '../pages/MagMainPage';
 export { default as SettingsPage } from '../pages/SettingsPage';

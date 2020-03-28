@@ -12,6 +12,7 @@ exports.up = knex => {
       .index();
 
     t.integer('defaultMagId').nullable();
+    t.boolean('isDefault').defaultTo(false);
 
     t.dateTime('createdAt').defaultTo(knex.fn.now());
     t.dateTime('updatedAt').defaultTo(knex.fn.now());

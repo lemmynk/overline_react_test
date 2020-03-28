@@ -6,3 +6,5 @@ export const ART_MAIN_CRUD_URL = '/art-main';
 export const KOM_CONFIG_URL = '/kom-config';
 export const KOM_MESTA_CRUD_URL = '/kom-mesto';
 export const KOM_MAIN_CRUD_URL = '/kom-main';
+export const MAG_CONFIG_URL = '/mag-config';
+export const MAG_MAIN_CRUD_URL = '/mag-main';
